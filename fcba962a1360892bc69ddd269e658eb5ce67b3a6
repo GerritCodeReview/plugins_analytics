@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab8a47d9_a1bb7ea3",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-11-05T01:01:12Z",
+      "side": 1,
+      "message": "aggregated",
+      "range": {
+        "startLine": 3,
+        "startChar": 48,
+        "endLine": 3,
+        "endChar": 57
+      },
+      "revId": "fcba962a1360892bc69ddd269e658eb5ce67b3a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b1e63a4_88ae3766",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-11-05T01:01:12Z",
+      "side": 1,
+      "message": "maybe use another word here to avoid confusion with the metrics plugins?\n\nunless this really is about the same metrics?  if so it would be better to expand on that to make it clearer.",
+      "range": {
+        "startLine": 3,
+        "startChar": 8,
+        "endLine": 3,
+        "endChar": 15
+      },
+      "revId": "fcba962a1360892bc69ddd269e658eb5ce67b3a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
