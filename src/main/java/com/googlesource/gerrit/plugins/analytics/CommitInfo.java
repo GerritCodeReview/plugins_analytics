@@ -14,14 +14,12 @@
 
 package com.googlesource.gerrit.plugins.analytics;
 
-import java.util.Date;
-
 public class CommitInfo {
   public final String sha1;
-  public final Date date;
+  public final long date;
   public final boolean merge;
 
-  public CommitInfo(String sha1, Date date, boolean merge) {
+  public CommitInfo(String sha1, long date, boolean merge) {
     super();
     this.sha1 = sha1;
     this.date = date;

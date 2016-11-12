@@ -20,7 +20,6 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.gitective.core.stat.UserCommitActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserActivitySummary {
@@ -28,20 +27,22 @@ public class UserActivitySummary {
   public final String email;
   public final int numCommits;
   public final List<CommitInfo> commits;
+  public final long lastCommitDate;
 
 
   public UserActivitySummary(String name, String email, int numCommits,
-      List<CommitInfo> commits) {
+      List<CommitInfo> commits, long lastCommitDate) {
     this.name = name;
     this.email = email;
     this.numCommits = numCommits;
     this.commits = commits;
+    this.lastCommitDate = lastCommitDate;
   }
 
   public static UserActivitySummary fromUserActivity(UserCommitActivity uca) {
     return new UserActivitySummary(uca.getName(), uca.getEmail(),
         uca.getCount(), getCommits(uca.getIds(), uca.getTimes(),
-            uca.getMerges()));
+            uca.getMerges()), uca.getLatest());
   }
 
   private static List<CommitInfo> getCommits(ObjectId[] ids, long[] times,
@@ -49,7 +50,7 @@ public class UserActivitySummary {
     List<CommitInfo> commits = new ArrayList<>(ids.length);
 
     for (int i = 0; i < ids.length; i++) {
-      commits.add(new CommitInfo(ids[i].name(), new Date(times[i]), merges[i]));
+      commits.add(new CommitInfo(ids[i].name(), times[i], merges[i]));
     }
 
     return commits;
