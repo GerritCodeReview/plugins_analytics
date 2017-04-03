@@ -5,22 +5,24 @@ over REST and SSH API.
 
 ## How to build
 
-Clone the analytics plugin into an existing Gerrit source tree under /plugins/analytics
-and then execute buck build.
+To build the analytics plugin you need to have SBT 0.13.x or later installed.
+If you have a Linux operating system, see the
+[Installing SBT on Linux instructions](http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html)
+
+Clone the analytics plugin and execute ```sbt assembly```.
 
 Example:
 
 ```
-   $ git clone https://gerrit.googlesource.com/gerrit
-   $ git clone https://gerrit.googlesource.com/plugins/analytics gerrit/plugins/analytics
-   $ cd gerrit
-   $ buck build plugins/analytics
+   $ git clone https://gerrit.googlesource.com/plugins/analytics
+   $ cd analytics && sbt assembly
 ```
+
+The plugin jar file is created under ```target/scala-2.11/assembly.jar```
 
 ## How to install
 
-Copy the analytics.jar generated under /buck-out/gen/plugins/analytics/analytics.jar
-onto Gerrit's /plugins directory.
+Copy the analytics.jar generated onto the Gerrit's /plugins directory.
 
 ## How to configure
 
