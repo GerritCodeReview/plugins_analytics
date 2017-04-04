@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1f77aaa_d0349bf0",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-04-04T00:08:32Z",
+      "side": 1,
+      "message": "These statements contradict each other.  Is it assembly.jar or analytics.jar?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "4c8b11905949646beacb1dbb4f008ca03cc9f8f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
