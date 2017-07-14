@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics;
+package com.googlesource.gerrit.plugins.analytics
 
-import com.google.gerrit.sshd.PluginCommandModule;
+import com.google.gerrit.sshd.PluginCommandModule
 
-public class SshModule extends PluginCommandModule {
-
-  @Override
-  protected void configureCommands() {
-    command(ContributorsCommand.class);
+class SshModule extends PluginCommandModule {
+  override protected def configureCommands {
+    command(classOf[ContributorsCommand])
   }
 }
