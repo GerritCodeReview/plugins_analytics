@@ -12,14 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics;
+package com.googlesource.gerrit.plugins.analytics
 
-import com.google.gerrit.sshd.PluginCommandModule;
+import com.google.gerrit.extensions.restapi.RestApiModule
+import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
+import com.google.inject.AbstractModule
 
-public class SshModule extends PluginCommandModule {
+class Module extends AbstractModule {
 
-  @Override
-  protected void configureCommands() {
-    command(ContributorsCommand.class);
+  override protected def configure() {
+
+    install(new RestApiModule() {
+
+      override protected def configure() = {
+        get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
+      }
+    })
   }
 }
