@@ -12,17 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics;
+package com.googlesource.gerrit.plugins.analytics
 
-public class CommitInfo {
-  public final String sha1;
-  public final long date;
-  public final boolean merge;
-
-  public CommitInfo(String sha1, long date, boolean merge) {
-    super();
-    this.sha1 = sha1;
-    this.date = date;
-    this.merge = merge;
-  }
+object ManagedResource {
+  def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
+    try
+      code(resource)
+    finally
+      resource.close()
 }

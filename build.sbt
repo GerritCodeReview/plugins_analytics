@@ -1,20 +1,18 @@
-import sbt.Keys._
-
 val gerritApiVersion = "2.13.7"
-
 val pluginName = "analytics"
+val pluginVersion = "1.1-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,
 
-    version := "1.0-SNAPSHOT",
+    version := pluginVersion,
 
     scalaVersion := "2.11.8",
 
     libraryDependencies ++= Seq(
       "io.fabric8" % "gitective-core" % "0.9.19"
-        exclude ("org.eclipse.jgit", "org.eclipse.jgit"),
+        exclude("org.eclipse.jgit", "org.eclipse.jgit"),
 
       "com.google.inject" % "guice" % "3.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
@@ -35,8 +33,4 @@ lazy val root = (project in file("."))
       ("Implementation-URL", "https://gerrit.googlesource.com/plugins/analytics")
     )
   )
-
-
-
-
 

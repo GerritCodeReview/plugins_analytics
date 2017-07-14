@@ -1,4 +1,4 @@
-// Copyright (C) 2013 The Android Open Source Project
+// Copyright (C) 2016 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,23 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics;
+package com.googlesource.gerrit.plugins.analytics
 
-import static com.google.gerrit.server.project.ProjectResource.PROJECT_KIND;
+import com.google.gerrit.extensions.restapi.RestApiModule
+import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
+import com.google.inject.AbstractModule
 
-import com.google.gerrit.extensions.restapi.RestApiModule;
-import com.google.inject.AbstractModule;
+class Module extends AbstractModule {
 
-public class Module extends AbstractModule {
-
-  @Override
-  protected void configure() {
+  override protected def configure() {
 
     install(new RestApiModule() {
-      @Override
-      protected void configure() {
-        get(PROJECT_KIND, "contributors").to(ContributorsResource.class);
+
+      override protected def configure() = {
+        get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
       }
-    });
+    })
   }
 }
