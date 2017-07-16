@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.contributors
 
 import java.io.{OutputStream, PrintWriter}
 
@@ -21,6 +21,7 @@ import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.ProjectResource
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.AutoManageResources._
+import com.googlesource.gerrit.plugins.analytics.GsonFormatter
 
 class ContributorsResource @Inject()(
                                       val repoManager: GitRepositoryManager,

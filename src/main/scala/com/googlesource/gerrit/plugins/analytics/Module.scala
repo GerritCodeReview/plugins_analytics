@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.analytics
 import com.google.gerrit.extensions.restapi.RestApiModule
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
+import com.googlesource.gerrit.plugins.analytics.contributors.ContributorsResource
 
 class Module extends AbstractModule {
 

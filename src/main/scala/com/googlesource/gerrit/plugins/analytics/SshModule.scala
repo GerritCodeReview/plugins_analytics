@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.sshd.PluginCommandModule
+import com.googlesource.gerrit.plugins.analytics.contributors.ContributorsCommand
 
 class SshModule extends PluginCommandModule {
   override protected def configureCommands = {

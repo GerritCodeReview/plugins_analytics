@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.contributors
 
 import java.io.IOException
 
@@ -20,6 +20,7 @@ import com.google.gerrit.extensions.restapi.UnprocessableEntityException
 import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
+import com.googlesource.gerrit.plugins.analytics.GsonFormatter
 import org.kohsuke.args4j.Argument
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")

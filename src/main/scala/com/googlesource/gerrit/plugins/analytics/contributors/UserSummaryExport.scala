@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.contributors
 
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository

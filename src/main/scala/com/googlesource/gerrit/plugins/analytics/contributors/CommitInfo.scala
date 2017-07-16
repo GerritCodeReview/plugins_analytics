@@ -12,6 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.contributors
 
 case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
