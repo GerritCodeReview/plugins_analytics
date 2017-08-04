@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "0d2ea375_60a502eb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-04T21:43:36Z",
+      "side": 1,
+      "message": "You needed to remove the \u0027\u003d\u0027 as well.\nDo you have any pointer to Google Code Style for Scala code?",
+      "parentUuid": "02b9a8c2_9dc3447e",
+      "range": {
+        "startLine": 35,
+        "startChar": 42,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "fd3ce7ba56ae089ce4d0e9e926d2a7ef0af47dbe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d121b7b_481dc646",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
         "patchSetId": 2
@@ -307,6 +331,30 @@
       "side": 1,
       "message": "ok !. I was expecting that this was something in the standard libraries but it seems Odersky did not love to have things easy :) \nI tried with the simple solution you indicated but kept in having mismatch errors with the type of the PrintWriter\u003d\u003eUnit so I eventually decided to use the version proposed by http://www.d2dcrc.com.au/blog/automatic-resource-management-in-scala/ which is more generic and provides a map flatmap to autocloseable resources. a for is then probably the most readable solution instead of .map.",
       "parentUuid": "2d121b7b_481dc646",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "fd3ce7ba56ae089ce4d0e9e926d2a7ef0af47dbe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49054695_0d83438b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-04T21:43:36Z",
+      "side": 1,
+      "message": "Yes, you had a type mismatch because you forgot the \u0027\u003d\u0027 in the function declaration :-) Remove the \u0027\u003d\u0027 and the problem disappears :-)",
+      "parentUuid": "26e0ec3a_f2d674a9",
       "range": {
         "startLine": 37,
         "startChar": 6,
@@ -812,6 +860,30 @@
       "side": 1,
       "message": "yes that is what gitective is returning and it seems not making sense to convert to other types...",
       "parentUuid": "2a79eb20_8c788374",
+      "range": {
+        "startLine": 27,
+        "startChar": 30,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "fd3ce7ba56ae089ce4d0e9e926d2a7ef0af47dbe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "302ed30b_5a9df82b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/UserActivitySummary.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-04T21:43:36Z",
+      "side": 1,
+      "message": "Cool, makes sense.",
+      "parentUuid": "27d5270c_711bf623",
       "range": {
         "startLine": 27,
         "startChar": 30,
