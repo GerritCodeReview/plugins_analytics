@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+import java.io.{OutputStream, PrintWriter}
+
+import com.google.gerrit.extensions.restapi.BinaryResult
+
+class GsonStreamedResult[T](val jsonFmt: GsonFormatter,
+                            val committers: TraversableOnce[T]) extends BinaryResult {
+  override def writeTo(os: OutputStream) =
+    ManagedResource.use(new PrintWriter(os))(jsonFmt.format(committers, _))
+}
