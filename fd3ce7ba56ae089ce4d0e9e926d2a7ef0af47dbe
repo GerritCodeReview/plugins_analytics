@@ -296,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "78b4f1e9_0eeb1c58",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-06T13:00:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d2ea375_60a502eb",
+      "range": {
+        "startLine": 35,
+        "startChar": 42,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "fd3ce7ba56ae089ce4d0e9e926d2a7ef0af47dbe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d121b7b_481dc646",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
         "patchSetId": 2
@@ -355,6 +379,30 @@
       "side": 1,
       "message": "Yes, you had a type mismatch because you forgot the \u0027\u003d\u0027 in the function declaration :-) Remove the \u0027\u003d\u0027 and the problem disappears :-)",
       "parentUuid": "26e0ec3a_f2d674a9",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "fd3ce7ba56ae089ce4d0e9e926d2a7ef0af47dbe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "379a0b1d_455a98b4",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/ContributorsResource.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-06T13:00:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49054695_0d83438b",
       "range": {
         "startLine": 37,
         "startChar": 6,
