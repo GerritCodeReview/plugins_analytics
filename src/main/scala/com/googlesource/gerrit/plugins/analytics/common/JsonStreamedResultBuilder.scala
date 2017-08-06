@@ -12,23 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-import java.io.PrintWriter
+import java.io.{OutputStream, PrintWriter}
 
-import com.google.gerrit.server.OutputFormat
-import com.google.gson.{Gson, GsonBuilder}
-import com.google.inject.Singleton
+import com.google.gerrit.extensions.restapi.BinaryResult
+import com.google.inject.{Inject, Singleton}
 
 @Singleton
-class GsonFormatter {
-  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+class JsonStreamedResult @Inject()(val jsonFmt: GsonFormatter) {
 
-  def format[T](values: TraversableOnce[T], out: PrintWriter) {
-    val gson: Gson = gsonBuilder.create
-    for (value <- values) {
-      gson.toJson(value, out)
-      out.println()
+  class build[T](val committers: TraversableOnce[T]) extends BinaryResult {
+    override def writeTo(os: OutputStream) {
+      ManagedResource.use(new PrintWriter(os)) { resource =>
+        jsonFmt.format(committers, resource)
+      }
     }
   }
+
 }

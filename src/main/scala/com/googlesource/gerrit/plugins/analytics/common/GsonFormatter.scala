@@ -12,6 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+import java.io.PrintWriter
+
+import com.google.gerrit.server.OutputFormat
+import com.google.gson.{Gson, GsonBuilder}
+import com.google.inject.Singleton
+
+@Singleton
+class GsonFormatter {
+  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+
+  def format[T](values: TraversableOnce[T], out: PrintWriter): Unit = {
+    val gson: Gson = gsonBuilder.create
+    for (value <- values) {
+      gson.toJson(value, out)
+    }
+  }
+}
