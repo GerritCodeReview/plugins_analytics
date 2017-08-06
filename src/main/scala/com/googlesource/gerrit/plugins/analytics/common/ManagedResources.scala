@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
 object ManagedResource {
   def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
