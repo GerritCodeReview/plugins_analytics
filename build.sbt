@@ -13,7 +13,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "io.fabric8" % "gitective-core" % "0.9.19"
         exclude("org.eclipse.jgit", "org.eclipse.jgit"),
-
+      "net.liftweb" %% "lift-json" % "3.1.0",
       "com.google.inject" % "guice" % "3.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
       "com.google.code.gson" % "gson" % "2.7" % Provided,
