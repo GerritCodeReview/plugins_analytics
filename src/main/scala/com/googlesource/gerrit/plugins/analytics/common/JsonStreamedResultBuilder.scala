@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.inject.Singleton
-import org.eclipse.jgit.lib.Repository
-import org.gitective.core.CommitFinder
-import org.gitective.core.stat.AuthorHistogramFilter
+import java.io.{OutputStream, PrintWriter}
+
+import com.google.gerrit.extensions.restapi.BinaryResult
+import com.google.inject.{Inject, Singleton}
 
 @Singleton
-class UserSummaryExport {
-  def getCommitters(repo: Repository): TraversableOnce[UserActivitySummary] = {
-    val finder = new CommitFinder(repo)
-    val filter = new AuthorHistogramFilter
-    finder.setFilter(filter).find
-    val histogram = filter.getHistogram
-    val authorActivity = histogram.getUserActivity
-    authorActivity.par.map(UserActivitySummary.fromUserActivity).toStream
+class JsonStreamedResult @Inject()(val jsonFmt: GsonFormatter) {
+
+  class build[T](val committers: TraversableOnce[T]) extends BinaryResult {
+    override def writeTo(os: OutputStream) {
+      ManagedResource.use(new PrintWriter(os)) { resource =>
+        jsonFmt.format(committers, resource)
+      }
+    }
   }
+
 }

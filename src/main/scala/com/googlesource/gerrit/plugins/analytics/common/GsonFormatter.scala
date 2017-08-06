@@ -12,12 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-object ManagedResource {
-  def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
-    try
-      code(resource)
-    finally
-      resource.close()
+import java.io.PrintWriter
+
+import com.google.gerrit.server.OutputFormat
+import com.google.gson.{Gson, GsonBuilder}
+import com.google.inject.Singleton
+
+@Singleton
+class GsonFormatter {
+  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+
+  def format[T](values: TraversableOnce[T], out: PrintWriter): Unit = {
+    val gson: Gson = gsonBuilder.create
+    for (value <- values) {
+      gson.toJson(value, out)
+      out.println
+    }
+  }
 }

@@ -21,9 +21,7 @@ import com.google.inject.AbstractModule
 class Module extends AbstractModule {
 
   override protected def configure() {
-
     install(new RestApiModule() {
-
       override protected def configure() = {
         get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
       }
