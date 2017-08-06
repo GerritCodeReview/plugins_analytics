@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "821fbb83_7eaef160",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/SshModule.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-06T13:00:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f9c14e3_d3d4503b",
+      "range": {
+        "startLine": 20,
+        "startChar": 43,
+        "endLine": 20,
+        "endChar": 44
+      },
+      "revId": "33853af466fcc06790ca93183c19996fecec0b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6261e5ac_7fc54790",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/UserSummaryExport.scala",
         "patchSetId": 3
