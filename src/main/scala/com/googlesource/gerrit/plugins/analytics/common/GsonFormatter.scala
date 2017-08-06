@@ -12,21 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
+import java.io.PrintWriter
+
+import com.google.gerrit.server.OutputFormat
+import com.google.gson.{Gson, GsonBuilder}
 import com.google.inject.Singleton
-import org.eclipse.jgit.lib.Repository
-import org.gitective.core.CommitFinder
-import org.gitective.core.stat.AuthorHistogramFilter
 
 @Singleton
-class UserSummaryExport {
-  def getCommitters(repo: Repository): TraversableOnce[UserActivitySummary] = {
-    val finder = new CommitFinder(repo)
-    val filter = new AuthorHistogramFilter
-    finder.setFilter(filter).find
-    val histogram = filter.getHistogram
-    val authorActivity = histogram.getUserActivity
-    authorActivity.par.map(UserActivitySummary.fromUserActivity).toStream
+class GsonFormatter {
+  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+
+  def format[T](values: TraversableOnce[T], out: PrintWriter) {
+    val gson: Gson = gsonBuilder.create
+    for (value <- values) {
+      gson.toJson(value, out)
+      out.println
+    }
   }
 }

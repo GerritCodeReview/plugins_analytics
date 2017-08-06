@@ -12,6 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+import com.google.inject.Singleton
+import org.eclipse.jgit.lib.Repository
+import org.gitective.core.CommitFinder
+import org.gitective.core.stat.CommitHistogramFilter
+
+@Singleton
+class UserActivityHistogram {
+  def get(repo: Repository, filter: CommitHistogramFilter) = {
+    val finder = new CommitFinder(repo)
+    finder.setFilter(filter).find
+    val histogram = filter.getHistogram
+    histogram.getUserActivity
+  }
+}

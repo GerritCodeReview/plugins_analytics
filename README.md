@@ -61,7 +61,7 @@ analytics contributors {project-name}
 REST Example:
 
 ```
-   $ curl http://gerrit.mycompany.com/project/myproyject/analytics~contributors
+   $ curl http://gerrit.mycompany.com/projects/myproject/analytics~contributors
 
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1,"commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
@@ -70,7 +70,7 @@ REST Example:
 SSH Example:
 
 ```
-   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors
+   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject
 
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1,"commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
