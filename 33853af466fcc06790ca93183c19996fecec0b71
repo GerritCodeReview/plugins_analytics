@@ -45,6 +45,30 @@
       "revId": "33853af466fcc06790ca93183c19996fecec0b71",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db4ae6c1_7caada86",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/UserSummaryExport.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-06T12:55:31Z",
+      "side": 1,
+      "message": "when using .par it is needed to put it back as something Traversable",
+      "parentUuid": "6261e5ac_7fc54790",
+      "range": {
+        "startLine": 30,
+        "startChar": 65,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "33853af466fcc06790ca93183c19996fecec0b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
