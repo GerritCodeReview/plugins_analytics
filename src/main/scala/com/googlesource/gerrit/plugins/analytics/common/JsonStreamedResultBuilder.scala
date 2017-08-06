@@ -12,12 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-object ManagedResource {
-  def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
-    try
-      code(resource)
-    finally
-      resource.close()
+import java.io.{OutputStream, PrintWriter}
+
+import com.google.gerrit.extensions.restapi.BinaryResult
+import com.google.inject.{Inject, Singleton}
+
+@Singleton
+class JsonStreamedResult @Inject()(val jsonFmt: JsonFormatter) {
+
+  class build[T](val committers: TraversableOnce[T]) extends BinaryResult {
+    override def writeTo(os: OutputStream) {
+      ManagedResource.use(new PrintWriter(os)) { resource =>
+        jsonFmt.format(committers, resource)
+      }
+    }
+  }
+
 }

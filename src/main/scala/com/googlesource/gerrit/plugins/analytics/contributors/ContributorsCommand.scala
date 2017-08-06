@@ -12,36 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.contributors
 
-import java.io.IOException
-
-import com.google.gerrit.extensions.restapi.UnprocessableEntityException
 import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
-import org.kohsuke.args4j.Argument
+import com.googlesource.gerrit.plugins.analytics.common.{JsonFormatter, ParsingProject}
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject() (
   val projects: ProjectsCollection,
-  val contributors: ContributorsResource,
-  val gsonFmt: GsonFormatter) extends SshCommand {
+  val executor: ContributorsExec,
+  val gsonFmt: JsonFormatter) extends SshCommand with ParsingProject {
 
-  @Argument(usage = "project name", metaVar = "PROJECT", required = true)
-  def setProject(project: String): Unit = {
-    try {
-      this.projectRes = projects.parse(project)
-    } catch {
-      case e: UnprocessableEntityException =>
-        throw new IllegalArgumentException(e.getLocalizedMessage, e)
-      case e: IOException =>
-        throw new IllegalArgumentException("I/O Error while trying to access project " + project, e)
-    }
-  }
-
-  private var projectRes: ProjectResource = null
-  override protected def run(): Unit = {
-    gsonFmt.format(contributors.get(projectRes), stdout)
+  override protected def run() {
+    gsonFmt.format(executor.get(projectRes), stdout)
   }
 }

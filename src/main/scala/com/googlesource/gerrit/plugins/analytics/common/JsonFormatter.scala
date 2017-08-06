@@ -12,23 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
 import java.io.PrintWriter
-
-import com.google.gerrit.server.OutputFormat
-import com.google.gson.{Gson, GsonBuilder}
 import com.google.inject.Singleton
+import net.liftweb.json.JsonAST._
+import net.liftweb.json.Extraction._
 
 @Singleton
-class GsonFormatter {
-  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+class JsonFormatter {
+  implicit val formats = net.liftweb.json.DefaultFormats
 
-  def format[T](values: TraversableOnce[T], out: PrintWriter) {
-    val gson: Gson = gsonBuilder.create
+  def format[T](values: TraversableOnce[T], out: PrintWriter): Unit = {
     for (value <- values) {
-      gson.toJson(value, out)
-      out.println()
+      out.println(compactRender(decompose(value)))
     }
   }
 }

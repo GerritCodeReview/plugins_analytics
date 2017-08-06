@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+object ManagedResource {
+  def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
+    try
+      code(resource)
+    finally
+      resource.close()
+}
