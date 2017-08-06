@@ -12,21 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics
+package com.googlesource.gerrit.plugins.analytics.common
 
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository
 import org.gitective.core.CommitFinder
-import org.gitective.core.stat.AuthorHistogramFilter
+import org.gitective.core.stat.CommitHistogramFilter
 
 @Singleton
-class UserSummaryExport {
-  def getCommitters(repo: Repository): TraversableOnce[UserActivitySummary] = {
+class FindHistogram {
+  def getUserActivity(repo: Repository, filter: CommitHistogramFilter) = {
     val finder = new CommitFinder(repo)
-    val filter = new AuthorHistogramFilter
     finder.setFilter(filter).find
     val histogram = filter.getHistogram
-    val authorActivity = histogram.getUserActivity
-    authorActivity.par.map(UserActivitySummary.fromUserActivity).toStream
+    histogram.getUserActivity
   }
 }
