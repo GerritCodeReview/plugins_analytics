@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a84c7f0_2df5f907",
+        "filename": "build.sbt",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "Lift wasn\u0027t actually needed: Gson works like a charm :-)",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 45
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "213b5fa1_1904ba07",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
         "patchSetId": 3
@@ -94,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "690e6525_89144afc",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/JsonStreamedResultBuilder.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "Done, collapsed everything into a single class.",
+      "parentUuid": "77af7410_dd01b33a",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2600f901_b5a81337",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
         "patchSetId": 3
@@ -140,6 +187,29 @@
     },
     {
       "key": {
+        "uuid": "b684a62c_6b5a51b3",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ProjectResourceParser.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "We don\u0027t do anything very different between the two exception types \u003d\u003e let\u0027s collapse into a single body.",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e97f673c_e4f9e507",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsExec.scala",
         "patchSetId": 3
@@ -160,6 +230,30 @@
       "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e62e6c2_517c1650",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsExec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e97f673c_e4f9e507",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +297,30 @@
     },
     {
       "key": {
+        "uuid": "81134b1f_85c79074",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07f0b17_a05d6ed5",
+      "range": {
+        "startLine": 22,
+        "startChar": 37,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d015da9_49d59bc9",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
         "patchSetId": 3
@@ -217,6 +335,24 @@
       "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d330840_d88f63df",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d015da9_49d59bc9",
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
