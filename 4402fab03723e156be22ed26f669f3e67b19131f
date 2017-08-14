@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "213b5fa1_1904ba07",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Find? Typically you don\u0027t use verbs for class names.\nIs UserActivityHistogram a better name?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09330718_e79f160e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "simply get()? The class name already tells what are you getting.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b509cb6_be249729",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "new CommitFinder(repo).setFilter(filter).find\nfilter.getHistogram.getUserActivity",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77af7410_dd01b33a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/JsonStreamedResultBuilder.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "A class with a public inner class organised as it was a method?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2600f901_b5a81337",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Parsing or Parsed? Which concept would you like to express here?",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b059a5_91e09423",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Var in Scala? Is it worth defining in the constructor?",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97f673c_e4f9e507",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsExec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Verbs shouldn\u0027t be in class names.\nContributorsService?",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04123ade_0db1c128",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Contains almost no code but is simply an adaptation of class hierarchy. Why don\u0027t consolidate with the Contributors Service scala file?",
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e07f0b17_a05d6ed5",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "Merge the two lines.",
+      "range": {
+        "startLine": 22,
+        "startChar": 37,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d015da9_49d59bc9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/contributors/ContributorsResource.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 1,
+      "message": "NIT: empty line.",
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

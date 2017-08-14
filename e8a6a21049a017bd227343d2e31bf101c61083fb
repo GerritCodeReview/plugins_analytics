@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b31c1da_b28cda6a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/JsonFormatter.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:33:41Z",
+      "side": 0,
+      "message": "Can you explain why you replaced Gson with Lift and where exactly was failing? Before the refactoring, everything was working fine ... seems strange to me that all of the sudden Gson stopped working with Scala case classes :-(\n\nThe introduction of Lift formatter has lost as well all the Gerrit\u0027s Gson settings for the JSON field naming. Falling back to Gson unless we have a very good reason for changing the serialiser to something else :-)",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "e8a6a21049a017bd227343d2e31bf101c61083fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
