@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "be7d1ab6_1614ba11",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "213b5fa1_1904ba07",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09330718_e79f160e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "23b1f8b9_adca1664",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09330718_e79f160e",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b509cb6_be249729",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
         "patchSetId": 3
@@ -91,6 +139,30 @@
       "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c18688_4fa16b27",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/FindHistogram.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b509cb6_be249729",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "06c4f78a_41ec5eab",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2600f901_b5a81337",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33b059a5_91e09423",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
         "patchSetId": 3
@@ -184,6 +280,30 @@
       "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed29da15_86b4ca93",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ParsingProject.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-14T14:52:08Z",
+      "side": 1,
+      "message": "Ah, this is to satisfy the REST API resources pattern ... then we need to keep the smelly var.",
+      "parentUuid": "33b059a5_91e09423",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "4402fab03723e156be22ed26f669f3e67b19131f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
