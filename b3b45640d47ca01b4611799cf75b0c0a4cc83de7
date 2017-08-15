@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "a9554ed3_0c66072b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "816e61dd_49fabffb",
+      "range": {
+        "startLine": 55,
+        "startChar": 54,
+        "endLine": 55,
+        "endChar": 62
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5f543e0_eeb531c9",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9db07925_103d1fae",
+      "range": {
+        "startLine": 55,
+        "startChar": 47,
+        "endLine": 55,
+        "endChar": 75
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3906341e_8fd94e9a",
         "filename": "README.md",
         "patchSetId": 1
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "912ca827_261c7bcf",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3906341e_8fd94e9a",
+      "range": {
+        "startLine": 59,
+        "startChar": 46,
+        "endLine": 59,
+        "endChar": 54
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78810559_589a7f5f",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc81050f_35eb7108",
+      "range": {
+        "startLine": 59,
+        "startChar": 69,
+        "endLine": 59,
+        "endChar": 70
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ade552_34081107",
         "filename": "README.md",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "This is redundant IMHO. To keep backward compatibility, you just don\u0027t limit neither the begin nor the end ... and you\u0027ll get all data regardless of the dates, isn\u0027t it?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a0a73a0_a746090d",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ade552_34081107",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "cd0c559f_ede648b1",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0f361d_d54b1b7b",
+      "range": {
+        "startLine": 70,
+        "startChar": 79,
+        "endLine": 70,
+        "endChar": 83
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d082e02_3a8ce309",
         "filename": "README.md",
         "patchSetId": 1
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "befefc4d_680c3ee7",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d082e02_3a8ce309",
+      "range": {
+        "startLine": 79,
+        "startChar": 86,
+        "endLine": 79,
+        "endChar": 94
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b4db9b7_e417859f",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": ": Option[Long] \u003d None",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 34
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cac2b854_96379049",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4db9b7_e417859f",
       "range": {
         "startLine": 35,
         "startChar": 23,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "3eef5a40_99bff33a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0b21415_5a179b2b",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff09ddcb_5a8a70b3",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 1
@@ -220,6 +436,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "This is redundant: if you don\u0027t set begin or end, you\u0027ll get exactly this behaviour",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2dec214_6f5d7381",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff09ddcb_5a8a70b3",
       "range": {
         "startLine": 38,
         "startChar": 2,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "eb9ee55d_de19201d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a2bfc3c_4ca82ff0",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56360bb8_50dc2936",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 1
@@ -266,6 +530,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "Same as above",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce678cf8_27276be7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56360bb8_50dc2936",
       "range": {
         "startLine": 54,
         "startChar": 14,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "11f5b077_764d2b32",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9f0fbb_70578762",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2799e510_82d85b54",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 1
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "fc4dfd6b_90db9094",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2799e510_82d85b54",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e5c5349_a5e1a385",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 1
@@ -335,6 +671,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "Why do we need this? We already have SSH and HTTP logs with the commands executed and the associated parameters. What are we adding here?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 72
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4238a0_2bb64d14",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e5c5349_a5e1a385",
       "range": {
         "startLine": 73,
         "startChar": 4,
@@ -386,6 +746,54 @@
         "startChar": 42,
         "endLine": 76,
         "endChar": 49
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3018df57_bc5ba3d5",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edeb3e4b_bc316371",
+      "range": {
+        "startLine": 76,
+        "startChar": 42,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfc7a77c_f4324630",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "090e1e6a_69d20aa8",
+      "range": {
+        "startLine": 76,
+        "startChar": 50,
+        "endLine": 76,
+        "endChar": 60
       },
       "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
@@ -485,6 +893,30 @@
     },
     {
       "key": {
+        "uuid": "c90e21b5_269f3a09",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "955baab1_027868dd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 5
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d54a567_c91792c7",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
         "patchSetId": 1
@@ -496,6 +928,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "Not needed if we move to Options",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9a6f51a_6fbf9f7e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d54a567_c91792c7",
       "range": {
         "startLine": 22,
         "startChar": 2,
@@ -531,6 +987,30 @@
     },
     {
       "key": {
+        "uuid": "d9123c9c_f3b2f876",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fdd2685_fa1fc07d",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 65
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3d5000d_250985bb",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
         "patchSetId": 1
@@ -542,6 +1022,30 @@
       "writtenOn": "2017-08-15T12:19:14Z",
       "side": 1,
       "message": "Can we just move them into implicit conversions?",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "054c8c63_79132ddc",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d5000d_250985bb",
       "range": {
         "startLine": 28,
         "startChar": 2,
