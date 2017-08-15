@@ -52,11 +52,18 @@ commits data relevant for statistics purposes, such as timestamp and merge flag.
 
 *REST*
 
-/projects/{project-name}/analytics~contributors
+/projects/{project-name}/analytics~contributors[?since=2006-01-02[15:04:05[.890][-0700]]][&until=2018-01-02[18:01:03[.333][-0700]]]
 
 *SSH*
 
-analytics contributors {project-name}
+analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]] [--until 2018-01-02[18:01:03[.333][-0700]]]
+
+### Parameters
+
+- --since -b Starting timestamp to consider
+- --until -e Ending timestamp (excluded) to consider
+
+NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 
 REST Example:
 
@@ -70,7 +77,7 @@ REST Example:
 SSH Example:
 
 ```
-   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject
+   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject --since 2017-08-01 --until 2017-12-31
 
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1,"commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
