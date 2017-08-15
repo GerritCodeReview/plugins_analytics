@@ -14,14 +14,17 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
-import com.google.gerrit.extensions.restapi.{Response, RestReadView}
+import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
+import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.lib.ObjectId
-import org.gitective.core.stat.{AuthorHistogramFilter, UserCommitActivity}
+import org.gitective.core.stat.UserCommitActivity
+import org.kohsuke.args4j.{Option => ArgOption}
+import org.slf4j.LoggerFactory
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
@@ -30,30 +33,78 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val gsonFmt: GsonFormatter)
   extends SshCommand with ProjectResourceParser {
 
-  override protected def run = gsonFmt.format(executor.get(projectRes), stdout)
+  private var beginDate: Option[Long] = None
+
+  @ArgOption(name = "--since", aliases = Array("--after", "-b"), usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setBeginDate(date: String) {
+    try {
+      beginDate = Some(date)
+    } catch {
+      case e: Exception => throw die(s"Invalid begin date ${e.getMessage}")
+    }
+  }
+
+  private var endDate: Option[Long] = None
+
+  @ArgOption(name = "--until", aliases = Array("--before", "-e"), usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setEndDate(date: String) {
+    try {
+      endDate = Some(date)
+    } catch {
+      case e: Exception => throw die(s"Invalid end date ${e.getMessage}")
+    }
+  }
+
+  override protected def run =
+    gsonFmt.format(executor.get(projectRes, beginDate, endDate), stdout)
+
 }
 
 class ContributorsResource @Inject()(val executor: ContributorsService,
                                      val gson: GsonFormatter)
   extends RestReadView[ProjectResource] {
 
-  override def apply(projectRes: ProjectResource) = Response.ok(
-    new GsonStreamedResult[UserActivitySummary](gson, executor.get(projectRes)))
+  private var beginDate: Option[Long] = None
+
+  @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY", usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setBeginDate(date: String) {
+    try {
+      beginDate = Some(date)
+    } catch {
+      case e: Exception => throw new BadRequestException(s"Invalid begin date ${e.getMessage}")
+    }
+  }
+
+  private var endDate: Option[Long] = None
+
+  @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY", usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setEndDate(date: String) {
+    try {
+      endDate = Some(date)
+    } catch {
+      case e: Exception => throw new BadRequestException(s"Invalid end date ${e.getMessage}")
+    }
+  }
+
+  override def apply(projectRes: ProjectResource) =
+    Response.ok(
+      new GsonStreamedResult[UserActivitySummary](gson, executor.get(projectRes, beginDate, endDate)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
 
-  def get(projectRes: ProjectResource): TraversableOnce[UserActivitySummary] =
+  def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long]): TraversableOnce[UserActivitySummary] = {
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) {
-      histogram.get(_, new AuthorHistogramFilter)
+      histogram.get(_, new AuthorHistogramFilterByDates(startDate, stopDate))
         .par
         .map(UserActivitySummary.apply).toStream
     }
+  }
 }
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+case class CommitInfo(sha1: String, date: Long, merge: Boolean)
 
 case class UserActivitySummary(name: String, email: String, numCommits: Int,
                                commits: Array[CommitInfo], lastCommitDate: Long)
