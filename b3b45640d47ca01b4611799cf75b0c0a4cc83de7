@@ -1,0 +1,556 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9db07925_103d1fae",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Those are optional correct?\nShould be inside squared brackets:\n[?begin\u003d20170801\u0026end\u003d20990101]\n\nAre both optional? Can I only restrict the begin and not the end?\n\nWhy don\u0027t we make it consistent with Gerrit\u0027s search dates formats?\nsee: https://gerrit-review.googlesource.com/Documentation/user-search.html\n\nIt would then be before and after, and the date/time parsing should be consistent with Gerrit one.\nSee com.google.gerrit.server.index.TimestampRangePredicate",
+      "range": {
+        "startLine": 55,
+        "startChar": 47,
+        "endLine": 55,
+        "endChar": 75
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "816e61dd_49fabffb",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Let\u0027s make it consistent with Gerrit timestamp parsing syntax: 2006-01-02[ 15:04:05[.890][ -0700]]",
+      "range": {
+        "startLine": 55,
+        "startChar": 54,
+        "endLine": 55,
+        "endChar": 62
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3906341e_8fd94e9a",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "As before: make it consistent with Gerrit timestamp format.",
+      "range": {
+        "startLine": 59,
+        "startChar": 46,
+        "endLine": 59,
+        "endChar": 54
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc81050f_35eb7108",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "NIT: blank at end of the ine.",
+      "range": {
+        "startLine": 59,
+        "startChar": 69,
+        "endLine": 59,
+        "endChar": 70
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ade552_34081107",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "This is redundant IMHO. To keep backward compatibility, you just don\u0027t limit neither the begin nor the end ... and you\u0027ll get all data regardless of the dates, isn\u0027t it?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b0f361d_d54b1b7b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "This shouldn\u0027t change: without parameters returns everything and we should keep the same behaviour.",
+      "range": {
+        "startLine": 70,
+        "startChar": 79,
+        "endLine": 70,
+        "endChar": 83
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d082e02_3a8ce309",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 79,
+        "startChar": 86,
+        "endLine": 79,
+        "endChar": 94
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4db9b7_e417859f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": ": Option[Long] \u003d None",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 34
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0b21415_5a179b2b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Option[Long] \u003d None",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff09ddcb_5a8a70b3",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "This is redundant: if you don\u0027t set begin or end, you\u0027ll get exactly this behaviour",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a2bfc3c_4ca82ff0",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56360bb8_50dc2936",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b9f0fbb_70578762",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2799e510_82d85b54",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "See below: not needed IMHO.",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e5c5349_a5e1a385",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Why do we need this? We already have SSH and HTTP logs with the commands executed and the associated parameters. What are we adding here?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 72
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "090e1e6a_69d20aa8",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Can use Scala implicit conversions to parse String date into a Long?",
+      "range": {
+        "startLine": 76,
+        "startChar": 50,
+        "endLine": 76,
+        "endChar": 60
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edeb3e4b_bc316371",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "FilterByDates. Is it still a filter? If yes, we should retain the noun \"Filter\" in the name.",
+      "range": {
+        "startLine": 76,
+        "startChar": 42,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08865704_0ed76c55",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AuthorHistogramByDates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "This isn\u0027t the commitDate but the date of first authoring it. With Gerrit Code Review, the different between the commit date and the author date could be even months !\n\nChange to:\ncommit.getCommitterIdent",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "820e44db_cf1b37bf",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AuthorHistogramByDates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "If we move Date into Option[Long], we can make this check more detailed like:\n\n  from.fold(true)(commitTime \u003e\u003d) \u0026\u0026 to.fold(true)(commitTIme \u003c)",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 59
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9177ffb5_4d1bd34a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AuthorHistogramByDates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Why an inner function that gets called only once and only inside the outer function body? Just include the body, that\u0027s it :-)",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "955baab1_027868dd",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Seems more like an Object to: it doesn\u0027t introduce any interface definition or behaviour, it is just an utility to add dates conversions, pretty much like Scala time units.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 5
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d54a567_c91792c7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Not needed if we move to Options",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fdd2685_fa1fc07d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Unused",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 65
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3d5000d_250985bb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Dates.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-15T12:19:14Z",
+      "side": 1,
+      "message": "Can we just move them into implicit conversions?",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "b3b45640d47ca01b4611799cf75b0c0a4cc83de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
