@@ -52,16 +52,22 @@ commits data relevant for statistics purposes, such as timestamp and merge flag.
 
 *REST*
 
-/projects/{project-name}/analytics~contributors
+/projects/{project-name}/analytics~contributors?begin=20170801&end=20990101
 
 *SSH*
 
-analytics contributors {project-name}
+analytics contributors {project-name} --begin 20170717 --end 20180101 
+
+### Parameters
+
+- --begin -b Starting date to consider
+- --end -e Ending date (excluded) to consider
+- --all -a Consider all dates
 
 REST Example:
 
 ```
-   $ curl http://gerrit.mycompany.com/projects/myproject/analytics~contributors
+   $ curl http://gerrit.mycompany.com/projects/myproject/analytics~contributors?all
 
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1,"commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
@@ -70,7 +76,7 @@ REST Example:
 SSH Example:
 
 ```
-   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject
+   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject --begin 20170801 --end 20171231
 
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1,"commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}

@@ -21,39 +21,66 @@ import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.lib.ObjectId
-import org.gitective.core.stat.{AuthorHistogramFilter, UserCommitActivity}
+import org.gitective.core.stat.UserCommitActivity
+import org.kohsuke.args4j.Option
+import org.slf4j.LoggerFactory
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
                                     val gsonFmt: GsonFormatter)
-  extends SshCommand with ProjectResourceParser {
+  extends SshCommand with ProjectResourceParser with Dates {
+  @Option(name = "--begin", usage = "(included) begin date in YYYYMMDD format")
+  private var beginDate = MIN_DATE
+  @Option(name = "--end", usage = "(excluded) end date in YYYYMMDD format")
+  private var endDate = MAX_DATE
+  @Option(name = "--all", usage = "consider all dates")
+  def setAll(b: Boolean) = {
+    beginDate = MIN_DATE
+    endDate = MAX_DATE
+  }
+  override protected def run =
+    gsonFmt.format(executor.get(projectRes, beginDate, endDate), stdout)
 
-  override protected def run = gsonFmt.format(executor.get(projectRes), stdout)
 }
 
 class ContributorsResource @Inject()(val executor: ContributorsService,
                                      val gson: GsonFormatter)
-  extends RestReadView[ProjectResource] {
+  extends RestReadView[ProjectResource] with Dates {
+  @Option(name = "--begin", aliases = Array("-b"), metaVar = "QUERY", usage = "Begin date YYYYMMDD")
+  var beginDate = MIN_DATE
+  @Option(name = "--end", aliases = Array("-e"), metaVar = "QUERY", usage = "(Excluded) end date YYYYMMDD")
+  var endDate = MAX_DATE
+  @Option(name = "--all", aliases = Array("-a"), metaVar = "QUERY", usage = "consider all dates")
+  def setAll(b: Boolean) = {
+    beginDate = MIN_DATE
+    endDate = MAX_DATE
+  }
 
-  override def apply(projectRes: ProjectResource) = Response.ok(
-    new GsonStreamedResult[UserActivitySummary](gson, executor.get(projectRes)))
+
+  override def apply(projectRes: ProjectResource) =
+    Response.ok(
+      new GsonStreamedResult[UserActivitySummary](gson, executor.get(projectRes, beginDate, endDate)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
-                                    gsonFmt: GsonFormatter) {
+                                    gsonFmt: GsonFormatter) extends Dates {
+  private val log = LoggerFactory.getLogger(classOf[ContributorsCommand])
 
-  def get(projectRes: ProjectResource): TraversableOnce[UserActivitySummary] =
+  def get(projectRes: ProjectResource, startDate: String, stopDate: String): TraversableOnce[UserActivitySummary] = {
+    log.info(s"Running with startDate: $startDate, stopDate: $stopDate")
+
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) {
-      histogram.get(_, new AuthorHistogramFilter)
+      histogram.get(_, new AuthorHistogramByDates(parse_date(startDate), parse_date(stopDate)))
         .par
         .map(UserActivitySummary.apply).toStream
     }
+  }
 }
 
-case class CommitInfo(val sha1: String, val date: Long, val merge: Boolean)
+case class CommitInfo(sha1: String, date: Long, merge: Boolean)
 
 case class UserActivitySummary(name: String, email: String, numCommits: Int,
                                commits: Array[CommitInfo], lastCommitDate: Long)
