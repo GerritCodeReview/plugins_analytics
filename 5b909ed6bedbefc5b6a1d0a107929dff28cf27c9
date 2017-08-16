@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d291637e_d74a4689",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:46:37Z",
+      "side": 1,
+      "message": "Better if we define a companion object and we name this anonymous function as:\nAGGREGATION_BY_EMAIL",
+      "range": {
+        "startLine": 10,
+        "startChar": 62,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4352d4bf_611dbfc9",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
         "patchSetId": 1
@@ -36,6 +59,30 @@
       "writtenOn": "2017-08-16T09:13:34Z",
       "side": 1,
       "message": "Where is get_key defined? How takes into consideration the aggregation granularity?",
+      "range": {
+        "startLine": 15,
+        "startChar": 14,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48657b74_c9f1557a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:46:37Z",
+      "side": 1,
+      "message": "Got it, is a parameter in the constructor. Shouldn\u0027t be a val? can we rename it to aggregationStrategyForUser?",
+      "parentUuid": "4352d4bf_611dbfc9",
       "range": {
         "startLine": 15,
         "startChar": 14,
