@@ -24,7 +24,6 @@ import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.lib.ObjectId
 import org.gitective.core.stat.UserCommitActivity
 import org.kohsuke.args4j.{Option => ArgOption}
-import org.slf4j.LoggerFactory
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
@@ -55,6 +54,18 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
+  private var granularity: Option[Granularity] = None
+
+  @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), usage = "Type of aggregation requested. ")
+  def setGranularity(value: String) {
+    try {
+      granularity = Some(Granularity.withName(value))
+    } catch {
+      case e: Exception => throw die(s"Invalid granularity ${e.getMessage}")
+    }
+  }
+
+
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate), stdout)
 
@@ -83,6 +94,17 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
       endDate = Some(date)
     } catch {
       case e: Exception => throw new BadRequestException(s"Invalid end date ${e.getMessage}")
+    }
+  }
+
+  private var granularity: Option[Granularity] = None
+
+  @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY", usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setGreanularity(value: String) {
+    try {
+      granularity = Some(Granularity.withName(value))
+    } catch {
+      case e: Exception => throw new BadRequestException(s"Invalid granularity ${e.getMessage}")
     }
   }
 

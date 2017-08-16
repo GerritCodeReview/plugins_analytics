@@ -21,7 +21,7 @@ import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
 
-class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with BeforeAndAfterEach with Matchers {
+class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with Matchers {
 
   "Author history filter" should
     "select one commit without intervals restriction" in {
@@ -31,7 +31,7 @@ class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with Be
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
-    filter.getHistogram.getUserActivity should have size (1)
+    filter.getHistogram.getUserActivity should have size 1
     val activity = userActivity.head
     activity.getCount should be(1)
     activity.getName should be(author.getName)
