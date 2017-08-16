@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "4352d4bf_611dbfc9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:13:34Z",
+      "side": 1,
+      "message": "Where is get_key defined? How takes into consideration the aggregation granularity?",
+      "range": {
+        "startLine": 15,
+        "startChar": 14,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "800e86a0_700500d0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
         "patchSetId": 1
@@ -42,6 +65,23 @@
         "endLine": 19,
         "endChar": 41
       },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e040e8c_4003debc",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AuthorHistogramFilterByDatesSpec.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:13:34Z",
+      "side": 1,
+      "message": "Any new tests on granularity?",
       "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
