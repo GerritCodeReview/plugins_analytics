@@ -16,22 +16,23 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.AuthorHistogramFilterByDates
+import com.googlesource.gerrit.plugins.analytics.common.{AggregationStrategy, AggregatedHistogramFilterByDates}
 import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
 
-class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with BeforeAndAfterEach with Matchers {
+class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with BeforeAndAfterEach with Matchers {
+
 
   "Author history filter" should
     "select one commit without intervals restriction" in {
 
     add("file.txt", "some content")
-    val filter = new AuthorHistogramFilterByDates
+    val filter = new AggregatedHistogramFilterByDates
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
-    filter.getHistogram.getUserActivity should have size (1)
+    filter.getHistogram.getUserActivity should have size 1
     val activity = userActivity.head
     activity.getCount should be(1)
     activity.getName should be(author.getName)
@@ -47,14 +48,14 @@ class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with Be
 
     secondCommitTs should be > firstCommitTs
 
-    val filter = new AuthorHistogramFilterByDates(from = Some(secondCommitTs))
+    val filter = new AggregatedHistogramFilterByDates(from = Some(secondCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
-    userActivity should have size (1)
+    userActivity should have size 1
     val activity = userActivity.head
 
-    activity.getTimes should have size (1)
+    activity.getTimes should have size 1
     activity.getName should be(person.getName)
     activity.getEmail should be(person.getEmailAddress)
   }
@@ -68,14 +69,14 @@ class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with Be
 
     secondCommitTs should be > firstCommitTs
 
-    val filter = new AuthorHistogramFilterByDates(to = Some(secondCommitTs))
+    val filter = new AggregatedHistogramFilterByDates(to = Some(secondCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
-    userActivity should have size (1)
+    userActivity should have size 1
     val activity = userActivity.head
 
-    activity.getTimes should have size (1)
+    activity.getTimes should have size 1
     activity.getName should be(person.getName)
     activity.getEmail should be(person.getEmailAddress)
   }
@@ -92,14 +93,14 @@ class AuthorHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with Be
     middleCommitTs should be > firstCommitTs
     lastCommitTs should be > middleCommitTs
 
-    val filter = new AuthorHistogramFilterByDates(from = Some(middleCommitTs), to = Some(lastCommitTs))
+    val filter = new AggregatedHistogramFilterByDates(from = Some(middleCommitTs), to = Some(lastCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
-    userActivity should have size (1)
+    userActivity should have size 1
     val activity = userActivity.head
 
-    activity.getTimes should have size (1)
+    activity.getTimes should have size 1
     activity.getName should be(person.getName)
     activity.getEmail should be(person.getEmailAddress)
   }
