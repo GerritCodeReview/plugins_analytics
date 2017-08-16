@@ -21,10 +21,10 @@ import org.gitective.core.stat.CommitHistogramFilter
 
 @Singleton
 class UserActivityHistogram {
-  def get(repo: Repository, filter: CommitHistogramFilter) = {
+  def get(repo: Repository, filter: AggregatedHistogramFilterByDates) = {
     val finder = new CommitFinder(repo)
     finder.setFilter(filter).find
     val histogram = filter.getHistogram
-    histogram.getUserActivity
+    histogram.getAggregatedUserActivity
   }
 }
