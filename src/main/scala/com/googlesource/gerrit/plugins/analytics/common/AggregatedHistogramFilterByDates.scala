@@ -1,4 +1,4 @@
-// Copyright (C) 2016 The Android Open Source Project
+// Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,28 +14,27 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import java.util.Date
-
+import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
-import org.gitective.core.stat.CommitHistogramFilter
 
 /**
   * Commit filter that includes commits only on the specified interval
   * starting from and to excluded
   */
-class AuthorHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None)
-  extends CommitHistogramFilter {
+class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
+                                       val aggregationStrategyMapping: AggregationStrategyMapping = AggregationStrategy.EMAIL.aggregationStrategyMapping)
+  extends AbstractCommitHistogramFilter(aggregationStrategyMapping) {
 
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      histogram.include(commit, author)
+      getHistogram.include(commit, author)
       true
     } else {
       false
     }
   }
 
-  override def clone = new AuthorHistogramFilterByDates(from, to)
+  override def clone = new AggregatedHistogramFilterByDates(from, to, aggregationStrategyMapping)
 }
