@@ -95,6 +95,75 @@
     },
     {
       "key": {
+        "uuid": "399b6cea_eb960af0",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:53:19Z",
+      "side": 1,
+      "message": "AggregationStrategies ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb2699a0_6e974217",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:53:19Z",
+      "side": 1,
+      "message": "apply?",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee059180_86749677",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:53:19Z",
+      "side": 1,
+      "message": "That would be:\nGranularity(\"HOUR\",  (p \u003d\u003e p.getEmailAddress + \"/\" + getHour(person.getWhen)))\n\nand subsequently all the others.\n\nThen the AggregationStrategy can be passed downstream for the aggregation function.",
+      "range": {
+        "startLine": 15,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "800e86a0_700500d0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
         "patchSetId": 1
