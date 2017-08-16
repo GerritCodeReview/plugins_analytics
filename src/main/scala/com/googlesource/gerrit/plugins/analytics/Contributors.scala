@@ -22,9 +22,7 @@ import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.lib.ObjectId
-import org.gitective.core.stat.UserCommitActivity
 import org.kohsuke.args4j.{Option => ArgOption}
-import org.slf4j.LoggerFactory
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
@@ -35,7 +33,8 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   private var beginDate: Option[Long] = None
 
-  @ArgOption(name = "--since", aliases = Array("--after", "-b"), usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  @ArgOption(name = "--since", aliases = Array("--after", "-b"),
+    usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setBeginDate(date: String) {
     try {
       beginDate = Some(date)
@@ -46,7 +45,8 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   private var endDate: Option[Long] = None
 
-  @ArgOption(name = "--until", aliases = Array("--before", "-e"), usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  @ArgOption(name = "--until", aliases = Array("--before", "-e"),
+    usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
     try {
       endDate = Some(date)
@@ -55,8 +55,22 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
+  private var granularity: Option[AggregationStrategy] = None
+
+  @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"),
+    usage = "Type of aggregation requested. ")
+  def setGranularity(value: String) {
+    try {
+      granularity = Some(AggregationStrategy.apply(value))
+    } catch {
+      case e: Exception => throw die(s"Invalid granularity ${e.getMessage}")
+    }
+  }
+
+
   override protected def run =
-    gsonFmt.format(executor.get(projectRes, beginDate, endDate), stdout)
+    gsonFmt.format(executor.get(projectRes, beginDate, endDate,
+      granularity.getOrElse(AggregationStrategy.EMAIL)), stdout)
 
 }
 
@@ -66,7 +80,8 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   private var beginDate: Option[Long] = None
 
-  @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY", usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
+    usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setBeginDate(date: String) {
     try {
       beginDate = Some(date)
@@ -77,7 +92,8 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   private var endDate: Option[Long] = None
 
-  @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY", usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY",
+    usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
     try {
       endDate = Some(date)
@@ -86,18 +102,34 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     }
   }
 
+  private var granularity: Option[AggregationStrategy] = None
+
+  @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), metaVar = "QUERY",
+    usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+  def setGreanularity(value: String) {
+    try {
+      granularity = Some(AggregationStrategy.apply(value))
+    } catch {
+      case e: Exception => throw new BadRequestException(s"Invalid granularity ${e.getMessage}")
+    }
+  }
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
-      new GsonStreamedResult[UserActivitySummary](gson, executor.get(projectRes, beginDate, endDate)))
+      new GsonStreamedResult[UserActivitySummary](gson,
+        executor.get(projectRes, beginDate, endDate,
+          granularity.getOrElse(AggregationStrategy.EMAIL))))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
 
-  def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long]): TraversableOnce[UserActivitySummary] = {
+  def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
+          aggregationStrategy: AggregationStrategy): TraversableOnce[UserActivitySummary] = {
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) {
-      histogram.get(_, new AuthorHistogramFilterByDates(startDate, stopDate))
+      histogram.get(_, new AggregatedHistogramFilterByDates(startDate, stopDate,
+        aggregationStrategy.aggregationStrategyMapping))
         .par
         .map(UserActivitySummary.apply).toStream
     }
@@ -106,12 +138,12 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
 case class CommitInfo(sha1: String, date: Long, merge: Boolean)
 
-case class UserActivitySummary(name: String, email: String, numCommits: Int,
+case class UserActivitySummary(key: String, name: String, email: String, numCommits: Int,
                                commits: Array[CommitInfo], lastCommitDate: Long)
 
 object UserActivitySummary {
-  def apply(uca: UserCommitActivity): UserActivitySummary =
-    UserActivitySummary(uca.getName, uca.getEmail, uca.getCount,
+  def apply(uca: AggregatedUserCommitActivity): UserActivitySummary =
+    UserActivitySummary(uca.key, uca.getName, uca.getEmail, uca.getCount,
       getCommits(uca.getIds, uca.getTimes, uca.getMerges), uca.getLatest)
 
   private def getCommits(ids: Array[ObjectId], times: Array[Long], merges: Array[Boolean]):
