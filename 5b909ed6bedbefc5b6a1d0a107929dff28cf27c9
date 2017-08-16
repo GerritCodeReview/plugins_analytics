@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "486eb96a_5ec24445",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:08:47Z",
+      "side": 1,
+      "message": "copy\u0026paste error?",
+      "range": {
+        "startLine": 102,
+        "startChar": 21,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "800e86a0_700500d0",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-16T09:08:47Z",
+      "side": 1,
+      "message": "Let\u0027s forget abot WEEK granularity at the moment.",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
