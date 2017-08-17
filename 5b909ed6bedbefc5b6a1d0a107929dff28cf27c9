@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5384cc4_bbe0cd31",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "486eb96a_5ec24445",
+      "range": {
+        "startLine": 102,
+        "startChar": 21,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d291637e_d74a4689",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-16T09:46:37Z",
       "side": 1,
       "message": "Better if we define a companion object and we name this anonymous function as:\nAGGREGATION_BY_EMAIL",
+      "range": {
+        "startLine": 10,
+        "startChar": 62,
+        "endLine": 10,
+        "endChar": 79
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d60e3bb_b09b0105",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "ok will however post a new non draft change with all in-place",
+      "parentUuid": "d291637e_d74a4689",
       "range": {
         "startLine": 10,
         "startChar": 62,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d2349352_a043f346",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitHistogramByKey.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48657b74_c9f1557a",
+      "range": {
+        "startLine": 15,
+        "startChar": 14,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "399b6cea_eb960af0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2017-08-16T09:53:19Z",
       "side": 1,
       "message": "AggregationStrategies ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55bb0de1_f8114aa9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "Should it not be at singular: AggregationStrategy?",
+      "parentUuid": "399b6cea_eb960af0",
       "range": {
         "startLine": 7,
         "startChar": 7,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "943d044e_70733641",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb2699a0_6e974217",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee059180_86749677",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
         "patchSetId": 1
@@ -152,6 +272,30 @@
       "writtenOn": "2017-08-16T09:53:19Z",
       "side": 1,
       "message": "That would be:\nGranularity(\"HOUR\",  (p \u003d\u003e p.getEmailAddress + \"/\" + getHour(person.getWhen)))\n\nand subsequently all the others.\n\nThen the AggregationStrategy can be passed downstream for the aggregation function.",
+      "range": {
+        "startLine": 15,
+        "startChar": 22,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b8955cb_36dff5b5",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "done with a function from (p,date) to aggregation key so that we can include date in the key generation",
+      "parentUuid": "ee059180_86749677",
       "range": {
         "startLine": 15,
         "startChar": 22,
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "f714edb6_d9cb42bd",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/Granularity.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800e86a0_700500d0",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e040e8c_4003debc",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AuthorHistogramFilterByDatesSpec.scala",
         "patchSetId": 1
@@ -198,6 +366,24 @@
       "writtenOn": "2017-08-16T09:13:34Z",
       "side": 1,
       "message": "Any new tests on granularity?",
+      "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4d9adf7_1e31159e",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AuthorHistogramFilterByDatesSpec.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 1,
+      "message": "will add soon :)",
+      "parentUuid": "7e040e8c_4003debc",
       "revId": "5b909ed6bedbefc5b6a1d0a107929dff28cf27c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false

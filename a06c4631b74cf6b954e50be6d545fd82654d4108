@@ -22,6 +22,30 @@
       "revId": "a06c4631b74cf6b954e50be6d545fd82654d4108",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14928c66_7372481d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AuthorHistogramFilterByDatesSpec.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-17T00:29:11Z",
+      "side": 0,
+      "message": "I don\u0027t see any reference to before and after and the tests seem to run smoothly without this trait.",
+      "parentUuid": "68232cd3_604c59e5",
+      "range": {
+        "startLine": 24,
+        "startChar": 78,
+        "endLine": 24,
+        "endChar": 96
+      },
+      "revId": "a06c4631b74cf6b954e50be6d545fd82654d4108",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
