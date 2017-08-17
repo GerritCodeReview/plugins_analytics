@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38ba59c6_9c2141cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Redundant verb: every commit implements something isn\u0027t it? ;-)\n\nAlternative headline:\nAggregate contributors stats by day/month/year?",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eff4547_0f46b6ac",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "isn\u0027t aggregate enough?",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dae51c53_5325bf7d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "s/Generic/Abstract/",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8170e917_234b8caf",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "join with previous line?",
+      "range": {
+        "startLine": 26,
+        "startChar": 39,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4afc407_891cf096",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Is this really returning a key? ... or rather returning an aggregation strategy?\nCan we make this method more explicit in what it does?",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec3c63a_4961a94c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "This is actually EMAIL_YEAR (e-mail is still in the key, right?)",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332175de_cffe3d58",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "EMAIL_MONTH",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146f05e5_794da8cc",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "EMAIL_DAY",
+      "range": {
+        "startLine": 49,
+        "startChar": 42,
+        "endLine": 49,
+        "endChar": 45
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bd67f7_ec9f6e31",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "EMAIL_HOUR",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f5884be_fc8dd5ad",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ProjectResourceParser.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "7",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d4a6ca_c7300ac4",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "By Dates? Isn\u0027t parametric the aggregation strategy? How do you know that we are talking about dates?",
+      "range": {
+        "startLine": 24,
+        "startChar": 61,
+        "endLine": 24,
+        "endChar": 68
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f1c5a92_f3e013ac",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Lots of aggregation test cases are missing.",
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6f76bd_d7b702e1",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Are you doing white-box testing? We should really test the external interface and the requirements. The fact of implementing the aggregation with strings concatenated with \u0027/\u0027 is more an implementation detail rather than a specification.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749d23a3_367ff682",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Are you really aggregating here? Separated by day in this test. Then I\u0027m expecting you do some daily aggregation.",
+      "range": {
+        "startLine": 55,
+        "startChar": 41,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3168167e_1090609e",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-17T12:41:28Z",
+      "side": 1,
+      "message": "Is this part of the specs?",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
