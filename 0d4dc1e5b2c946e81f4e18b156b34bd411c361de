@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7eb85472_335eb3c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38ba59c6_9c2141cd",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8eff4547_0f46b6ac",
         "filename": "README.md",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "isn\u0027t aggregate enough?",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f93349_11ce6519",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eff4547_0f46b6ac",
       "range": {
         "startLine": 65,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e3d6e93b_18c5ea5f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dae51c53_5325bf7d",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8170e917_234b8caf",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "join with previous line?",
+      "range": {
+        "startLine": 26,
+        "startChar": 39,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2daf9505_f7df8bcd",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "doesnt\u0027 the line become too long? How is the indentation in such cases?",
+      "parentUuid": "8170e917_234b8caf",
       "range": {
         "startLine": 26,
         "startChar": 39,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2e0a8d13_6019fe0d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4afc407_891cf096",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ec3c63a_4961a94c",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "This is actually EMAIL_YEAR (e-mail is still in the key, right?)",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d24203d_3b267f17",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "so when calling you have to specify --aggregate\u003demail_year, right?",
+      "parentUuid": "5ec3c63a_4961a94c",
       "range": {
         "startLine": 45,
         "startChar": 43,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0c6cedf8_9435cd2f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332175de_cffe3d58",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "146f05e5_794da8cc",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "EMAIL_DAY",
+      "range": {
+        "startLine": 49,
+        "startChar": 42,
+        "endLine": 49,
+        "endChar": 45
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050e15aa_8ec8bcc7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "146f05e5_794da8cc",
       "range": {
         "startLine": 49,
         "startChar": 42,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "aacb1ab1_ba1f7394",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5bd67f7_ec9f6e31",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f5884be_fc8dd5ad",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ProjectResourceParser.scala",
         "patchSetId": 4
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "4e61a0ba_c7a7e991",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ProjectResourceParser.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "ok I will change all the 2016 in 2017 all over. I noticed this, but thought you have preferred a different change for this. :)",
+      "parentUuid": "8f5884be_fc8dd5ad",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79d4a6ca_c7300ac4",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
         "patchSetId": 4
@@ -243,6 +483,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "By Dates? Isn\u0027t parametric the aggregation strategy? How do you know that we are talking about dates?",
+      "range": {
+        "startLine": 24,
+        "startChar": 61,
+        "endLine": 24,
+        "endChar": 68
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b474a65_877f1769",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d4a6ca_c7300ac4",
       "range": {
         "startLine": 24,
         "startChar": 61,
@@ -295,6 +559,30 @@
     },
     {
       "key": {
+        "uuid": "579977d7_6ff34d5b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "ok I used it when coding the internal classes. Now getting rid of it.",
+      "parentUuid": "3b6f76bd_d7b702e1",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "749d23a3_367ff682",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 4
@@ -318,6 +606,30 @@
     },
     {
       "key": {
+        "uuid": "46e73d56_1042887f",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "added some basic but proper aggregation tests.",
+      "parentUuid": "749d23a3_367ff682",
+      "range": {
+        "startLine": 55,
+        "startChar": 41,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3168167e_1090609e",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 4
@@ -329,6 +641,30 @@
       "writtenOn": "2017-08-17T12:41:28Z",
       "side": 1,
       "message": "Is this part of the specs?",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8c3e3f_b7dcbb2d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-08-18T01:04:26Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "3168167e_1090609e",
       "range": {
         "startLine": 90,
         "startChar": 4,
