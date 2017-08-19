@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e3e6da1_9b9cadf2",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Could year, month, day, just be Int?",
+      "range": {
+        "startLine": 141,
+        "startChar": 37,
+        "endLine": 141,
+        "endChar": 43
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b4469f_c0523b1f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "getInt?",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 11
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdff256c_00de4e3a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Really cool pattern matching ;-)",
+      "range": {
+        "startLine": 151,
+        "startChar": 12,
+        "endLine": 151,
+        "endChar": 49
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c323746_08dede96",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "I believe the function name now really tells what it does. Let me read the function name in \"natural english language\":\n\n\"An aggregated histogram of commits based on a parametric user aggregation strategy\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 79
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66208174_e6842540",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "I believe this should be moved into the AggregatedCommitHistorgram, isn\u0027t it? or the two classes need to be merged because the \"AbstractCommitHistogramFilter\" doesn\u0027t really do much",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 47
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51dc4ede_d6a47dab",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "You shouldn\u0027t DRY-out tests, because you\u0027d make them difficult to read.\nIt is a common practice to allow a bit of copy\u0026paste for the sake of readability.\n\nAdditionally, you never want a single change of a test to impact the sanity of other tests.",
+      "range": {
+        "startLine": 48,
+        "startChar": 40,
+        "endLine": 48,
+        "endChar": 61
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c3b168_bd1c0180",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Use ScalaTest forAll{} matcher.\nSee http://www.scalatest.org/user_guide/using_matchers",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e897eb14_6a6c01ee",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Never put control logic in tests, because tests are by definition NOT tested at all and the control logic could be wrong.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 73
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be2d527_808244fc",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "If you need to comment what the tests does, it means the test isn\u0027t readable and thus is a bad test.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 30
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
