@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4b847013_56985f9b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T15:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8654df7_1be1f499",
+      "range": {
+        "startLine": 45,
+        "startChar": 84,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51dc4ede_d6a47dab",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 6
@@ -327,6 +351,30 @@
       "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ae3340_2de08d7f",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T15:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51dc4ede_d6a47dab",
+      "range": {
+        "startLine": 48,
+        "startChar": 40,
+        "endLine": 48,
+        "endChar": 61
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -353,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "8e29c352_8744ce10",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T15:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11c3b168_bd1c0180",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e897eb14_6a6c01ee",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 6
@@ -376,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "166f1fb3_9077da4d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T15:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e897eb14_6a6c01ee",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 73
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6be2d527_808244fc",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 6
@@ -396,6 +492,30 @@
       "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf0b235_ceb9cfc6",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T15:13:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6be2d527_808244fc",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 30
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
