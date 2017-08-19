@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "6987da20_d7dcbedb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Not sure if Gerrit Code Review project has a policy on indenting Scala files. I typically tend to use slightly longer lines because of the nature of functional programming :-)\n\nHowever, even the indentation is wrong here :-(",
+      "parentUuid": "2daf9505_f7df8bcd",
+      "range": {
+        "startLine": 26,
+        "startChar": 39,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4afc407_891cf096",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
         "patchSetId": 4
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "so when calling you have to specify --aggregate\u003demail_year, right?",
       "parentUuid": "5ec3c63a_4961a94c",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977b7442_825b6200",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "Yes, because is what it does.\nWe may implement the YEAR only in a follow-up commit, where the author is not visible anymore because all authors are aggregated. However this is something you may do on Spark or ES as well ;-)",
+      "parentUuid": "9d24203d_3b267f17",
       "range": {
         "startLine": 45,
         "startChar": 43,
@@ -460,6 +508,30 @@
       "side": 1,
       "message": "ok I will change all the 2016 in 2017 all over. I noticed this, but thought you have preferred a different change for this. :)",
       "parentUuid": "8f5884be_fc8dd5ad",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "0d4dc1e5b2c946e81f4e18b156b34bd411c361de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a583a5_f389bf9f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/ProjectResourceParser.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T08:30:47Z",
+      "side": 1,
+      "message": "You typically change the year for all new files.",
+      "parentUuid": "4e61a0ba_c7a7e991",
       "range": {
         "startLine": 1,
         "startChar": 20,
