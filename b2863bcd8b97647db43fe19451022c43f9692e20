@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "54711c07_9806c2ba",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-08-19T09:26:06Z",
+      "side": 1,
+      "message": "Forgot the \u0027\u003d\u0027 ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 61,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "b2863bcd8b97647db43fe19451022c43f9692e20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66208174_e6842540",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
         "patchSetId": 6
