@@ -21,7 +21,7 @@ import org.gitective.core.stat.CommitHistogramFilter
 
 @Singleton
 class UserActivityHistogram {
-  def get(repo: Repository, filter: AbstractCommitHistogramFilter) = {
+  def get(repo: Repository, filter: AbstractCommitHistogramFilter): Array[AggregatedUserCommitActivity] = {
     val finder = new CommitFinder(repo)
     finder.setFilter(filter).find
     val histogram = filter.getHistogram
