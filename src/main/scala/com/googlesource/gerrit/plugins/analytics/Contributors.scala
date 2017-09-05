@@ -21,7 +21,7 @@ import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
-import org.eclipse.jgit.lib.ObjectId
+import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -127,11 +127,12 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy): TraversableOnce[UserActivitySummary] = {
-    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) {
-      histogram.get(_, new AggregatedHistogramFilterByDates(startDate, stopDate,
+    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
+      val stats = new Statistics(repo)
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
         aggregationStrategy))
         .par
-        .map(UserActivitySummary.apply).toStream
+        .map(UserActivitySummary.apply(stats)).toStream
     }
   }
 }
@@ -145,19 +146,24 @@ case class UserActivitySummary(year: Integer,
                                name: String,
                                email: String,
                                numCommits: Integer,
+                               numFiles: Integer,
+                               addedLines: Integer,
+                               deletedLines: Integer,
                                commits: Array[CommitInfo],
                                lastCommitDate: Long)
 
 object UserActivitySummary {
-  def apply(uca: AggregatedUserCommitActivity): UserActivitySummary = {
+  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity): UserActivitySummary = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
     uca.key.split("/", INCLUDESEMPTY) match {
       case a@Array(email, year, month, day, hour) =>
-        UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
-          getCommits(uca.getIds, uca.getTimes, uca.getMerges), uca.getLatest)
+        val commits = getCommits(uca.getIds, uca.getTimes, uca.getMerges)
+        val stats = statisticsHandler.find(uca.getIds.toSeq)
+        UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount, stats.numFiles,
+          stats.addedLines, stats.deletedLines, commits, uca.getLatest)
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
     }
   }
