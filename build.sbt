@@ -10,9 +10,16 @@ lazy val root = (project in file("."))
 
     scalaVersion := "2.11.8",
 
-    libraryDependencies ++= Seq(
-      "io.fabric8" % "gitective-core" % "0.9.19"
+    resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
+
+
+      libraryDependencies ++= Seq(
+
+        // local dependency
+      "io.fabric8" % "gitective-core" % "0.9.23-SNAPSHOT"
         exclude("org.eclipse.jgit", "org.eclipse.jgit"),
+
+
       "com.google.inject" % "guice" % "3.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
       "com.google.code.gson" % "gson" % "2.7" % Provided,
@@ -22,6 +29,8 @@ lazy val root = (project in file("."))
       "net.codingwell" %% "scala-guice" % "4.1.0" % Test),
 
     assemblyJarName in assembly := s"$pluginName.jar",
+
+    parallelExecution in Test := false,
 
     packageOptions in(Compile, packageBin) += Package.ManifestAttributes(
       ("Gerrit-ApiType", "plugin"),

@@ -21,7 +21,7 @@ import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
-import org.eclipse.jgit.lib.ObjectId
+import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -127,8 +127,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy): TraversableOnce[UserActivitySummary] = {
-    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) {
-      histogram.get(_, new AggregatedHistogramFilterByDates(startDate, stopDate,
+    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
         aggregationStrategy))
         .par
         .map(UserActivitySummary.apply).toStream
@@ -145,6 +145,9 @@ case class UserActivitySummary(year: Integer,
                                name: String,
                                email: String,
                                numCommits: Integer,
+                               numFiles: Integer,
+                               addedLines: Integer,
+                               deletedLines: Integer,
                                commits: Array[CommitInfo],
                                lastCommitDate: Long)
 
@@ -156,8 +159,9 @@ object UserActivitySummary {
 
     uca.key.split("/", INCLUDESEMPTY) match {
       case a@Array(email, year, month, day, hour) =>
-        UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
-          getCommits(uca.getIds, uca.getTimes, uca.getMerges), uca.getLatest)
+        val commits = getCommits(uca.getIds, uca.getTimes, uca.getMerges)
+        UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount, uca.nfiles,uca.added,uca.deleted,
+          commits, uca.getLatest)
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
     }
   }

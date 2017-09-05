@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 
 /**
@@ -29,7 +30,7 @@ class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Op
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      getHistogram.include(commit, author)
+      getHistogram.include(repository, walker, commit, author)
       true
     } else {
       false
