@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c415816_6562987c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-09-30T10:32:41Z",
+      "side": 1,
+      "message": "This is bad, this is going to take a very long time.\n\nIt would make a lot more sense to add that information whilst the repo is getting scanned by:\norg.gitective.core.stat.UserCommitActivity",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 130
+      },
+      "revId": "3b0be7d6a7fd6473154d6100387807b8c037a472",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
