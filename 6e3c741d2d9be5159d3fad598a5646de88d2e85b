@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd90b853_13d2c42f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473d0eee_c420e98b",
+      "range": {
+        "startLine": 165,
+        "startChar": 107,
+        "endLine": 165,
+        "endChar": 108
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed32ccce_bb7cc1a6",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 5
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "0a1a251b_f3ce1c4f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed32ccce_bb7cc1a6",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94794bf1_180df796",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b54cf883_904cdadd",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 94
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1646949e_b3285f23",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b0298433_67fb021e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1646949e_b3285f23",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f70a12ce_5abb7b6b",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98023584_833cd194",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f70a12ce_5abb7b6b",
+      "range": {
+        "startLine": 24,
+        "startChar": 66,
+        "endLine": 24,
+        "endChar": 103
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
