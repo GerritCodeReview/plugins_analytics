@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "473d0eee_c420e98b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:23:11Z",
+      "side": 1,
+      "message": "Inconsistent formatting here and the rest of the line.",
+      "range": {
+        "startLine": 165,
+        "startChar": 107,
+        "endLine": 165,
+        "endChar": 108
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed32ccce_bb7cc1a6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:23:11Z",
+      "side": 1,
+      "message": "Do we need this val ret? Just return the Case Class isn\u0027t it?",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f70a12ce_5abb7b6b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:23:11Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 24,
+        "startChar": 66,
+        "endLine": 24,
+        "endChar": 103
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
