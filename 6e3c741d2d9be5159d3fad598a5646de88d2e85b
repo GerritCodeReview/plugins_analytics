@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "b54cf883_904cdadd",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:36:10Z",
+      "side": 1,
+      "message": "This isn\u0027t really needed in this way: just reduce the resulting Seq directly after the for()",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 94
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1646949e_b3285f23",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-10-27T21:36:10Z",
+      "side": 1,
+      "message": "Not really needed: RevWalk is autoCloseable()",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6e3c741d2d9be5159d3fad598a5646de88d2e85b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f70a12ce_5abb7b6b",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
         "patchSetId": 5
