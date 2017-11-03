@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52b47dcd_6ae27808",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2017-11-03T15:26:12Z",
+      "side": 1,
+      "message": "I\u0027d split this into 2 different commits, one with the documentation and the other one with the code fix itself.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60a87fba_43c4dde6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2017-11-03T15:26:12Z",
+      "side": 1,
+      "message": "It might be worth adding a test to catch this corner case",
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
