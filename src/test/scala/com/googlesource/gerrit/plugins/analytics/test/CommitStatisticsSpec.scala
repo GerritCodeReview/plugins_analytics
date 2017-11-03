@@ -82,4 +82,11 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       s.deletedLines should be(1)
     }
   }
+
+  it should "not return any stats if the commit does not include any file" in new TestEnvironment {
+    val emptyCommit = add(testRepo,
+      List.empty[String].asJava,
+      List.empty[String].asJava, "Empty commit")
+    stats.find(emptyCommit) shouldBe CommitsStatistics.Empty
+  }
 }

@@ -105,7 +105,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
   private var granularity: Option[AggregationStrategy] = None
 
   @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), metaVar = "QUERY",
-    usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
+    usage = "can be one of EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR, defaulting to EMAIL")
   def setGranularity(value: String) {
     try {
       granularity = Some(AggregationStrategy.apply(value))
