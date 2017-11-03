@@ -54,7 +54,7 @@ number of added/deleted lines, timestamp and merge flag.
 
 *REST*
 
-/projects/{project-name}/analytics~contributors[?since=2006-01-02[15:04:05[.890][-0700]]][&until=2018-01-02[18:01:03[.333][-0700]]]
+/projects/{project-name}/analytics~contributors[?since=2006-01-02[15:04:05[.890][-0700]]][&until=2018-01-02[18:01:03[.333][-0700]]][&aggregate=email_year]
 
 *SSH*
 
@@ -64,6 +64,7 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 
 - --since -b Starting timestamp to consider
 - --until -e Ending timestamp (excluded) to consider
+- --aggregate -granularity -g one of email, email_year, email_month, email_day, email_hour defaulting to aggregation for email
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 
