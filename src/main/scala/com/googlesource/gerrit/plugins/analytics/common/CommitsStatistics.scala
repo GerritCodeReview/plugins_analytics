@@ -25,6 +25,10 @@ import scala.collection.JavaConversions._
 
 case class CommitsStatistics(numFiles: Int, addedLines: Int, deletedLines: Int)
 
+object CommitsStatistics {
+  val Empty = CommitsStatistics(0, 0, 0)
+}
+
 class Statistics(repo: Repository) {
 
   def find(objectIds: Seq[ObjectId]): CommitsStatistics =
@@ -63,7 +67,7 @@ class Statistics(repo: Repository) {
       val lines = (for {
         diff <- diffs
         edit <- df.toFileHeader(diff).toEditList
-      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).reduce(_ + _)
+      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
 
       CommitsStatistics(diffs.size, lines.added, lines.deleted)
     }
