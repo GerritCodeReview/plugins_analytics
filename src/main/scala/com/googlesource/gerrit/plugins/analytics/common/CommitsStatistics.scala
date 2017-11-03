@@ -63,7 +63,8 @@ class Statistics(repo: Repository) {
       val lines = (for {
         diff <- diffs
         edit <- df.toFileHeader(diff).toEditList
-      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).reduce(_ + _)
+      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).
+        foldLeft(Lines(0,0))(_ + _)
 
       CommitsStatistics(diffs.size, lines.added, lines.deleted)
     }
