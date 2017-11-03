@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9bbae6dd_6b6e756b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-11-03T16:28:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b47dcd_6ae27808",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60a87fba_43c4dde6",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 2
