@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c3f7416_1e9d5a7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-11-08T22:01:20Z",
+      "side": 1,
+      "message": "@Claudio remember to flag the comments as resolved :-) Doing it now for you.",
+      "parentUuid": "9bbae6dd_6b6e756b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60a87fba_43c4dde6",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 2
