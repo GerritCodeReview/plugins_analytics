@@ -99,6 +99,24 @@
       "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cff3ae5_399c2832",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-11-08T20:44:29Z",
+      "side": 1,
+      "message": "Not really: it is not about testing that a Set.empty[].reduce() fails ... but more if there is (or not) a situation of a commit without any file diff which brings the code in that situation.\n\nScala reduce() works, but possibly the bug is another one: the fact that we should compute anything if the commit doesn\u0027t include anything at all right?\n\nHaving a test with that condition would help understanding the situations where the code is supposed to work :-)",
+      "parentUuid": "00c82a4a_bae36dab",
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
