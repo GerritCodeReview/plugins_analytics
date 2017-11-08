@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c64deb81_05e546bd",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-11-08T21:00:19Z",
+      "side": 1,
+      "message": "Should this an Option[CommitsStatistics] then? If the commit doesn\u0027t contain any file at all, we don\u0027t have anything to report on.",
+      "range": {
+        "startLine": 38,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "ce324fb934d08c06838072ac6eadf8e866731e74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd6c85d_67c4fa5b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-11-08T21:00:19Z",
+      "side": 1,
+      "message": "Left is not needed here as the ordering doesn\u0027t make any difference",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "ce324fb934d08c06838072ac6eadf8e866731e74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
