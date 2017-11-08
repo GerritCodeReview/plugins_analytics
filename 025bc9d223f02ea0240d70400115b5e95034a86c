@@ -81,6 +81,24 @@
       "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00c82a4a_bae36dab",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2017-11-08T17:27:14Z",
+      "side": 1,
+      "message": "I\u0027m unsure if this is really to be tested with a specific unit test. It is from documentation of reduce that it is failing on empty lists, while foldLeft hasn\u0027t this problem, giving the first parameter as \"default\". What do you think?",
+      "parentUuid": "bd4c4a81_b9aa6042",
+      "revId": "025bc9d223f02ea0240d70400115b5e95034a86c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
