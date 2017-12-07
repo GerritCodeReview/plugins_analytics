@@ -62,24 +62,33 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 
 ### Parameters
 
-- --since -b Starting timestamp to consider
-- --until -e Ending timestamp (excluded) to consider
+- --since --after -b Starting timestamp to consider
+- --until --before -e Ending timestamp (excluded) to consider
+- --aggregate -g With values email, email_year, email_month, email_day, 
+email_hour to aggregate for specified temporal period defaults to email (do 
+not aggregate)
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 
 REST Example:
 
 ```
-   $ curl http://gerrit.mycompany.com/projects/myproject/analytics~contributors
-   {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
-   {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
+   $ curl http://gerrit.mycompany
+   .com/projects/myproject/analytics~contributors?aggregate=email_month
+   {"year":2017,"month":1,"name":"John Doe","email":"john.doe@mycompany.com",
+   "num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
+   {"year":2017,"month":1,"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
 ```
 
 SSH Example:
 
 ```
-   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject --since 2017-08-01 --until 2017-12-31
-   {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
-   {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
+   $ ssh -p 29418 admin@gerrit.mycompany.com analytics contributors myproject
+    --since 2017-08-01 --until 2017-12-31 --aggregate email_hour
+   {"year":2017,"month":1,"day":1,"hour":12,"name":"John Doe","email":"john
+   .doe@mycompany
+   .com","num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
+   {"year":2017,"month":1,"day":1,"hour":13,"name":"Matt Smith","email":"matt
+   .smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}]}
 ```
 
