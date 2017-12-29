@@ -14,17 +14,23 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.gerrit.extensions.restapi.PreconditionFailedException
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository
 import org.gitective.core.CommitFinder
-import org.gitective.core.stat.CommitHistogramFilter
 
 @Singleton
 class UserActivityHistogram {
   def get(repo: Repository, filter: AbstractCommitHistogramFilter) = {
     val finder = new CommitFinder(repo)
-    finder.setFilter(filter).find
-    val histogram = filter.getHistogram
-    histogram.getAggregatedUserActivity
+
+    try {
+      finder.setFilter(filter).find
+      val histogram = filter.getHistogram
+      histogram.getAggregatedUserActivity
+    } catch {
+      case _: IllegalArgumentException => Array.empty[AggregatedUserCommitActivity]
+      case e: Exception => throw new PreconditionFailedException(s"Cannot find commits: ${e.getMessage}")
+    }
   }
 }
