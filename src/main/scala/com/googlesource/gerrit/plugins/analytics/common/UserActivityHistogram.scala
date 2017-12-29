@@ -14,17 +14,25 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.gerrit.extensions.restapi.PreconditionFailedException
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository
 import org.gitective.core.CommitFinder
-import org.gitective.core.stat.CommitHistogramFilter
 
 @Singleton
 class UserActivityHistogram {
   def get(repo: Repository, filter: AbstractCommitHistogramFilter) = {
     val finder = new CommitFinder(repo)
-    finder.setFilter(filter).find
-    val histogram = filter.getHistogram
-    histogram.getAggregatedUserActivity
+
+    try {
+      finder.setFilter(filter).find
+      val histogram = filter.getHistogram
+      histogram.getAggregatedUserActivity
+    } catch {
+      // 'find' throws an IllegalArgumentException when the conditions to walk through the commits tree are not met,
+      // i.e: an empty repository doesn't have the starting commit.
+      case _: IllegalArgumentException => Array.empty[AggregatedUserCommitActivity]
+      case e: Exception => throw new PreconditionFailedException(s"Cannot find commits: ${e.getMessage}").initCause(e)
+    }
   }
 }
