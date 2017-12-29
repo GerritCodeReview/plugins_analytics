@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "617b1983_de605db1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-12-29T14:52:20Z",
+      "side": 1,
+      "message": "A comment would be best: just explain *why* catching IllegalArgumentException means that there are no commits ;-)",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "2acdf6eb5c226069fb5d08600f271bd6af019d36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aef9772_1ce1531f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-12-29T14:52:20Z",
+      "side": 1,
+      "message": "Add the \",e\" as extra parameter to remember the original cause of the problem",
+      "range": {
+        "startLine": 33,
+        "startChar": 104,
+        "endLine": 33,
+        "endChar": 105
+      },
+      "revId": "2acdf6eb5c226069fb5d08600f271bd6af019d36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b469d3_7cc4e78b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogramTest.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-12-29T14:52:20Z",
+      "side": 1,
+      "message": "Add the standard copyright notice",
+      "revId": "2acdf6eb5c226069fb5d08600f271bd6af019d36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4804df9_f881e6bf",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogramTest.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-12-29T14:52:20Z",
+      "side": 1,
+      "message": "return no activities",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 76
+      },
+      "revId": "2acdf6eb5c226069fb5d08600f271bd6af019d36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f4aa73_a8ca5427",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogramTest.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2017-12-29T14:52:20Z",
+      "side": 1,
+      "message": "to one activity",
+      "range": {
+        "startLine": 16,
+        "startChar": 23,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "2acdf6eb5c226069fb5d08600f271bd6af019d36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
