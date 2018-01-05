@@ -14,85 +14,73 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.util.concurrent.atomic.AtomicInteger
+import org.scalatest.{FlatSpec, Inside, Matchers}
+import Timer.time
 
-import org.scalatest.{FlatSpec, Matchers}
+class TempSpec extends FlatSpec with Matchers with
+  Inside {
 
-import scala.util.Random
-
-
-class TempSpec extends FlatSpec with Matchers {
-
-  val rnd = new Random(System.currentTimeMillis)
-  val MEGA = 1024 * 1024
-  val MAXCOMMITS = 10000
-  val MAXBRANCHES = 5
-  val LENBRANCH = 3
-  val LENCOMMIT = 32
-  val branchNames = Seq.fill(MAXBRANCHES)(nextName(LENBRANCH)).toVector
-  val commits = Seq.fill(MAXCOMMITS)(nextName(LENCOMMIT)).toVector
-  val trace = new AtomicInteger(0)
-
-  val table: Map[String, Commit] = time("creating table") {
-
-    for {i <- 0 until MAXCOMMITS} yield {
-      val label = if (prob(1)) Some(branchNames(rnd.nextInt(MAXBRANCHES)))
-      else None
-      val commit = commits(i)
-      val parents = for {
-        j <- i + 1 until MAXCOMMITS
-        parent = commits(j) if prob(0.1)
-      } yield parent
-
-
-      val commitsDone = trace.addAndGet(1)
-      if (commitsDone % 1000 == 0)
-        println(s"... Progress $commitsDone")
-
-      commit -> Commit(label, commit, parents.toSet)
-    }
-  }.toMap
-
-
-  def time[R](name: String)(block: => R): R = {
-    val t0 = System.nanoTime()
-    val result = block
-    println(s"Elapsed time for '$name': " + (System.nanoTime.toDouble - t0)
-      / 1000 / 1000 / 1000 +
-      "s")
-    result
-  }
-
-  def showTable(): Unit = {
-    for (i <- 0 until MAXCOMMITS) {
-      val commit = table(commits(i))
-      println(s"$i Branch: ${commit.label}  Commit: ${commit.commit}  " +
-        s"Parent: ${commit.parents.mkString(",")}")
-    }
-  }
-
-  private def nextName(len: Int): String = rnd.alphanumeric.take(len).mkString
-
-  private def prob(percentage: Double): Boolean = rnd.nextDouble() <
-    percentage / 100
-
-  private def enrich(commit: Commit): Set[String] = {
-    //println(s"analyzing commit $commit")
-    commit.label.fold(commit.parents.flatMap(commitName => enrich(table
-    (commitName))))(label => Set[String](label))
-  }
-
-  case class Commit(label: Option[String], commit: String,
+  case class Commit(commit: String,
                     parents: Set[String])
 
-
-  "Test" should "work" in {
-    time("enriching table") {
-      table.values.map { c => {
-        enrich(c)
-
-      }
+  def getBranchesFromCommit(repository: Map[String, Commit],
+                            branchHeads: Map[String, String],
+                            commit: String): Set[String] = {
+    def checkRecursiveCommit(branch: String, branchChainElement: Commit)
+    : Set[String]
+    = {
+      if (branchChainElement.commit == commit) {
+        println(s"found element $commit")
+        Set(branch)
+      } else {
+        branchChainElement.parents.flatMap {
+          parent => {
+            println(s"checking parent $parent")
+            val ret = checkRecursiveCommit(branch, repository(parent))
+            println(s"returning $ret")
+            ret
+          }
+        }
       }
     }
+
+    branchHeads.flatMap { case (name, head) => checkRecursiveCommit(name,
+      repository(head))
+    }.toSet
+
   }
+
+
+  "aaaa" should "find branches for a commit" in {
+    val repo: Map[String, Commit] = Map(
+      "c1" -> Commit("c1", Set.empty),
+      "c2" -> Commit("c2", Set("c1", "c3")),
+      "c3" -> Commit("c3", Set.empty)
+    )
+    val branchHeads = Map("master" -> "c2")
+    // "branch" -> "c3")
+//    val branches = getBranchesFromCommit(repo, branchHeads, "c1")
+//    branches should have size(1)
+//    branches should contain ("master")
+    val branchHeads2 = branchHeads + ( "branch" -> "c3")
+    val branches2 = getBranchesFromCommit(repo, branchHeads2, "c1")
+    branches2 should have size(2)
+    branches2 should contain allOf( "master", "branch")
+
+  }
+  //  it should "find branches for a commit with deep history" in {
+  //    val repo: Map[String, Commit] = Map(
+  //      "c1" -> Commit(None, "c1", Set("c2", "c3")),
+  //      "c2" -> Commit(None, "c2", Set("c4")),
+  //      "c3" -> Commit(Some("label1"), "c3", Set.empty),
+  //      "c4" -> Commit(None, "c4", Set("c5")),
+  //      "c5" -> Commit(Some("label2"), "c5", Set.empty),
+  //      "c6" -> Commit(None, "c6", Set.empty)
+  //    )
+  //    getLabelsForCommit(repo, "c1") should contain allOf(
+  //      "label1", "label2"
+  //    )
+  //    getLabelsForCommit(repo, "c6") should have size (0)
+  //
+  //  }
 }
