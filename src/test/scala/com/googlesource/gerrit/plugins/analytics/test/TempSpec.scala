@@ -14,85 +14,60 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.util.concurrent.atomic.AtomicInteger
+import org.scalatest.{FlatSpec, Inside, Matchers}
+import Timer.time
 
-import org.scalatest.{FlatSpec, Matchers}
-
-import scala.util.Random
-
-
-class TempSpec extends FlatSpec with Matchers {
-
-  val rnd = new Random(System.currentTimeMillis)
-  val MEGA = 1024 * 1024
-  val MAXCOMMITS = 10000
-  val MAXBRANCHES = 5
-  val LENBRANCH = 3
-  val LENCOMMIT = 32
-  val branchNames = Seq.fill(MAXBRANCHES)(nextName(LENBRANCH)).toVector
-  val commits = Seq.fill(MAXCOMMITS)(nextName(LENCOMMIT)).toVector
-  val trace = new AtomicInteger(0)
-
-  val table: Map[String, Commit] = time("creating table") {
-
-    for {i <- 0 until MAXCOMMITS} yield {
-      val label = if (prob(1)) Some(branchNames(rnd.nextInt(MAXBRANCHES)))
-      else None
-      val commit = commits(i)
-      val parents = for {
-        j <- i + 1 until MAXCOMMITS
-        parent = commits(j) if prob(0.1)
-      } yield parent
-
-
-      val commitsDone = trace.addAndGet(1)
-      if (commitsDone % 1000 == 0)
-        println(s"... Progress $commitsDone")
-
-      commit -> Commit(label, commit, parents.toSet)
-    }
-  }.toMap
-
-
-  def time[R](name: String)(block: => R): R = {
-    val t0 = System.nanoTime()
-    val result = block
-    println(s"Elapsed time for '$name': " + (System.nanoTime.toDouble - t0)
-      / 1000 / 1000 / 1000 +
-      "s")
-    result
+class TempSpec extends FlatSpec with GeneratedRepository with Matchers with
+  Inside {
+  private def getLabelsForCommit(repository: Map[String, Commit], commitName: String)
+  : Set[String] = {
+    repository.get(commitName).map(commit =>
+      commit.label.fold(
+        // in case label is empty we need to recursively find parents
+        commit.parents.flatMap(
+          parentName => getLabelsForCommit(repository, parentName))
+      )(
+        // if label is provided we just use this one
+        label => Set[String](label))).
+      getOrElse(Set.empty)
   }
 
-  def showTable(): Unit = {
-    for (i <- 0 until MAXCOMMITS) {
-      val commit = table(commits(i))
-      println(s"$i Branch: ${commit.label}  Commit: ${commit.commit}  " +
-        s"Parent: ${commit.parents.mkString(",")}")
-    }
-  }
-
-  private def nextName(len: Int): String = rnd.alphanumeric.take(len).mkString
-
-  private def prob(percentage: Double): Boolean = rnd.nextDouble() <
-    percentage / 100
-
-  private def enrich(commit: Commit): Set[String] = {
-    //println(s"analyzing commit $commit")
-    commit.label.fold(commit.parents.flatMap(commitName => enrich(table
-    (commitName))))(label => Set[String](label))
-  }
-
-  case class Commit(label: Option[String], commit: String,
-                    parents: Set[String])
-
-
-  "Test" should "work" in {
+  "enrich" should "take not too much time" in {
     time("enriching table") {
-      table.values.map { c => {
-        enrich(c)
-
-      }
+      // par allows to use all 8 core processors so for 1 M we pass from 82
+      // seconds to around 15 seconds (!)
+      repository.values.par.map {
+        c => {
+          getLabelsForCommit(repository, c.commit)
+        }
       }
     }
+  }
+
+  it should "find branches for a commit" in {
+    val repo: Map[String, Commit] = Map(
+      "c1" -> Commit(None, "c1", Set("c2", "c3")),
+      "c2" -> Commit(Some("label"), "c2", Set.empty),
+      "c3" -> Commit(Some("label2"), "c3", Set.empty)
+    )
+    getLabelsForCommit(repo, "c1") should contain allOf(
+      "label", "label2"
+    )
+
+  }
+  it should "find branches for a commit with deep history" in {
+    val repo: Map[String, Commit] = Map(
+      "c1" -> Commit(None, "c1", Set("c2", "c3")),
+      "c2" -> Commit(None, "c2", Set("c4")),
+      "c3" -> Commit(Some("label1"), "c3", Set.empty),
+      "c4" -> Commit(None, "c4", Set("c5")),
+      "c5" -> Commit(Some("label2"), "c5", Set.empty),
+      "c6" -> Commit(None, "c6", Set.empty)
+    )
+    getLabelsForCommit(repo, "c1") should contain allOf(
+      "label1", "label2"
+    )
+    getLabelsForCommit(repo, "c6") should have size (0)
+
   }
 }
