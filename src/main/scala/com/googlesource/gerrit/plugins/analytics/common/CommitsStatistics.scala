@@ -14,32 +14,57 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.googlesource.gerrit.plugins.analytics.CommitInfo
+import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
 import org.eclipse.jgit.lib.{ObjectId, Repository}
-import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
-import ManagedResource.use
 
 import scala.collection.JavaConversions._
 
-case class CommitsStatistics(numFiles: Int, addedLines: Int, deletedLines: Int)
+case class CommitsStatistics(numFiles: Int, addedLines: Int, deletedLines: Int, isForMergeCommits: Boolean, commits: List[CommitInfo]) {
+  require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
+
+  def isEmpty = commits.isEmpty
+
+  // Is not a proper monoid since we cannot sum a MergeCommit with a non merge one but it would overkill to define two classes
+  protected [common] def + (that: CommitsStatistics) = {
+    require(this.isForMergeCommits == that.isForMergeCommits, "Cannot sum a merge commit stats with a non merge commit stats")
+    this.copy(
+      numFiles = this.numFiles + that.numFiles,
+      addedLines = this.addedLines + that.addedLines,
+      deletedLines = this.deletedLines + that.deletedLines,
+      commits = this.commits ++ that.commits
+    )
+  }
+}
 
 object CommitsStatistics {
-  val Empty = CommitsStatistics(0, 0, 0)
+  val Empty = CommitsStatistics(0, 0, 0, false, List.empty)
+  val EmptyMerge = Empty.copy(isForMergeCommits = true)
 }
 
 class Statistics(repo: Repository) {
 
-  def find(objectIds: Seq[ObjectId]): CommitsStatistics =
-    objectIds.foldLeft(CommitsStatistics(0, 0, 0)) {
-      (acc, objectId) => {
-        val stats = find(objectId)
-        CommitsStatistics(acc.numFiles + stats.numFiles, acc.addedLines + stats.addedLines, acc.deletedLines + stats.deletedLines)
-      }
-    }
+  /**
+    * Returns up to two different CommitsStatistics object grouping the stats into merge and non-merge commits
+    *
+    * @param commits
+    * @return
+    */
+  def forCommits(commits: ObjectId*): Iterable[CommitsStatistics] = {
 
-  def find(objectId: ObjectId): CommitsStatistics = {
+    val stats = commits.map(forSingleCommit)
+
+    val nonMergeStats = stats.filterNot(_.isForMergeCommits).foldLeft(CommitsStatistics.Empty)(_ + _)
+    val mergeStats = stats.filter(_.isForMergeCommits).foldLeft(CommitsStatistics.EmptyMerge)(_ + _)
+
+    List(nonMergeStats, mergeStats).filterNot(_.isEmpty)
+  }
+
+  protected def forSingleCommit(objectId: ObjectId): CommitsStatistics = {
     // I can imagine this kind of statistics is already being available in Gerrit but couldn't understand how to access it
     // which Injection can be useful for this task?
     use(new RevWalk(repo)) { rw =>
@@ -69,7 +94,13 @@ class Statistics(repo: Repository) {
         edit <- df.toFileHeader(diff).toEditList
       } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
 
-      CommitsStatistics(diffs.size, lines.added, lines.deleted)
+      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, isMergeCommit(commit))
+
+      CommitsStatistics(diffs.size, lines.added, lines.deleted, commitInfo.merge, List(commitInfo))
     }
+  }
+
+  private def isMergeCommit(commit: RevCommit) = {
+    commit.getParentCount > 1
   }
 }

@@ -42,6 +42,7 @@ import java.util.Date
 import java.util
 
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.MergeResult
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.lib.Constants
@@ -116,6 +117,15 @@ trait GitTestCase extends BeforeAndAfterEach {
   protected def branch(name: String): Ref = branch(testRepo, name)
 
   /**
+    * Delete branch with name
+    *
+    * @param name
+    * @return branch ref
+    *
+    */
+  protected def deleteBranch(name: String): String = deleteBranch(testRepo, name)
+
+  /**
     * Create branch with name and checkout
     *
     * @param repo
@@ -127,6 +137,19 @@ trait GitTestCase extends BeforeAndAfterEach {
     val git = Git.open(repo)
     git.branchCreate.setName(name).call
     checkout(repo, name)
+  }
+
+  /**
+    * Delete branch with name
+    *
+    * @param repo
+    * @param name
+    * @return branch ref
+    *
+    */
+  protected def deleteBranch(repo: File, name: String): String = {
+    val git = Git.open(repo)
+    git.branchDelete().setBranchNames(name).call.get(0)
   }
 
   /**
@@ -274,52 +297,54 @@ trait GitTestCase extends BeforeAndAfterEach {
   /**
     * Add files to test repository
     *
-    * @param paths
-    * @param contents
+    * @param contents iterable of file names and associated content
     * @return commit
     *
     */
-  protected def add(paths: util.List[String], contents: util.List[String]): RevCommit = add(testRepo, paths, contents, "Committing multiple files")
+  protected def add(contents: Iterable[(String, String)]): RevCommit = add(testRepo, contents, "Committing multiple files")
 
   /**
     * Add files to test repository
     *
     * @param repo
-    * @param paths
-    * @param contents
+    * @param contents iterable of file names and associated content
     * @param message
     * @return commit
     *
     */
-  protected def add(repo: File, paths: util.List[String], contents: util.List[String], message: String): RevCommit = {
+  protected def add(repo: File, contents: Iterable[(String, String)], message: String): RevCommit = {
+
     val git = Git.open(repo)
     var i = 0
-    while ( {
-      i < paths.size
-    }) {
-      val path = paths.get(i)
-      var content = contents.get(i)
+    contents.foreach { case (path, content) =>
       val file = new File(repo.getParentFile, path)
-      if (!file.getParentFile.exists) assert(file.getParentFile.mkdirs)
-      if (!file.exists) assert(file.createNewFile)
+      if (!file.getParentFile.exists) require(file.getParentFile.mkdirs, s"Cannot create parent dir '${file.getParent}'")
+      if (!file.exists) require(file.createNewFile, s"Cannot create file '$file'")
       val writer = new PrintWriter(file)
-      if (content == null) content = ""
       try
         writer.print(content)
       finally writer.close()
       git.add.addFilepattern(path).call
-
-      {
-        i += 1;
-        i - 1
-      }
     }
+
     val commit = git.commit.setMessage(message).setAuthor(author).setCommitter(committer).call
     assert(null != commit)
     commit
   }
 
   /**
+    * Merge given branch into current branch
+    *
+    * @param branch
+    * @return result
+    *
+    */
+  protected def mergeBranch(branch: String, withCommit: Boolean): MergeResult = {
+    val git = Git.open(testRepo)
+    git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getRef(git.getRepository, branch)).setCommit(withCommit).setFastForward(FastForwardMode.NO_FF).setMessage(s"merging branch $branch").call
+  }
+
+    /**
     * Merge ref into current branch
     *
     * @param ref
