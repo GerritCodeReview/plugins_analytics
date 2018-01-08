@@ -132,7 +132,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
         aggregationStrategy))
         .par
-        .map(UserActivitySummary.apply(stats)).toStream
+        .flatMap(UserActivitySummary.apply(stats))
+        .toStream
     }
   }
 }
@@ -150,27 +151,27 @@ case class UserActivitySummary(year: Integer,
                                addedLines: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
-                               lastCommitDate: Long)
+                               lastCommitDate: Long,
+                               isMerge: Boolean
+                              )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity): UserActivitySummary = {
+  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity): Iterable[UserActivitySummary] = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
     uca.key.split("/", INCLUDESEMPTY) match {
-      case a@Array(email, year, month, day, hour) =>
-        val commits = getCommits(uca.getIds, uca.getTimes, uca.getMerges)
-        val stats = statisticsHandler.find(uca.getIds.toSeq)
-        UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount, stats.numFiles,
-          stats.addedLines, stats.deletedLines, commits, uca.getLatest)
+      case Array(email, year, month, day, hour) =>
+        statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+          UserActivitySummary(
+            year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
+            stat.numFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
+          )
+        }
+
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
     }
-  }
-
-  private def getCommits(ids: Array[ObjectId], times: Array[Long], merges: Array[Boolean]):
-  Array[CommitInfo] = {
-    (ids, times, merges).zipped.map((id, time, merge) => CommitInfo(id.name, time, merge))
   }
 }
 

@@ -41,7 +41,10 @@ import java.text.MessageFormat
 import java.util.Date
 import java.util
 
+import com.googlesource.gerrit.plugins.analytics.common.ManagedResource
+import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.MergeResult
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.lib.Constants
@@ -116,6 +119,15 @@ trait GitTestCase extends BeforeAndAfterEach {
   protected def branch(name: String): Ref = branch(testRepo, name)
 
   /**
+    * Delete branch with name
+    *
+    * @param name
+    * @return branch ref
+    *
+    */
+  protected def deleteBranch(name: String): String = deleteBranch(testRepo, name)
+
+  /**
     * Create branch with name and checkout
     *
     * @param repo
@@ -124,9 +136,24 @@ trait GitTestCase extends BeforeAndAfterEach {
     *
     */
   protected def branch(repo: File, name: String): Ref = {
-    val git = Git.open(repo)
-    git.branchCreate.setName(name).call
-    checkout(repo, name)
+    use(Git.open(repo)) { git =>
+      git.branchCreate.setName(name).call
+      checkout(repo, name)
+    }
+  }
+
+  /**
+    * Delete branch with name
+    *
+    * @param repo
+    * @param name
+    * @return branch ref
+    *
+    */
+  protected def deleteBranch(repo: File, name: String): String = {
+    use(Git.open(repo)) { git =>
+      git.branchDelete().setBranchNames(name).call.get(0)
+    }
   }
 
   /**
@@ -148,11 +175,10 @@ trait GitTestCase extends BeforeAndAfterEach {
     */
   @throws[Exception]
   protected def checkout(repo: File, name: String): Ref = {
-    val git = Git.open(repo)
-    val ref = git.checkout.setName(name).call
-    assert(ref != null)
-    ref
-  }
+    use(Git.open(repo)) { git =>
+      git.checkout.setName(name).call
+    }
+  } ensuring(_ != null, "Unable to checkout result")
 
   /**
     * Create tag with name
@@ -172,12 +198,11 @@ trait GitTestCase extends BeforeAndAfterEach {
     *
     */
   protected def tag(repo: File, name: String): Ref = {
-    val git = Git.open(repo)
-    git.tag.setName(name).setMessage(name).call
-    val tagRef = git.getRepository.getTags.get(name)
-    assert(tagRef != null)
-    tagRef
-  }
+    use(Git.open(repo)) { git =>
+      git.tag.setName(name).setMessage(name).call
+      git.getRepository.getTags.get(name)
+    }
+  } ensuring(_ != null, s"Unable to tag file $name")
 
   /**
     * Add file to test repository
@@ -218,16 +243,17 @@ trait GitTestCase extends BeforeAndAfterEach {
     val file = new File(repo.getParentFile, path)
     if (!file.getParentFile.exists) assert(file.getParentFile.mkdirs)
     if (!file.exists) assert(file.createNewFile)
+
     val writer = new PrintWriter(file)
     try
       writer.print(Option(content).fold("")(identity))
     finally writer.close()
-    val git = Git.open(repo)
-    git.add.addFilepattern(path).call
-    val commit = git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
-    assert(null != commit)
-    commit
-  }
+
+    use(Git.open(repo)) { git =>
+      git.add.addFilepattern(path).call
+      git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
+    }
+  }  ensuring (_ != null, s"Unable to commit addition of path $path")
 
   /**
     * Move file in test repository
@@ -263,63 +289,64 @@ trait GitTestCase extends BeforeAndAfterEach {
   protected def mv(repo: File, from: String, to: String, message: String): RevCommit = {
     val file = new File(repo.getParentFile, from)
     file.renameTo(new File(repo.getParentFile, to))
-    val git = Git.open(repo)
-    git.rm.addFilepattern(from)
-    git.add.addFilepattern(to).call
-    val commit = git.commit.setAll(true).setMessage(message).setAuthor(author).setCommitter(committer).call
-    assert(null != commit)
-    commit
-  }
+
+    use(Git.open(testRepo)) { git =>
+      git.rm.addFilepattern(from)
+      git.add.addFilepattern(to).call
+      git.commit.setAll(true).setMessage(message).setAuthor(author).setCommitter(committer).call
+    }
+  } ensuring (_ != null, "Unable to commit MV operation")
 
   /**
     * Add files to test repository
     *
-    * @param paths
-    * @param contents
+    * @param contents iterable of file names and associated content
     * @return commit
     *
     */
-  protected def add(paths: util.List[String], contents: util.List[String]): RevCommit = add(testRepo, paths, contents, "Committing multiple files")
+  protected def add(contents: Iterable[(String, String)]): RevCommit = add(testRepo, contents, "Committing multiple files")
 
   /**
     * Add files to test repository
     *
     * @param repo
-    * @param paths
-    * @param contents
+    * @param contents iterable of file names and associated content
     * @param message
     * @return commit
     *
     */
-  protected def add(repo: File, paths: util.List[String], contents: util.List[String], message: String): RevCommit = {
-    val git = Git.open(repo)
-    var i = 0
-    while ( {
-      i < paths.size
-    }) {
-      val path = paths.get(i)
-      var content = contents.get(i)
-      val file = new File(repo.getParentFile, path)
-      if (!file.getParentFile.exists) assert(file.getParentFile.mkdirs)
-      if (!file.exists) assert(file.createNewFile)
-      val writer = new PrintWriter(file)
-      if (content == null) content = ""
-      try
-        writer.print(content)
-      finally writer.close()
-      git.add.addFilepattern(path).call
-
-      {
-        i += 1;
-        i - 1
+  protected def add(repo: File, contents: Iterable[(String, String)], message: String): RevCommit = {
+    use(Git.open(testRepo)) { git =>
+      var i = 0
+      contents.foreach { case (path, content) =>
+        val file = new File(repo.getParentFile, path)
+        if (!file.getParentFile.exists) require(file.getParentFile.mkdirs, s"Cannot create parent dir '${file.getParent}'")
+        if (!file.exists) require(file.createNewFile, s"Cannot create file '$file'")
+        val writer = new PrintWriter(file)
+        try
+          writer.print(content)
+        finally writer.close()
+        git.add.addFilepattern(path).call
       }
+
+      git.commit.setMessage(message).setAuthor(author).setCommitter(committer).call
     }
-    val commit = git.commit.setMessage(message).setAuthor(author).setCommitter(committer).call
-    assert(null != commit)
-    commit
-  }
+  } ensuring (_ != null, "Unable to commit content addition")
 
   /**
+    * Merge given branch into current branch
+    *
+    * @param branch
+    * @return result
+    *
+    */
+  protected def mergeBranch(branch: String, withCommit: Boolean): MergeResult = {
+    use(Git.open(testRepo)) { git =>
+      git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getRef(git.getRepository, branch)).setCommit(withCommit).setFastForward(FastForwardMode.NO_FF).setMessage(s"merging branch $branch").call
+    }
+  }
+
+    /**
     * Merge ref into current branch
     *
     * @param ref
@@ -327,8 +354,9 @@ trait GitTestCase extends BeforeAndAfterEach {
     *
     */
   protected def merge(ref: String): MergeResult = {
-    val git = Git.open(testRepo)
-    git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getCommit(git.getRepository, ref)).call
+    use(Git.open(testRepo)) { git =>
+      git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getCommit(git.getRepository, ref)).call
+    }
   }
 
   /**
@@ -349,11 +377,10 @@ trait GitTestCase extends BeforeAndAfterEach {
     *
     */
   protected def note(content: String, ref: String): Note = {
-    val git = Git.open(testRepo)
-    val note = git.notesAdd.setMessage(content).setNotesRef(Constants.R_NOTES + ref).setObjectId(CommitUtils.getHead(git.getRepository)).call
-    assert(null != note)
-    note
-  }
+    use(Git.open(testRepo)) { git =>
+      git.notesAdd.setMessage(content).setNotesRef(Constants.R_NOTES + ref).setObjectId(CommitUtils.getHead(git.getRepository)).call
+    }
+  } ensuring (_ != null, "Unable to add note")
 
   /**
     * Delete and commit file at path
@@ -364,10 +391,9 @@ trait GitTestCase extends BeforeAndAfterEach {
     */
   protected def delete(path: String): RevCommit = {
     val message = MessageFormat.format("Committing {0} at {1}", path, new Date)
-    val git = Git.open(testRepo)
-    git.rm.addFilepattern(path).call
-    val commit = git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
-    assert(null != commit)
-    commit
-  }
+    use(Git.open(testRepo)) { git =>
+      git.rm.addFilepattern(path).call
+      git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
+    }
+  } ensuring (_ != null, "Unable to commit delete operation")
 }
