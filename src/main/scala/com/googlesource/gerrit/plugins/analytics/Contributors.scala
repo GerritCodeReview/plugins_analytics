@@ -21,7 +21,6 @@ import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
-import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -32,6 +31,12 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   extends SshCommand with ProjectResourceParser {
 
   private var beginDate: Option[Long] = None
+  private var endDate: Option[Long] = None
+  private var granularity: Option[AggregationStrategy] = None
+
+  @ArgOption(name = "--extract-branches", aliases = Array("-r"),
+    usage = "Do extra parsing to extract a list of all branches for each line")
+  private var extractBranches: Boolean = false
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -43,8 +48,6 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
-  private var endDate: Option[Long] = None
-
   @ArgOption(name = "--until", aliases = Array("--before", "-e"),
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
@@ -54,8 +57,6 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
       case e: Exception => throw die(s"Invalid end date ${e.getMessage}")
     }
   }
-
-  private var granularity: Option[AggregationStrategy] = None
 
   @ArgOption(name = "--aggregate", aliases = Array("-g"),
     usage = "Type of aggregation requested. ")
@@ -67,10 +68,9 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
-
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL)), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
 
 }
 
@@ -79,6 +79,8 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
   extends RestReadView[ProjectResource] {
 
   private var beginDate: Option[Long] = None
+  private var endDate: Option[Long] = None
+  private var granularity: Option[AggregationStrategy] = None
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -90,8 +92,6 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     }
   }
 
-  private var endDate: Option[Long] = None
-
   @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY",
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
@@ -101,8 +101,6 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
       case e: Exception => throw new BadRequestException(s"Invalid end date ${e.getMessage}")
     }
   }
-
-  private var granularity: Option[AggregationStrategy] = None
 
   @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), metaVar = "QUERY",
     usage = "can be one of EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR, defaulting to EMAIL")
@@ -114,25 +112,33 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     }
   }
 
+  @ArgOption(name = "--extract-branches", aliases = Array("-r"),
+    usage = "Do extra parsing to extract a list of all branches for each line")
+  private var extractBranches: Boolean = false
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL))))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
-
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy): TraversableOnce[UserActivitySummary] = {
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+  : TraversableOnce[UserActivitySummary] = {
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo)
+      import RichBoolean._
+      val commitsBranchesOptionalEnricher = extractBranches.option(
+        new CommitsBranches(repo, startDate, stopDate)
+      )
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
         aggregationStrategy))
         .par
-        .flatMap(UserActivitySummary.apply(stats))
+        .flatMap(UserActivitySummary.apply(stats, commitsBranchesOptionalEnricher))
         .toStream
     }
   }
@@ -151,25 +157,32 @@ case class UserActivitySummary(year: Integer,
                                addedLines: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
+                               branches: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean
                               )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity): Iterable[UserActivitySummary] = {
+  def apply(statisticsHandler: Statistics,
+            branchesLabeler: Option[CommitsBranches])
+           (uca: AggregatedUserCommitActivity)
+  : Iterable[UserActivitySummary] = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
     uca.key.split("/", INCLUDESEMPTY) match {
       case Array(email, year, month, day, hour) =>
+        val branches = branchesLabeler.fold(Set.empty[String]) {
+          labeler => labeler.forCommits(uca.getIds)
+        }
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
             year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
-            stat.numFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
+            stat.numFiles, stat.addedLines, stat.deletedLines,
+            stat.commits.toArray, branches.toArray, uca.getLatest, stat.isForMergeCommits
           )
         }
-
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
     }
   }
