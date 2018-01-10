@@ -129,10 +129,11 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
           aggregationStrategy: AggregationStrategy): TraversableOnce[UserActivitySummary] = {
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo)
+      val commitsBranches = new CommitsBranches(repo)
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
         aggregationStrategy))
         .par
-        .map(UserActivitySummary.apply(stats)).toStream
+        .map(UserActivitySummary.apply(stats,commitsBranches)).toStream
     }
   }
 }
@@ -150,10 +151,14 @@ case class UserActivitySummary(year: Integer,
                                addedLines: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
+                               branches: Array[String],
                                lastCommitDate: Long)
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity): UserActivitySummary = {
+  def apply(statisticsHandler: Statistics,
+            branchesLabeler: CommitsBranches)
+           (uca: AggregatedUserCommitActivity)
+  : UserActivitySummary = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
@@ -161,9 +166,12 @@ object UserActivitySummary {
     uca.key.split("/", INCLUDESEMPTY) match {
       case a@Array(email, year, month, day, hour) =>
         val commits = getCommits(uca.getIds, uca.getTimes, uca.getMerges)
-        val stats = statisticsHandler.find(uca.getIds.toSeq)
+        val commitsIds = uca.getIds.toSeq
+        val branches = branchesLabeler.find(commitsIds)
+        val stats = statisticsHandler.find(commitsIds)
         UserActivitySummary(year, month, day, hour, uca.getName, uca.getEmail, uca.getCount, stats.numFiles,
-          stats.addedLines, stats.deletedLines, commits, uca.getLatest)
+          stats.addedLines, stats.deletedLines, commits, branches.toArray, uca
+            .getLatest)
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
     }
   }
