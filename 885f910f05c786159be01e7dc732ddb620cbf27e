@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "9bfb8f87_d48d6350",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:17:18Z",
+      "side": 1,
+      "message": "Better to store just the binary SHA1 IMHO if possible.\nLarge repos may cause a huge GC cycle because of this temporary in-memory HashMap :-(",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb522cca_8da9fc81",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 2
