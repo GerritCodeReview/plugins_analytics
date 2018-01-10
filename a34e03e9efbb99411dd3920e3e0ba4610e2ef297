@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8389a74b_bc3a49c7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-10T18:02:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e6b13439_17cfba36",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 3
+      },
+      "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c956962d_438bb333",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa1e6a0c_025aef95",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-10T18:02:12Z",
+      "side": 1,
+      "message": "No I think I extracted a variable with the refactoring and I think it added  the explicit type",
+      "parentUuid": "c956962d_438bb333",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a70ea16_9b5cbbe8",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-01-10T16:40:18Z",
       "side": 1,
       "message": "Oh yes, it is definitely wrong !!!\nTo be fixed in a follow-up change. Good catch.",
+      "range": {
+        "startLine": 106,
+        "startChar": 36,
+        "endLine": 106,
+        "endChar": 102
+      },
+      "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf4c2918_e97bdd80",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-10T18:02:12Z",
+      "side": 1,
+      "message": "Opened issue GERICS-619 - Number of files is overestimated in commit stats",
+      "parentUuid": "4a70ea16_9b5cbbe8",
       "range": {
         "startLine": 106,
         "startChar": 36,
