@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "390916e8_cef85fb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Move it to the footer, just before Change-Id and label as:\n  Jira-Id: GERICS-610",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2711ac7_89422e69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Can you use the proper WIP flag in Gerrit?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dff5273e_e50ae7d3",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Better to make this extraction optional, as people may not want that info but would have to pay the CPU time for it if it is always calculated.",
+      "range": {
+        "startLine": 51,
+        "startChar": 81,
+        "endLine": 51,
+        "endChar": 100
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f322b7_7eaff803",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "As you are only interested in the key, reverse the two operations. \nAdditionally, I believe you need only the branch name and not the full ref, isn\u0027t it?\n\n   .map(_.getKey).collect {\n       case ref if ref.startsWith(Constants.R_HEADS) \u003d\u003e ref.drop(Constants.R_HEADS.length)\n   }",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a99bccab_40803f39",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Appreciate this as an initial solution. However, most of the branches are sharing most of the path. Over 90% of the navigations would then be useless :-(\n\nIf I have navigated already branch-A and branch-B starts from the head of branch-A, what\u0027s the point of doing the full navigation of branch-A if I have done it already?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb522cca_8da9fc81",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Would this load *ALL* commits with their meta-data in memory?\nWe only need the SHA1, why should we load everything else?",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a349a0_a070072f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "This is very wrong: branches can contain \u0027/\u0027 in their name and we would extract just the last part of it :-O\n\nExample:\nrefs/heads/feature/ABC\n\nWould extract:\nABC\n\nInstead of the correct:\nfeature/ABC",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e974b024_c63810b8",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Those are refs names and not branch names.\nYou need to either change the method name or fix the implementation returning only \"master\" and \"branch\".",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebb270f_b345c14b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "Change it to feature/branch and you\u0027ll hear the blast of this test failing :-)",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8d66b9_a5b4c506",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "You have a forAll() construct in ScalaTest, without the need to to a foreach in a test, which is an anti-pattern :-)",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa8e6aa7_a7e950d7",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-10T08:04:50Z",
+      "side": 1,
+      "message": "You have a \u0027contains\u0027 construct in ScalaTest, why not using it?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
