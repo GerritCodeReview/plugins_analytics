@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "041ec8d2_4e9b8f90",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/RevisionBrowsingSupport.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-11T09:19:33Z",
+      "side": 1,
+      "message": "Only this file in PS3? Wrong push?",
+      "revId": "ff54b97e808297ccf2cbf2c0f5146e94195725d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
