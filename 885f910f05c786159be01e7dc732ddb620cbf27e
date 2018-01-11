@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "3448226e_1c9fc2ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390916e8_cef85fb7",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f59f1df0_06449257",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "I searched for other changes and they either used WIP or WIP: or other combinations, so I now have put WIP: (You didn\u0027t specify exactly the format needed).",
+      "parentUuid": "c2711ac7_89422e69",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dff5273e_e50ae7d3",
         "filename": "README.md",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-01-10T08:04:50Z",
       "side": 1,
       "message": "Better to make this extraction optional, as people may not want that info but would have to pay the CPU time for it if it is always calculated.",
+      "range": {
+        "startLine": 51,
+        "startChar": 81,
+        "endLine": 51,
+        "endChar": 100
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8253d51_dfadefca",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff5273e_e50ae7d3",
       "range": {
         "startLine": 51,
         "startChar": 81,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "49510f36_434d5c40",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "changed it to a simpler request for refs which is more elegant.",
+      "parentUuid": "14f322b7_7eaff803",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a99bccab_40803f39",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2018-01-10T08:04:50Z",
       "side": 1,
       "message": "Appreciate this as an initial solution. However, most of the branches are sharing most of the path. Over 90% of the navigations would then be useless :-(\n\nIf I have navigated already branch-A and branch-B starts from the head of branch-A, what\u0027s the point of doing the full navigation of branch-A if I have done it already?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e3c66e_42dd5937",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Actually the navigation is pretty fast. On the whole gerrit repository it takes around 2-3 seconds, which is quite less cpu than that used to find lines difference. Any kind of tree labeling requires a similar navigation. I couldn\u0027t find so far an efficient way to avoid the multiple navigation, when we find one we can change this. I think it is really usable this way, see the revwalk modification comments after.",
+      "parentUuid": "a99bccab_40803f39",
       "range": {
         "startLine": 40,
         "startChar": 6,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "a7da6739_a13383ae",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Yes sure :)",
+      "parentUuid": "9bfb8f87_d48d6350",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb522cca_8da9fc81",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2018-01-10T08:04:50Z",
       "side": 1,
       "message": "Would this load *ALL* commits with their meta-data in memory?\nWe only need the SHA1, why should we load everything else?",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24060a90_d0b19db6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "This is not loading ALL the commits, but it is just an iterator. I checked the memory occupation compared with revwalk and they are using practically the same amount of RAM for instantiating iterator. Which is around 30M for gerrit project (and 320M for linux huge repository).\nAnyway since the literature is claiming that git.log internally might possibly have some leaks leaving a dangling revwalk, I converted the algorithm in terms of RevWalk.\nStoring the sha1 string instead of the objectId as key saves indeed a lot of space in the Linux case (from 820 we drop to only 320M).",
+      "parentUuid": "bb522cca_8da9fc81",
       "range": {
         "startLine": 47,
         "startChar": 22,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "f6c749b1_e8822be9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a349a0_a070072f",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e974b024_c63810b8",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
         "patchSetId": 2
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "ac6e4523_613509a6",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e974b024_c63810b8",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ebb270f_b345c14b",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
         "patchSetId": 2
@@ -220,6 +436,30 @@
       "writtenOn": "2018-01-10T08:04:50Z",
       "side": 1,
       "message": "Change it to feature/branch and you\u0027ll hear the blast of this test failing :-)",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35255cd4_df3f6b9a",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranchesTest.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-11T01:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ebb270f_b345c14b",
       "range": {
         "startLine": 23,
         "startChar": 12,
