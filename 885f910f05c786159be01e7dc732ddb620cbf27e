@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "56798319_b45aab1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-11T09:01:41Z",
+      "side": 1,
+      "message": "No, there is a \"WIP\" flag in Gerrit on the change itself. \nSee https://gitenterprise.me/2017/11/15/gerrit-user-summit-whats-new-in-2-15/ and look for the keyword \u0027WIP\u0027 :-)",
+      "parentUuid": "f59f1df0_06449257",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dff5273e_e50ae7d3",
         "filename": "README.md",
         "patchSetId": 2
@@ -331,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "4d923d15_ff837c1b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-11T09:01:41Z",
+      "side": 1,
+      "message": "Phew, good catch :-)",
+      "parentUuid": "24060a90_d0b19db6",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81a349a0_a070072f",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 2
@@ -375,6 +423,30 @@
       "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf9dd7e_2097788f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-11T09:01:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c749b1_e8822be9",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "885f910f05c786159be01e7dc732ddb620cbf27e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
