@@ -138,7 +138,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean)
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: Array[String])
 
 case class UserActivitySummary(year: Integer,
                                month: Integer,
@@ -148,6 +148,7 @@ case class UserActivitySummary(year: Integer,
                                email: String,
                                numCommits: Integer,
                                numFiles: Integer,
+                               numDistinctFiles: Integer,
                                addedLines: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
@@ -166,7 +167,7 @@ object UserActivitySummary {
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
             year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
-            stat.numFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
+            stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
           )
         }
 
