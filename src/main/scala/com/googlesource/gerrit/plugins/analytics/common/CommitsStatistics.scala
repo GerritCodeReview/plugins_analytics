@@ -24,16 +24,42 @@ import org.eclipse.jgit.util.io.DisabledOutputStream
 
 import scala.collection.JavaConversions._
 
-case class CommitsStatistics(numFiles: Int, addedLines: Int, deletedLines: Int, isForMergeCommits: Boolean, commits: List[CommitInfo]) {
+/**
+  * Collects overall stats on a series of commits and provides some basic info on the included commits
+  *
+  * @param addedLines           sum of the number of line additions in the included commits
+  * @param deletedLines         sum of the number of line deletions in the included commits
+  * @param isForMergeCommits    true if the current instance is including stats for merge commits and false if
+  *                             calculated for NON merge commits. The current code is not generating stats objects for
+  *                             a mixture of merge and non-merge commits
+  * @param commits              list of commits the stats are calculated for
+  */
+case class CommitsStatistics(
+                              addedLines: Int,
+                              deletedLines: Int,
+                              isForMergeCommits: Boolean,
+                              commits: List[CommitInfo]
+                            ) {
   require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
 
-  def isEmpty = commits.isEmpty
+  /**
+    * sum of the number of files in each of the included commits
+    */
+  val numFiles: Int = commits.map(_.files.size).sum
+
+  /**
+    * number of distinct files the included commits have been touching
+    */
+  val numDistinctFiles: Int = changedFiles.size
+
+  def isEmpty: Boolean = commits.isEmpty
+
+  def changedFiles: Set[String] = commits.map(_.files.toSet).fold(Set.empty)(_ union _)
 
   // Is not a proper monoid since we cannot sum a MergeCommit with a non merge one but it would overkill to define two classes
-  protected [common] def + (that: CommitsStatistics) = {
+  def + (that: CommitsStatistics) = {
     require(this.isForMergeCommits == that.isForMergeCommits, "Cannot sum a merge commit stats with a non merge commit stats")
     this.copy(
-      numFiles = this.numFiles + that.numFiles,
       addedLines = this.addedLines + that.addedLines,
       deletedLines = this.deletedLines + that.deletedLines,
       commits = this.commits ++ that.commits
@@ -42,7 +68,7 @@ case class CommitsStatistics(numFiles: Int, addedLines: Int, deletedLines: Int, 
 }
 
 object CommitsStatistics {
-  val Empty = CommitsStatistics(0, 0, 0, false, List.empty)
+  val Empty = CommitsStatistics(0, 0, false, List.empty)
   val EmptyMerge = Empty.copy(isForMergeCommits = true)
 }
 
@@ -96,9 +122,11 @@ class Statistics(repo: Repository) {
         edit <- df.toFileHeader(diff).toEditList
       } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
 
-      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge)
+      val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
 
-      CommitsStatistics(diffs.size, lines.added, lines.deleted, commitInfo.merge, List(commitInfo))
+      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, files)
+
+      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, List(commitInfo))
     }
   }
 
