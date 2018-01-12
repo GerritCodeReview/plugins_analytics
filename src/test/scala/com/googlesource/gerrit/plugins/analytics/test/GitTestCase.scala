@@ -37,6 +37,7 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.io.File
 import java.io.PrintWriter
+import java.nio.file.{Files, Paths}
 import java.text.MessageFormat
 import java.util.Date
 import java.util

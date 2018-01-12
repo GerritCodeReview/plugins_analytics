@@ -18,10 +18,11 @@ import com.google.gerrit.extensions.restapi.{BadRequestException, Response, Rest
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
+import com.google.gson.TypeAdapter
+import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
-import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -138,7 +139,51 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean)
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: Set[String])
+
+object CommitInfo {
+  val JsonTypeAdapter = new TypeAdapter[CommitInfo] {
+    override def read(jsonReader: JsonReader): CommitInfo = {
+      jsonReader.beginObject()
+
+      jsonReader.nextName()
+      val sha1 = jsonReader.nextString()
+      jsonReader.nextName()
+      val date = jsonReader.nextLong()
+      jsonReader.nextName()
+      val merge = jsonReader.nextBoolean()
+      jsonReader.nextName()
+      val files: Set[String] = {
+        val result =  scala.collection.mutable.ArrayBuffer.empty[String]
+        jsonReader.beginArray()
+        while (jsonReader.hasNext) {
+          result += jsonReader.nextString()
+        }
+        jsonReader.endArray()
+        result.toSet
+      }
+
+      jsonReader.endObject()
+
+      CommitInfo(sha1, date, merge, files)
+    }
+
+    override def write(jsonWriter: JsonWriter, commitInfo: CommitInfo): Unit = {
+      jsonWriter.beginObject()
+      jsonWriter.name("sha1").value(commitInfo.sha1)
+      jsonWriter.name("date").value(commitInfo.date)
+      jsonWriter.name("merge").value(commitInfo.merge)
+      jsonWriter.name("files")
+      jsonWriter.beginArray()
+      commitInfo.files.foreach { value =>
+        jsonWriter.value(value)
+      }
+      jsonWriter.endArray()
+      jsonWriter.endObject()
+    }
+  }
+}
+
 
 case class UserActivitySummary(year: Integer,
                                month: Integer,
@@ -148,6 +193,7 @@ case class UserActivitySummary(year: Integer,
                                email: String,
                                numCommits: Integer,
                                numFiles: Integer,
+                               numDistinctFiles: Integer,
                                addedLines: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
@@ -166,7 +212,7 @@ object UserActivitySummary {
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
             year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
-            stat.numFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
+            stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines, stat.commits.toArray, uca.getLatest, stat.isForMergeCommits
           )
         }
 

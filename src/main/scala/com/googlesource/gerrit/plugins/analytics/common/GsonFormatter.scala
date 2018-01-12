@@ -19,10 +19,12 @@ import java.io.PrintWriter
 import com.google.gerrit.server.OutputFormat
 import com.google.gson.{Gson, GsonBuilder}
 import com.google.inject.Singleton
+import com.googlesource.gerrit.plugins.analytics.CommitInfo
 
 @Singleton
 class GsonFormatter {
-  val gsonBuilder: GsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+  val gsonBuilder: GsonBuilder =
+    OutputFormat.JSON_COMPACT.newGsonBuilder.registerTypeAdapter(classOf[CommitInfo], CommitInfo.JsonTypeAdapter)
 
   def format[T](values: TraversableOnce[T], out: PrintWriter) {
     val gson: Gson = gsonBuilder.create
