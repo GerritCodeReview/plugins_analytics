@@ -16,13 +16,15 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
+import com.google.common.collect.Sets
+import com.google.common.collect.Sets.newHashSet
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
-import org.eclipse.jgit.lib.ObjectId
 import org.eclipse.jgit.revwalk.RevCommit
 import org.scalatest.{FlatSpec, Inside, Matchers}
+
 
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
@@ -50,10 +52,6 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
     }
   }
 
-  def idWithInfo(revCommit: RevCommit): (ObjectId, CommitInfo) = {
-    revCommit.getId -> CommitInfo(revCommit.getId.getName, revCommit.getCommitterIdent.getWhen.getTime, revCommit.getParentCount > 1)
-  }
-
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
     val change = commit("user", "file1.txt", "line1\nline2")
 
@@ -62,6 +60,22 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       s.addedLines should be(2)
       s.deletedLines should be(0)
     }
+  }
+
+  it should "sum to another compatible CommitStatistics generating an aggregated stat" in {
+    val commit1 = CommitInfo("sha_1", 1000l, false, newHashSet("file1"))
+    val commit2 = CommitInfo("sha_2", 2000l, false, newHashSet("file1"))
+    val commit3 = CommitInfo("sha_3", 3000l, false, newHashSet("file2"))
+    val commit4 = CommitInfo("sha_4", 1000l, false, newHashSet("file1"))
+
+    val stat1 = CommitsStatistics(3, 4, false, List(commit1, commit2))
+    val stat2 = CommitsStatistics(5, 7, false, List(commit3, commit4))
+
+    (stat1 + stat2) shouldBe CommitsStatistics(8, 11, false, List(commit1, commit2, commit3, commit4))
+  }
+
+  it should "fail if trying to be added to a CommitStatistics object for a different isMerge value" in {
+    an [IllegalArgumentException] should be thrownBy  (CommitsStatistics.EmptyMerge + CommitsStatistics.Empty)
   }
 
   it should "stats multiple files added" in new TestEnvironment {
@@ -103,7 +117,8 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       "second commit")
 
     inside(stats.forCommits(initial, second)) { case List(nonMergeStats: CommitsStatistics) =>
-      nonMergeStats.numFiles should be(4)     //this is wrong? shouldn't we consider just three files?
+      nonMergeStats.numFiles should be(4)
+      nonMergeStats.numDistinctFiles should be(3)
       nonMergeStats.addedLines should be(6)
       nonMergeStats.deletedLines should be(1)
     }
@@ -140,4 +155,5 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       case wrongContent => fail(s"Expected two results instad got $wrongContent")
     }
   }
+
 }

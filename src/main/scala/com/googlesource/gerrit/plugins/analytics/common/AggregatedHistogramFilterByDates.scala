@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 
 /**
