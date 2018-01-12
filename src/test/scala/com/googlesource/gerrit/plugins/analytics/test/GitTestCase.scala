@@ -35,21 +35,15 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.io.File
-import java.io.PrintWriter
+import java.io.{File, PrintWriter}
 import java.text.MessageFormat
 import java.util.Date
-import java.util
 
-import com.googlesource.gerrit.plugins.analytics.common.ManagedResource
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
-import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
-import org.eclipse.jgit.api.MergeResult
+import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.api.errors.GitAPIException
-import org.eclipse.jgit.lib.Constants
-import org.eclipse.jgit.lib.PersonIdent
-import org.eclipse.jgit.lib.Ref
+import org.eclipse.jgit.lib.{Constants, PersonIdent, Ref}
 import org.eclipse.jgit.merge.MergeStrategy
 import org.eclipse.jgit.notes.Note
 import org.eclipse.jgit.revwalk.RevCommit
