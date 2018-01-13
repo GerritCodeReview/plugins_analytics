@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2b7cf6c2_3215c35d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "df7ab4ed_73c9c34f",
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91961939_a1afc94c",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 3
@@ -56,6 +74,24 @@
       "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "302f7598_76d8aaa2",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "91961939_a1afc94c",
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "e6a2edc0_82d35fcb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b386c243_a197618f",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 15
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb373d93_431d661a",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 3
@@ -102,6 +162,30 @@
       "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7698c9b5_5782aed9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb373d93_431d661a",
+      "range": {
+        "startLine": 178,
+        "startChar": 10,
+        "endLine": 178,
+        "endChar": 28
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "5930b5c7_5cd13a19",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ef3e28d5_ea443b49",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bdb685e_4313dc40",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 3
@@ -151,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "850aa8c0_b9b67d56",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1bdb685e_4313dc40",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 82
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a3ab669_dc4537c0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 3
@@ -171,6 +303,30 @@
       "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f981e109_a559f9f1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a3ab669_dc4537c0",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -217,6 +373,30 @@
       "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef0c258_a3e81352",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-13T01:17:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0907ee1b_6afd0f4c",
+      "range": {
+        "startLine": 38,
+        "startChar": 59,
+        "endLine": 38,
+        "endChar": 64
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
