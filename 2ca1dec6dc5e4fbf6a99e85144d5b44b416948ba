@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "f01e4704_5d00c024",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T08:52:28Z",
+      "side": 1,
+      "message": "did the _.find(commitsIds) work? I can\u0027t see it used in PS6 :-(",
+      "parentUuid": "7698c9b5_5782aed9",
+      "range": {
+        "startLine": 178,
+        "startChar": 10,
+        "endLine": 178,
+        "endChar": 28
+      },
+      "revId": "2ca1dec6dc5e4fbf6a99e85144d5b44b416948ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef3e28d5_ea443b49",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 3
