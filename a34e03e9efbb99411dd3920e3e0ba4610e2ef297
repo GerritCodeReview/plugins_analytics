@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "446185a8_8526efd5",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T15:41:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa1e6a0c_025aef95",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a70ea16_9b5cbbe8",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
         "patchSetId": 2
@@ -163,6 +187,30 @@
       "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f07225_6b3fc877",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GitTestCase.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T15:41:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c20251c_b6d25de4",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 343,
+        "endChar": 32
+      },
+      "revId": "a34e03e9efbb99411dd3920e3e0ba4610e2ef297",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
