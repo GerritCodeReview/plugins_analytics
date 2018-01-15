@@ -100,14 +100,17 @@ trait GitTestCase extends BeforeAndAfterEach {
   protected def initRepo: File = {
     val tmpDir = System.getProperty("java.io.tmpdir")
     assert(tmpDir != null, "java.io.tmpdir was null")
-    val dir = new File(tmpDir, "git-test-case-" + System.nanoTime)
-    assert(dir.mkdir)
+    val dir = new File(tmpDir, threadSpecificTestDirectory)
+    assert(dir.mkdir, s"Unable to create temporary test directory ${dir.getAbsolutePath}")
     Git.init.setDirectory(dir).setBare(false).call
     val repo = new File(dir, Constants.DOT_GIT)
     assert(repo.exists)
     repo.deleteOnExit()
     repo
   }
+
+  private def threadSpecificTestDirectory =
+    "git-test-case-" + Thread.currentThread().getName.replaceAll("~[0-9a-zA-Z]", "_") + System.nanoTime
 
   /**
     * Create branch with name and checkout
