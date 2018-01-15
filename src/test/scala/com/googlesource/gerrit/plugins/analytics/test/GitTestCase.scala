@@ -36,6 +36,7 @@
 package com.googlesource.gerrit.plugins.analytics.test
 
 import java.io.{File, PrintWriter}
+import java.nio.file.Files
 import java.text.MessageFormat
 import java.util.Date
 
@@ -92,16 +93,16 @@ trait GitTestCase extends BeforeAndAfterEach {
     * @throws GitAPIException
     */
   protected def initRepo: File = {
-    val tmpDir = System.getProperty("java.io.tmpdir")
-    assert(tmpDir != null, "java.io.tmpdir was null")
-    val dir = new File(tmpDir, "git-test-case-" + System.nanoTime)
-    assert(dir.mkdir)
+    val dir = Files.createTempDirectory(threadSpecificDirectoryPrefix).toFile
     Git.init.setDirectory(dir).setBare(false).call
     val repo = new File(dir, Constants.DOT_GIT)
     assert(repo.exists)
     repo.deleteOnExit()
     repo
   }
+
+  private def threadSpecificDirectoryPrefix =
+    "git-test-case-" + Thread.currentThread().getName.replaceAll("~[0-9a-zA-Z]", "_") + System.nanoTime
 
   /**
     * Create branch with name and checkout
