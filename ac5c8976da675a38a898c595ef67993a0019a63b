@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e270a07e_36de1309",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T16:12:03Z",
+      "side": 1,
+      "message": "This is correct, but then you would read it incorrectly as:\n\"map all commits and sum the files\u0027 size\"\n\nWhich isn\u0027t what it does :-)\n\nDo you see any way to turn this around in a more \"correctly readable\" way?",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "ac5c8976da675a38a898c595ef67993a0019a63b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d30a5b_791ed779",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T16:12:03Z",
+      "side": 1,
+      "message": "Should then files be a Set[String] in the first place? In the model we shouldn\u0027t allow duplication of filenames isn\u0027t it?",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "ac5c8976da675a38a898c595ef67993a0019a63b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30442f6b_7f072223",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-15T16:12:03Z",
+      "side": 1,
+      "message": "Have you checked that we are not computing the diffs twice, once to get the added/removed lines and another to get the file names?",
+      "revId": "ac5c8976da675a38a898c595ef67993a0019a63b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
