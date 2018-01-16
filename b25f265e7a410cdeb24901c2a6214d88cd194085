@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88b2d8a5_3720df58",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GitTestCase.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-16T10:20:22Z",
+      "side": 1,
+      "message": "I think you should directly use Files.createTempDirectory that randomises the name and accepts  prefix and suffix strings",
+      "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
