@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "182f82d8_6cdb7793",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-16T11:58:48Z",
+      "side": 1,
+      "message": "You do not need to define a complex custom serializer in Gson to parse a Set: just define files as java.util.Set and it\u0027ll work like a charm :-)",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 1
+      },
+      "revId": "18adee74ef26cd3a8455d768fa0e1c1e5f183996",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
