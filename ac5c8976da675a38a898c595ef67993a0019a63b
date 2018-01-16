@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee97a93d_5d9b0083",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-16T14:53:45Z",
+      "side": 1,
+      "message": "Using the .lenght that is also the right way to do with an Array as suggested by IntelliJ",
+      "parentUuid": "e270a07e_36de1309",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "ac5c8976da675a38a898c595ef67993a0019a63b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15d30a5b_791ed779",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-15T16:12:03Z",
       "side": 1,
       "message": "Should then files be a Set[String] in the first place? In the model we shouldn\u0027t allow duplication of filenames isn\u0027t it?",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "ac5c8976da675a38a898c595ef67993a0019a63b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4159b134_7b035a24",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2018-01-16T14:53:45Z",
+      "side": 1,
+      "message": "The reason it is an array in the model and not a set is because of the GSON serialization. I couldn\u0027t make GSON write the content of the Set[String]. Will do a custom Serializer",
+      "parentUuid": "15d30a5b_791ed779",
       "range": {
         "startLine": 57,
         "startChar": 48,
