@@ -34,6 +34,24 @@
       "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1076b8c1_158a4dc8",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GitTestCase.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-19T14:38:00Z",
+      "side": 1,
+      "message": "Good point Stefano, that is a lot better. Let me do that ...",
+      "parentUuid": "cbe71cbf_e7f231f7",
+      "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
