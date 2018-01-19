@@ -8,10 +8,10 @@ lazy val root = (project in file("."))
 
     version := pluginVersion,
 
-    scalaVersion := "2.11.8",
+    scalaVersion := "2.12.4",
 
     libraryDependencies ++= Seq(
-      "io.fabric8" % "gitective-core" % "0.9.37"
+      "io.fabric8" % "gitective-core" % "0.9.50"
         exclude("org.eclipse.jgit", "org.eclipse.jgit"),
       "com.google.inject" % "guice" % "3.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
