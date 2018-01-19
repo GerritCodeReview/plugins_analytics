@@ -52,6 +52,24 @@
       "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7958af3f_49297b30",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GitTestCase.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-01-19T16:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1076b8c1_158a4dc8",
+      "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
