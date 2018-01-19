@@ -16,6 +16,24 @@
       "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbe71cbf_e7f231f7",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GitTestCase.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1023193
+      },
+      "writtenOn": "2018-01-19T10:08:19Z",
+      "side": 1,
+      "message": "This is a temporary folder which is automatically deleted on exit. I agree with Stefano that it can be also produced with standard library calls. There is, however, no harm in just adding the thread name as Luca is doing.\nChange is welcome since I also noticed there were sometimes some intermittent failures on directory creation with no indication of what was happening.",
+      "parentUuid": "88b2d8a5_3720df58",
+      "revId": "b25f265e7a410cdeb24901c2a6214d88cd194085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
