@@ -1,12 +1,13 @@
+enablePlugins(GitVersioning)
+
 val gerritApiVersion = "2.13.7"
 val pluginName = "analytics"
-val pluginVersion = "1.1-SNAPSHOT"
+
+git.useGitDescribe := true
 
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,
-
-    version := pluginVersion,
 
     scalaVersion := "2.11.8",
 
