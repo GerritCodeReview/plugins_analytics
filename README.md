@@ -50,6 +50,7 @@ sorting phase.
 Extract a unordered list of project contributors statistics, including the
 commits data relevant for statistics purposes, such as number of involved files, and optionally also the list of belonging branches,
 number of added/deleted lines, timestamp and merge flag.
+If commentLinks matches and link/html are configured in etc/gerrit.config (see https://gerrit-review.googlesource.com/Documentation/config-gerrit.html#commentlink) then they are extracted as code and links for ETL aggregation.  
 
 
 *REST*
@@ -74,7 +75,7 @@ REST Example:
 ```
    $ curl http://gerrit.mycompany.com/projects/myproject/analytics~contributors
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false}]}
-   {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}],"branches":["master","branch1"]}
+   {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true}],"branches":["master","branch1"], "issues_codes":["I1b80d00875f267a406157119678749e35def3333"],"issues_links":["#/q/I1b80d00875f267a406157119678749e35def3333"]}
 ```
 
 SSH Example:
