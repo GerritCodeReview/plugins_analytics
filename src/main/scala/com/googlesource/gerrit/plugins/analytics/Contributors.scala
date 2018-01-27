@@ -14,12 +14,11 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
+import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
-import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
+import com.google.gerrit.server.project.{ProjectCache, ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
-import com.google.gson.TypeAdapter
-import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
@@ -70,9 +69,13 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
+  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
+    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
+  private var extractIssues: Boolean = false
+
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
 
 }
 
@@ -118,22 +121,34 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
+    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
+  private var extractIssues: Boolean = false
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
+                                    projectCache:ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
+  import RichBoolean._
+  import scala.collection.JavaConverters._
+
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
   : TraversableOnce[UserActivitySummary] = {
+    val nameKey = projectRes.getNameKey
+    val commentLinks: List[CommentLinkInfo] = extractIssues.option {
+      projectCache.get(nameKey).getCommentLinks.asScala
+    }.toList.flatten
+
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo)
-      import RichBoolean._
+      val stats = new Statistics(repo, commentLinks.asJava)
       val commitsBranchesOptionalEnricher = extractBranches.option(
         new CommitsBranches(repo, startDate, stopDate)
       )
@@ -148,6 +163,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
 case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util.Set[String])
 
+case class IssueInfo(code: String, link: String)
+
 case class UserActivitySummary(year: Integer,
                                month: Integer,
                                day: Integer,
@@ -161,6 +178,8 @@ case class UserActivitySummary(year: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               issuesCodes: Array[String],
+                               issuesLinks: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean
                               )
@@ -183,7 +202,9 @@ object UserActivitySummary {
           UserActivitySummary(
             year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, branches.toArray, uca.getLatest, stat.isForMergeCommits
+            stat.commits.toArray, branches.toArray, stat.issues.map(_.code)
+              .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
+              .isForMergeCommits
           )
         }
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
