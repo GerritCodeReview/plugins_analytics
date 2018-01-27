@@ -16,10 +16,8 @@ package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
-import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
+import com.google.gerrit.server.project.{ProjectCache, ProjectResource, ProjectsCollection}
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
-import com.google.gson.TypeAdapter
-import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
@@ -126,13 +124,18 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
+                                    projectCache:ProjectCache,                
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
+  
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
   : TraversableOnce[UserActivitySummary] = {
+    val nameKey = projectRes.getNameKey
+    val commentLinks = projectCache.get(nameKey).getCommentLinks
+    
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo)
+      val stats = new Statistics(repo, commentLinks)
       import RichBoolean._
       val commitsBranchesOptionalEnricher = extractBranches.option(
         new CommitsBranches(repo, startDate, stopDate)
@@ -148,6 +151,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
 case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util.Set[String])
 
+case class IssueInfo(code: String, link: String)
+
 case class UserActivitySummary(year: Integer,
                                month: Integer,
                                day: Integer,
@@ -161,6 +166,8 @@ case class UserActivitySummary(year: Integer,
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               issuesCodes: Array[String],
+                               issuesLinks: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean
                               )
@@ -183,7 +190,9 @@ object UserActivitySummary {
           UserActivitySummary(
             year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, branches.toArray, uca.getLatest, stat.isForMergeCommits
+            stat.commits.toArray, branches.toArray, stat.issues.map(_.code)
+              .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
+              .isForMergeCommits
           )
         }
       case _ => throw new Exception(s"invalid key format found ${uca.key}")

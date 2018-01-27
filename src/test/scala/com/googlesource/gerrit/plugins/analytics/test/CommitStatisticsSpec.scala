@@ -152,7 +152,7 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
         nonMergeStats.addedLines should be(4)
         nonMergeStats.deletedLines should be(2)
 
-      case wrongContent => fail(s"Expected two results instad got $wrongContent")
+      case wrongContent => fail(s"Expected two results instead got $wrongContent")
     }
   }
 

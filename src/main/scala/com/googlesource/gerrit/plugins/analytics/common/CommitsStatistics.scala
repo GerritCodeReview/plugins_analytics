@@ -14,15 +14,18 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.googlesource.gerrit.plugins.analytics.CommitInfo
+import com.google.gerrit.extensions.api.projects.CommentLinkInfo
+import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
 import org.eclipse.jgit.lib.{ObjectId, Repository}
-import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
+import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
+import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConversions._
+import scala.util.matching.Regex
 
 /**
   * Collects overall stats on a series of commits and provides some basic info on the included commits
@@ -38,7 +41,8 @@ case class CommitsStatistics(
                               addedLines: Int,
                               deletedLines: Int,
                               isForMergeCommits: Boolean,
-                              commits: List[CommitInfo]
+                              commits: List[CommitInfo],
+                              issues: List[IssueInfo] = Nil
                             ) {
   require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
 
@@ -62,17 +66,24 @@ case class CommitsStatistics(
     this.copy(
       addedLines = this.addedLines + that.addedLines,
       deletedLines = this.deletedLines + that.deletedLines,
-      commits = this.commits ++ that.commits
+      commits = this.commits ++ that.commits,
+      issues = this.issues ++ that.issues
     )
   }
 }
 
 object CommitsStatistics {
-  val Empty = CommitsStatistics(0, 0, false, List.empty)
+  val Empty = CommitsStatistics(0, 0, false, List[CommitInfo](), List[IssueInfo]())
   val EmptyMerge = Empty.copy(isForMergeCommits = true)
 }
 
-class Statistics(repo: Repository) {
+class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
+
+  val log = LoggerFactory.getLogger(classOf[Statistics])
+  val replacers = commentInfoList.map(info =>
+    Replacer(
+      info.`match`.r,
+      Option(info.link).getOrElse(info.html)))
 
   /**
     * Returns up to two different CommitsStatistics object grouping the stats into merge and non-merge commits
@@ -98,6 +109,9 @@ class Statistics(repo: Repository) {
     use(new RevWalk(repo)) { rw =>
       val reader = repo.newObjectReader()
       val commit = rw.parseCommit(objectId)
+
+      val commitMessage = commit.getFullMessage
+
 
       val oldTree = {
         // protects against initial commit
@@ -126,8 +140,23 @@ class Statistics(repo: Repository) {
 
       val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, files)
 
-      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, List(commitInfo))
+      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, List(commitInfo), extractIssues(commitMessage))
     }
   }
+
+  def extractIssues(commitMessage: String): List[IssueInfo] = {
+    replacers.flatMap {
+      case Replacer(pattern, replaced) =>
+        pattern.findAllIn(commitMessage)
+          .map(code => {
+            val transformed = pattern.replaceAllIn(code, replaced)
+            IssueInfo(code, transformed)
+          }
+          )
+    }.toList
+  }
+
+
+  case class Replacer(pattern: Regex, replaced: String)
 
 }
