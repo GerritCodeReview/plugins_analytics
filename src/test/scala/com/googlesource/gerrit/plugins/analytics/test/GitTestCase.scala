@@ -147,7 +147,7 @@ trait GitTestCase extends BeforeAndAfterEach {
     */
   protected def deleteBranch(repo: File, name: String): String = {
     use(Git.open(repo)) { git =>
-      git.branchDelete().setBranchNames(name).call.get(0)
+      git.branchDelete().setBranchNames(name).setForce(true).call.get(0)
     }
   }
 

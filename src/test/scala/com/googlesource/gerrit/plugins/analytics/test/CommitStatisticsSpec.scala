@@ -46,7 +46,7 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
     try {
       val commitToMerge = commit(committer, fname, content)
       checkout(currentBranch)
-      mergeBranch("tmp", true)
+      mergeBranch(tmpBranch.getName, true)
     } finally {
        deleteBranch(testRepo, tmpBranch.getName)
     }

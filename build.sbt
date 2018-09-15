@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
     scalaVersion := "2.11.8",
 
     libraryDependencies ++= Seq(
-      "io.fabric8" % "gitective-core" % "0.9.37"
+      "io.fabric8" % "gitective-core" % "0.9.54"
         exclude ("org.eclipse.jgit", "org.eclipse.jgit"),
 
       "com.google.inject" % "guice" % "4.2.0" % Provided,
