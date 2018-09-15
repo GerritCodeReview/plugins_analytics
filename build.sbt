@@ -1,6 +1,6 @@
 enablePlugins(GitVersioning)
 
-val gerritApiVersion = "2.14.12"
+val gerritApiVersion = "2.15.3"
 
 val pluginName = "analytics"
 
@@ -21,7 +21,7 @@ lazy val root = (project in file("."))
       "com.google.inject" % "guice" % "4.2.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
       "com.google.code.gson" % "gson" % "2.8.0" % Provided,
-      "joda-time" % "joda-time" % "2.9.4" % Provided,
+      "joda-time" % "joda-time" % "2.9.9" % Provided,
 
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
       "net.codingwell" %% "scala-guice" % "4.1.0" % Test),
