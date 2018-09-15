@@ -1,6 +1,6 @@
 import sbt.Keys._
 
-val gerritApiVersion = "2.13.7"
+val gerritApiVersion = "2.14.12"
 
 val pluginName = "analytics"
 
@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
   .settings(
     name := pluginName,
 
-    version := "1.0-SNAPSHOT",
+    version := "2.14-SNAPSHOT",
 
     scalaVersion := "2.11.8",
 
@@ -16,9 +16,9 @@ lazy val root = (project in file("."))
       "io.fabric8" % "gitective-core" % "0.9.19"
         exclude ("org.eclipse.jgit", "org.eclipse.jgit"),
 
-      "com.google.inject" % "guice" % "3.0" % Provided,
+      "com.google.inject" % "guice" % "4.2.0" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
-      "com.google.code.gson" % "gson" % "2.7" % Provided,
+      "com.google.code.gson" % "gson" % "2.8.0" % Provided,
       "joda-time" % "joda-time" % "2.9.4" % Provided,
 
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
