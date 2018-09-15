@@ -17,7 +17,8 @@ package com.googlesource.gerrit.plugins.analytics
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
-import com.google.gerrit.server.project.{ProjectCache, ProjectResource, ProjectsCollection}
+import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
+import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._

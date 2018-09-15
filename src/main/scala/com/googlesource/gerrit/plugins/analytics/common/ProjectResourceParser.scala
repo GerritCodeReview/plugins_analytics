@@ -14,10 +14,8 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import java.io.IOException
-
-import com.google.gerrit.extensions.restapi.UnprocessableEntityException
-import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
+import com.google.gerrit.server.project.ProjectResource
+import com.google.gerrit.server.restapi.project.ProjectsCollection
 import org.kohsuke.args4j.Argument
 
 trait ProjectResourceParser {
