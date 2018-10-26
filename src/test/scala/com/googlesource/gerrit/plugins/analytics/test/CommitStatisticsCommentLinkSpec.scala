@@ -14,14 +14,12 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.util.{Arrays, Date}
-
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
-import org.eclipse.jgit.revwalk.RevCommit
 import org.scalatest.{FlatSpec, Inside, Matchers}
+
 import scala.collection.JavaConverters._
 
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
@@ -32,12 +30,6 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
     info.link = link.getOrElse(null)
     info.html = html.getOrElse(null)
     info
-  }
-
-  def commit(committer: String, fileName: String, content: String, message: Option[String] = None): RevCommit = {
-    val date = new Date()
-    val person = newPersonIdent(committer, committer, date)
-    add(testRepo, fileName, content, author = person, committer = author, message = message.getOrElse("** no message **"))
   }
 
   class TestEnvironment(val repo: FileRepository = new FileRepository(testRepo),

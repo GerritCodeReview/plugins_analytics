@@ -14,17 +14,11 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.util.Date
-
-import com.google.common.collect.Sets
 import com.google.common.collect.Sets.newHashSet
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
-import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
-import org.eclipse.jgit.revwalk.RevCommit
 import org.scalatest.{FlatSpec, Inside, Matchers}
-
 
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
@@ -32,24 +26,6 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   class TestEnvironment {
     val repo = new FileRepository(testRepo)
     val stats = new Statistics(repo)
-  }
-
-  def commit(committer: String, fileName: String, content: String): RevCommit = {
-    val date = new Date()
-    val person = newPersonIdent(committer, committer, date)
-    add(testRepo, fileName, content, author = person, committer = author)
-  }
-
-  def mergeCommit(committer: String, fname: String, content: String): MergeResult = {
-    val currentBranch = Git.open(testRepo).getRepository.getBranch
-    val tmpBranch = branch(testRepo, "tmp")
-    try {
-      val commitToMerge = commit(committer, fname, content)
-      checkout(currentBranch)
-      mergeBranch(tmpBranch.getName, true)
-    } finally {
-       deleteBranch(testRepo, tmpBranch.getName)
-    }
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
