@@ -16,7 +16,8 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.{AggregationStrategy, AggregatedHistogramFilterByDates}
+import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
+import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
@@ -28,7 +29,8 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     "select one commit without intervals restriction" in {
 
     add("file.txt", "some content")
-    val filter = new AggregatedHistogramFilterByDates
+    val repo = new FileRepository(testRepo)
+    val filter = new AggregatedHistogramFilterByDates(repo)
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
@@ -48,7 +50,8 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
 
     secondCommitTs should be > firstCommitTs
 
-    val filter = new AggregatedHistogramFilterByDates(from = Some(secondCommitTs))
+    val repo = new FileRepository(testRepo)
+    val filter = new AggregatedHistogramFilterByDates(repo, from = Some(secondCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
@@ -69,7 +72,8 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
 
     secondCommitTs should be > firstCommitTs
 
-    val filter = new AggregatedHistogramFilterByDates(to = Some(secondCommitTs))
+    val repo = new FileRepository(testRepo)
+    val filter = new AggregatedHistogramFilterByDates(repo, to = Some(secondCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
@@ -93,7 +97,8 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     middleCommitTs should be > firstCommitTs
     lastCommitTs should be > middleCommitTs
 
-    val filter = new AggregatedHistogramFilterByDates(from = Some(middleCommitTs), to = Some(lastCommitTs))
+    val repo = new FileRepository(testRepo)
+    val filter = new AggregatedHistogramFilterByDates(repo, from = Some(middleCommitTs), to = Some(lastCommitTs))
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
@@ -103,5 +108,18 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     activity.getTimes should have size 1
     activity.getName should be(person.getName)
     activity.getEmail should be(person.getEmailAddress)
+  }
+
+  it should "aggregate by branch when extractBranches is set" in {
+    val repo = new FileRepository(testRepo)
+    add("file1.txt", "add file1.txt to master branch")
+    branch("another/branch")
+    add("file2.txt", "add file2.txt to another/branch")
+    val filter = new AggregatedHistogramFilterByDates(repo, branchesExtractor = Some(new BranchesExtractor(repo)))
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
   }
 }

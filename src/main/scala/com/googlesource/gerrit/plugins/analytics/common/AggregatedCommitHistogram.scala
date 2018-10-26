@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.BY_BRANCH
 import org.eclipse.jgit.lib.PersonIdent
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.stat.{CommitHistogram, CommitHistogramFilter, UserCommitActivity}
@@ -24,11 +24,20 @@ import org.gitective.core.stat.{CommitHistogram, CommitHistogramFilter, UserComm
 class AggregatedUserCommitActivity(val key: String, val name: String, val email: String)
   extends UserCommitActivity(name, email)
 
-class AggregatedCommitHistogram(val aggregationStrategyForUser: AggregationStrategyMapping)
+class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
   extends CommitHistogram {
 
+  def includeWithBranches(commit: RevCommit, user: PersonIdent, branches: Set[String]): Unit = {
+    for ( branch <- branches ) {
+      val originalStrategy = aggregationStrategy
+      this.aggregationStrategy = BY_BRANCH(branch, aggregationStrategy)
+      this.include(commit, user)
+      this.aggregationStrategy = originalStrategy
+    }
+  }
+
   override def include(commit: RevCommit, user: PersonIdent): AggregatedCommitHistogram = {
-    val key = aggregationStrategyForUser(user, commit.getAuthorIdent.getWhen)
+    val key = aggregationStrategy.mapping(user, commit.getAuthorIdent.getWhen)
     val activity = Option(users.get(key)) match {
       case None =>
         val newActivity = new AggregatedUserCommitActivity(key,
@@ -48,14 +57,11 @@ class AggregatedCommitHistogram(val aggregationStrategyForUser: AggregationStrat
 
 object AggregatedCommitHistogram {
   type AggregationStrategyMapping = (PersonIdent, Date) => String
-
-  def apply(aggregationStrategy: AggregationStrategyMapping) =
-    new AggregatedCommitHistogram(aggregationStrategy)
 }
 
-abstract class AbstractCommitHistogramFilter(aggregationStrategyMapping: AggregationStrategyMapping)
+abstract class AbstractCommitHistogramFilter(aggregationStrategy: AggregationStrategy)
   extends CommitHistogramFilter {
-  val AbstractHistogram = new AggregatedCommitHistogram(aggregationStrategyMapping)
+  val AbstractHistogram = new AggregatedCommitHistogram(aggregationStrategy)
 
   override def getHistogram = AbstractHistogram
 }
