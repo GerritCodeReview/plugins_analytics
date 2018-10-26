@@ -95,8 +95,10 @@ class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkIn
 
     val stats = commits.map(forSingleCommit)
 
-    val nonMergeStats = stats.filterNot(_.isForMergeCommits).foldLeft(CommitsStatistics.Empty)(_ + _)
-    val mergeStats = stats.filter(_.isForMergeCommits).foldLeft(CommitsStatistics.EmptyMerge)(_ + _)
+    val (mergeStatsSeq, nonMergeStatsSeq) = stats.partition(_.isForMergeCommits)
+
+    val nonMergeStats = nonMergeStatsSeq.foldLeft(CommitsStatistics.Empty)(_ + _)
+    val mergeStats = mergeStatsSeq.foldLeft(CommitsStatistics.EmptyMerge)(_ + _)
 
     List(nonMergeStats, mergeStats).filterNot(_.isEmpty)
   }
