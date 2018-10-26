@@ -20,7 +20,10 @@ import java.util.Date
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
 
-sealed case class AggregationStrategy(name: String, mapping: AggregationStrategyMapping)
+sealed trait AggregationStrategy {
+  def name: String
+  def mapping: AggregationStrategyMapping
+}
 
 object AggregationStrategy {
   val values = List(EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR)
@@ -36,8 +39,10 @@ object AggregationStrategy {
     def utc: LocalDateTime = d.toInstant.atZone(ZoneOffset.UTC).toLocalDateTime
   }
 
-  object EMAIL extends AggregationStrategy("EMAIL",
-    (p, _) => s"${p.getEmailAddress}////")
+  object EMAIL extends AggregationStrategy {
+    val name = "EMAIL"
+    val mapping = (p, _) => s"${p.getEmailAddress}////"
+  }
 
   object EMAIL_YEAR extends AggregationStrategy("EMAIL_YEAR",
     (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}///")
@@ -50,4 +55,8 @@ object AggregationStrategy {
 
   object EMAIL_HOUR extends AggregationStrategy("EMAIL_HOUR",
     (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}/${d.utc.getDayOfMonth}/${d.utc.getHour}")
+
+  case class BY_BRANCH(branch: String, baseAggregationStrategy: AggregationStrategy) extends AggregationStrategy("BY_BRANCH",
+    (p, d) => s"${baseAggregationStrategy.mapping(p, d)}/$branch"
+  )
 }

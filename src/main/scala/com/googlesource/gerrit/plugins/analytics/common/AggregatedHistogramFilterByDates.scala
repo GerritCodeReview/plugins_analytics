@@ -14,26 +14,29 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 
 /**
   * Commit filter that includes commits only on the specified interval
   * starting from and to excluded
   */
-class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
+class AggregatedHistogramFilterByDates(repo: Repository, val from: Option[Long] = None, val to: Option[Long] = None,
                                        val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
-  extends AbstractCommitHistogramFilter(aggregationStrategy.mapping) {
+  extends AbstractCommitHistogramFilter(aggregationStrategy) {
 
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
+    val branches = new CommitsBranches(repo, from, to).forCommits(Set(commit.getId))
+
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      getHistogram.include(commit, author)
+      getHistogram.includeWithBranches(commit, author, branches)
       true
     } else {
       false
     }
   }
 
-  override def clone = new AggregatedHistogramFilterByDates(from, to, aggregationStrategy)
+  override def clone = new AggregatedHistogramFilterByDates(repo, from, to, aggregationStrategy)
 }

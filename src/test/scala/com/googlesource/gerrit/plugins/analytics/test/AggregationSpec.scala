@@ -21,6 +21,7 @@ import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitFinder
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 import AggregationStrategy._
+import org.eclipse.jgit.internal.storage.file.FileRepository
 
 class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspectors {
 
@@ -33,7 +34,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   def aggregateBy(strategy: AggregationStrategy) = {
-    val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = strategy)
+    val repo = new FileRepository(testRepo)
+    val filter = new AggregatedHistogramFilterByDates(repo, aggregationStrategy = strategy)
     new CommitFinder(testRepo).setFilter(filter).find
     filter.getHistogram.getAggregatedUserActivity
   }
