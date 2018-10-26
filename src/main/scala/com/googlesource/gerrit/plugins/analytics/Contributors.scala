@@ -153,10 +153,9 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       val commitsBranchesOptionalEnricher = extractBranches.option(
         new CommitsBranches(repo, startDate, stopDate)
       )
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
-        aggregationStrategy))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(repo, startDate, stopDate, aggregationStrategy))
         .par
-        .flatMap(UserActivitySummary.apply(stats, commitsBranchesOptionalEnricher))
+        .flatMap(aggregated => UserActivitySummary.apply(stats, commitsBranchesOptionalEnricher)(aggregated))
         .toStream
     }
   }
@@ -186,16 +185,14 @@ case class UserActivitySummary(year: Integer,
                               )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics,
-            branchesLabeler: Option[CommitsBranches])
-           (uca: AggregatedUserCommitActivity)
+  def apply(statisticsHandler: Statistics, branchesLabeler: Option[CommitsBranches])(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
     uca.key.split("/", INCLUDESEMPTY) match {
-      case Array(email, year, month, day, hour) =>
+      case Array(email, year, month, day, hour, _*) =>
         val branches = branchesLabeler.fold(Set.empty[String]) {
           labeler => labeler.forCommits(uca.getIds)
         }
