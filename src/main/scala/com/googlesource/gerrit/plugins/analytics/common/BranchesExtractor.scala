@@ -18,36 +18,27 @@ import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
-import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter
 
 import scala.collection.JavaConversions._
-import scala.collection.mutable
 
-class CommitsBranches(repo: Repository, from: Option[Long] = None,
-                      to: Option[Long] = None) {
+case class BranchesExtractor(repo: Repository) {
+  lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
-  def forCommits(objectIds: TraversableOnce[ObjectId]): Set[String] = {
-    val commitToBranchesMap = new mutable.HashMap[String, mutable.Set[String]]
-      with mutable.MultiMap[String, String]
     use(new Git(repo)) { git =>
-      val refs = git.branchList.call
-      for (ref <- refs) {
+      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
         val branchName = ref.getName.drop(Constants.R_HEADS.length)
+
         use(new RevWalk(repo)) { rw: RevWalk =>
-          from.foreach(d1 => rw.setRevFilter(CommitTimeRevFilter.after(d1)))
-          to.foreach(d2 => rw.setRevFilter(CommitTimeRevFilter.before(d2)))
           rw.markStart(rw.parseCommit(ref.getObjectId))
-          rw.foreach { rev =>
-            val sha1 = rev.getName
-            commitToBranchesMap.addBinding(sha1, branchName)
+          rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
+            val sha1 = rev.getId
+            thisBranchAcc.get(sha1) match {
+              case Some(set) => thisBranchAcc + (sha1 -> (set + branchName))
+              case None      => thisBranchAcc + (sha1 -> Set(branchName))
+            }
           }
         }
       }
-      objectIds.foldLeft(Set.empty[String]) {
-        (branches, objectId) => {
-          branches ++ commitToBranchesMap(objectId.getName)
-        }
-      }.filter(_.nonEmpty)
     }
   }
 }
