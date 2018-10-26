@@ -16,31 +16,20 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, AggregatedUserCommitActivity, AggregationStrategy}
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy._
+import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
+import com.googlesource.gerrit.plugins.analytics.common.TestUtils
 import org.eclipse.jgit.revwalk.RevCommit
-import org.gitective.core.CommitFinder
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
-import AggregationStrategy._
 
-class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspectors {
+class AggregationSpec extends FlatSpec with Matchers with GitTestCase with TestUtils with Inspectors {
 
-  import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
-
-  def commit(committer: String, when: String, content: String): RevCommit = {
-    val date = new Date(isoStringToLongDate(when))
-    val person = newPersonIdent(committer, committer, date)
-    add("afile.txt", content, author = person, committer = author)
-  }
-
-  def aggregateBy(strategy: AggregationStrategy) = {
-    val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = strategy)
-    new CommitFinder(testRepo).setFilter(filter).find
-    filter.getHistogram.getAggregatedUserActivity
-  }
+  def commitInDate(committer: String, when: String, content: String): RevCommit =
+    commit(committer, "afile.txt", content, new Date(isoStringToLongDate(when)))
 
   "AggregatedHistogramFilter by email and year" should "aggregate two commits from the same author the same year" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2017-10-05", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2017-10-05", "second commit")
 
     val userActivity = aggregateBy(EMAIL_YEAR)
 
@@ -50,8 +39,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from the same author on two different year" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2018-09-01", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2018-09-01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_YEAR)
 
@@ -66,8 +55,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from two different authors on the same year" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("bob", "2017-12-05", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("bob", "2017-12-05", "second commit")
 
     val userActivity = aggregateBy(EMAIL_YEAR)
 
@@ -79,8 +68,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   "AggregatedHistogramFilter by email and month" should "aggregate two commits from the same author the same month" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2017-08-05", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2017-08-05", "second commit")
 
     val userActivity = aggregateBy(EMAIL_MONTH)
 
@@ -90,8 +79,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from the same author on two different months" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2017-09-01", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2017-09-01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_MONTH)
 
@@ -106,8 +95,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from two different authors on the same month" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("bob", "2017-08-05", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("bob", "2017-08-05", "second commit")
 
     val userActivity = aggregateBy(EMAIL_MONTH)
 
@@ -119,8 +108,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   "AggregatedHistogramFilter by email and day" should "aggregate two commits of the same author the same day" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2017-08-01", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2017-08-01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_DAY)
 
@@ -130,8 +119,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from the same author on two different days" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("john", "2017-08-02", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("john", "2017-08-02", "second commit")
 
     val userActivity = aggregateBy(EMAIL_DAY)
 
@@ -146,8 +135,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep as separate rows activity from two different authors on the same day" in {
-    commit("john", "2017-08-01", "first commit")
-    commit("bob", "2017-08-01", "second commit")
+    commitInDate("john", "2017-08-01", "first commit")
+    commitInDate("bob", "2017-08-01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_DAY)
 
@@ -159,8 +148,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   "AggregatedHistogramFilter by email and hour" should "aggregate two commits of the same author on the same hour" in {
-    commit("john", "2017-08-01 10:15:03", "first commit")
-    commit("john", "2017-08-01 10:45:01", "second commit")
+    commitInDate("john", "2017-08-01 10:15:03", "first commit")
+    commitInDate("john", "2017-08-01 10:45:01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_HOUR)
 
@@ -170,8 +159,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep separate commits from the same author on different hours" in {
-    commit("john", "2017-08-01 10:15:03", "first commit")
-    commit("john", "2017-08-01 11:30:01", "second commit")
+    commitInDate("john", "2017-08-01 10:15:03", "first commit")
+    commitInDate("john", "2017-08-01 11:30:01", "second commit")
 
     val userActivity = aggregateBy(EMAIL_HOUR)
 
@@ -185,8 +174,8 @@ class AggregationSpec extends FlatSpec with Matchers with GitTestCase with Inspe
   }
 
   it should "keep separate commits from different authors on the same hour" in {
-    commit("john", "2017-08-01 10:15:03", "first commit")
-    commit("bob", "2017-08-01 10:20:00", "second commit")
+    commitInDate("john", "2017-08-01 10:15:03", "first commit")
+    commitInDate("bob", "2017-08-01 10:20:00", "second commit")
 
     val userActivity = aggregateBy(EMAIL_HOUR)
 
