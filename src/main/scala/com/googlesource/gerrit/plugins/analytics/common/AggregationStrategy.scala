@@ -19,8 +19,12 @@ import java.time.{LocalDateTime, ZoneOffset}
 import java.util.Date
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import org.eclipse.jgit.lib.PersonIdent
 
-sealed case class AggregationStrategy(name: String, mapping: AggregationStrategyMapping)
+sealed trait AggregationStrategy {
+  def name: String
+  def mapping: AggregationStrategyMapping
+}
 
 object AggregationStrategy {
   val values = List(EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR)
@@ -36,18 +40,33 @@ object AggregationStrategy {
     def utc: LocalDateTime = d.toInstant.atZone(ZoneOffset.UTC).toLocalDateTime
   }
 
-  object EMAIL extends AggregationStrategy("EMAIL",
-    (p, _) => s"${p.getEmailAddress}////")
+  object EMAIL extends AggregationStrategy {
+    val name: String = "EMAIL"
+    val mapping: (PersonIdent, Date) => String = (p, _) => s"${p.getEmailAddress}////"
+  }
 
-  object EMAIL_YEAR extends AggregationStrategy("EMAIL_YEAR",
-    (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}///")
+  object EMAIL_YEAR extends AggregationStrategy {
+    val name: String = "EMAIL_YEAR"
+    val mapping: (PersonIdent, Date) => String = (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}///"
+  }
 
-  object EMAIL_MONTH extends AggregationStrategy("EMAIL_MONTH",
-    (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}//")
+  object EMAIL_MONTH extends AggregationStrategy {
+    val name: String = "EMAIL_MONTH"
+    val mapping: (PersonIdent, Date) => String = (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}//"
+  }
 
-  object EMAIL_DAY extends AggregationStrategy("EMAIL_DAY",
-    (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}/${d.utc.getDayOfMonth}/")
+  object EMAIL_DAY extends AggregationStrategy {
+    val name: String = "EMAIL_DAY"
+    val mapping: (PersonIdent, Date) => String = (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}/${d.utc.getDayOfMonth}/"
+  }
 
-  object EMAIL_HOUR extends AggregationStrategy("EMAIL_HOUR",
-    (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}/${d.utc.getDayOfMonth}/${d.utc.getHour}")
+  object EMAIL_HOUR extends AggregationStrategy {
+    val name: String = "EMAIL_HOUR"
+    val mapping: (PersonIdent, Date) => String = (p, d) => s"${p.getEmailAddress}/${d.utc.getYear}/${d.utc.getMonthValue}/${d.utc.getDayOfMonth}/${d.utc.getHour}"
+  }
+
+  case class BY_BRANCH(branch: String, baseAggregationStrategy: AggregationStrategy) extends AggregationStrategy {
+    val name: String = "BY_BRANCH"
+    val mapping: (PersonIdent, Date) => String = (p, d) => s"${baseAggregationStrategy.mapping(p, d)}/$branch"
+  }
 }
