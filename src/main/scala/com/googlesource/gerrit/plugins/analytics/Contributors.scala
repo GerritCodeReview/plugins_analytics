@@ -138,6 +138,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
   import RichBoolean._
+
   import scala.collection.JavaConverters._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
@@ -150,13 +151,10 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo, commentLinks.asJava)
-      val commitsBranchesOptionalEnricher = extractBranches.option(
-        new CommitsBranches(repo, startDate, stopDate)
-      )
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate,
-        aggregationStrategy))
+
+      histogram.get(repo, new AggregatedHistogramFilterByDates(repo, startDate, stopDate, extractBranches, aggregationStrategy))
         .par
-        .flatMap(UserActivitySummary.apply(stats, commitsBranchesOptionalEnricher))
+        .flatMap(aggregated => UserActivitySummary.apply(stats)(aggregated))
         .toStream
     }
   }
@@ -186,24 +184,19 @@ case class UserActivitySummary(year: Integer,
                               )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics,
-            branchesLabeler: Option[CommitsBranches])
-           (uca: AggregatedUserCommitActivity)
+  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
     val INCLUDESEMPTY = -1
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
     uca.key.split("/", INCLUDESEMPTY) match {
-      case Array(email, year, month, day, hour) =>
-        val branches = branchesLabeler.fold(Set.empty[String]) {
-          labeler => labeler.forCommits(uca.getIds)
-        }
+      case Array(email, year, month, day, hour, branch) =>
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
-            year, month, day, hour, uca.getName, uca.getEmail, uca.getCount,
+            year, month, day, hour, uca.getName, email, uca.getCount,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, branches.toArray, stat.issues.map(_.code)
+            stat.commits.toArray, Option(branch).map(b => Array(b)).getOrElse(Array.empty), stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
               .isForMergeCommits
           )
