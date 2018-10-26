@@ -16,7 +16,9 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.{AggregationStrategy, AggregatedHistogramFilterByDates}
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
+import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
+import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
@@ -28,7 +30,7 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     "select one commit without intervals restriction" in {
 
     add("file.txt", "some content")
-    val filter = new AggregatedHistogramFilterByDates
+    val filter = new AggregatedHistogramFilterByDates()
     new CommitFinder(testRepo).setFilter(filter).find
 
     val userActivity = filter.getHistogram.getUserActivity
@@ -103,5 +105,21 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     activity.getTimes should have size 1
     activity.getName should be(person.getName)
     activity.getEmail should be(person.getEmailAddress)
+  }
+
+  it should "aggregate commits of the same user separately when they are in different branches and branchesExtractor is set" in {
+    val repo = new FileRepository(testRepo)
+    add("file1.txt", "add file1.txt to master branch")
+    branch("another/branch")
+    add("file2.txt", "add file2.txt to another/branch")
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      branchesExtractor = Some(new BranchesExtractor(repo))
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
   }
 }

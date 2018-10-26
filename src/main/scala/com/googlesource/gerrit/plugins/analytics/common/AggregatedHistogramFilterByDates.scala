@@ -21,19 +21,26 @@ import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
   * starting from and to excluded
   */
 class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
+                                       val branchesExtractor: Option[BranchesExtractor] = None,
                                        val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
-  extends AbstractCommitHistogramFilter(aggregationStrategy.mapping) {
+  extends AbstractCommitHistogramFilter(aggregationStrategy) {
 
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
+
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      getHistogram.include(commit, author)
+      if(branchesExtractor.isDefined) {
+        val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
+        getHistogram.includeWithBranches(commit, author, branches)
+      } else {
+        getHistogram.include(commit, author)
+      }
       true
     } else {
       false
     }
   }
 
-  override def clone = new AggregatedHistogramFilterByDates(from, to, aggregationStrategy)
+  override def clone = new AggregatedHistogramFilterByDates(from, to, branchesExtractor, aggregationStrategy)
 }

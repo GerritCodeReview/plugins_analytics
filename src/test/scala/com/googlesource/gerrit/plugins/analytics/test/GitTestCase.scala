@@ -40,6 +40,7 @@ import java.nio.file.Files
 import java.text.MessageFormat
 import java.util.Date
 
+import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
@@ -50,6 +51,7 @@ import org.eclipse.jgit.notes.Note
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitUtils
 import org.scalatest.{BeforeAndAfterEach, Suite}
+import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 
 
 /**
@@ -391,4 +393,40 @@ trait GitTestCase extends BeforeAndAfterEach {
       git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
     }
   } ensuring (_ != null, "Unable to commit delete operation")
+
+  /**
+    * commit specified content into a file, as committer
+    *
+    * @param committer - the author of this commit
+    * @param fileName - the name of the file
+    * @param content - the content of the file
+    * @param when - the date of the commit
+    * @return RevCommit
+    *
+    */
+  protected def commit(committer: String, fileName: String, content: String, when: Date = new Date(), message: Option[String] = None): RevCommit = {
+    val person = newPersonIdent(committer, committer, when)
+    add(testRepo, fileName, content, author = person, committer = author, message = message.getOrElse("** no message **"))
+  }
+
+  /**
+    * commit specified content into a file, as committer and merge into current branch
+    *
+    * @param committer - the author of this commit
+    * @param fileName - the name of the file
+    * @param content - the content of the file
+    * @return MergeResult
+    *
+    */
+  protected def mergeCommit(committer: String, fileName: String, content: String): MergeResult = {
+    val currentBranch = Git.open(testRepo).getRepository.getBranch
+    val tmpBranch = branch(testRepo, "tmp")
+    try {
+      commit(committer, fileName, content)
+      checkout(currentBranch)
+      mergeBranch(tmpBranch.getName, withCommit = true)
+    } finally {
+      deleteBranch(testRepo, tmpBranch.getName)
+    }
+  }
 }
