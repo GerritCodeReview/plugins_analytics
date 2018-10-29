@@ -220,11 +220,11 @@ case class UserActivitySummary(year: Integer,
 object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
-    val INCLUDESEMPTY = -1
+    val MAX_TOKENS = 6
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
-    uca.key.split("/", 6) match {
+    uca.key.split("/", MAX_TOKENS) match {
       case Array(email, year, month, day, hour, branch) =>
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
