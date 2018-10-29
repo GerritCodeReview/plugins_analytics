@@ -149,10 +149,13 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
+
+
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo, commentLinks.asJava)
+      val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(repo, startDate, stopDate, extractBranches, aggregationStrategy))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(repo, startDate, stopDate, branchesExtractor, aggregationStrategy))
         .par
         .flatMap(aggregated => UserActivitySummary.apply(stats)(aggregated))
         .toStream
@@ -186,11 +189,11 @@ case class UserActivitySummary(year: Integer,
 object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
-    val INCLUDESEMPTY = -1
+    val MAX_TOKENS = 6
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
-    uca.key.split("/", INCLUDESEMPTY) match {
+    uca.key.split("/", MAX_TOKENS) match {
       case Array(email, year, month, day, hour, branch) =>
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(

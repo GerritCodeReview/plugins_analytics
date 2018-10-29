@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.AggregatedHistogramFilterByDates
+import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
@@ -110,19 +110,16 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     activity.getEmail should be(person.getEmailAddress)
   }
 
-  it should "aggregate by branch when extractBranches is true" in {
+  it should "aggregate by branch when extractBranches is set" in {
     val repo = new FileRepository(testRepo)
     add("file1.txt", "add file1.txt to master branch")
     branch("another/branch")
     add("file2.txt", "add file2.txt to another/branch")
-    val filter = new AggregatedHistogramFilterByDates(repo, extractBranches = true)
+    val filter = new AggregatedHistogramFilterByDates(repo, branchesExtractor = Some(new BranchesExtractor(repo)))
 
     new CommitFinder(testRepo).setFilter(filter).find
     val userActivity = filter.getHistogram.getUserActivity
 
     userActivity should have size 2
-
-    userActivity.head.getCount should be(2)
-    userActivity.last.getCount should be(1)
   }
 }
