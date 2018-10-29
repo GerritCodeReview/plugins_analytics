@@ -67,6 +67,7 @@ object AggregationStrategy {
 
   case class BY_BRANCH(branch: String, baseAggregationStrategy: AggregationStrategy) extends AggregationStrategy {
     val name: String = "BY_BRANCH"
-    val mapping: (PersonIdent, Date) => String = (p, d) => s"${baseAggregationStrategy.mapping(p, d)}/$branch"
+    val mapping: (PersonIdent, Date) => String = (p, d) =>
+      s"${baseAggregationStrategy.mapping(p, d)}$branch"
   }
 }

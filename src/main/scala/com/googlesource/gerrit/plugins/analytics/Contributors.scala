@@ -128,39 +128,73 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   override def apply(projectRes: ProjectResource) =
     Response.ok(
-      new GsonStreamedResult[UserActivitySummary](gson,
-        executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
+      new GsonStreamedResult[UserActivitySummary](
+        gson,
+        executor.get(projectRes,
+                     beginDate,
+                     endDate,
+                     granularity.getOrElse(AggregationStrategy.EMAIL),
+                     extractBranches,
+                     extractIssues)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
-                                    projectCache:ProjectCache,
+                                    projectCache: ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
 
-  def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
-  : TraversableOnce[UserActivitySummary] = {
+  def get(projectRes: ProjectResource,
+          startDate: Option[Long],
+          stopDate: Option[Long],
+          aggregationStrategy: AggregationStrategy,
+          extractBranches: Boolean,
+          extractIssues: Boolean): TraversableOnce[UserActivitySummary] = {
     val nameKey = projectRes.getNameKey
-    val commentLinks: List[CommentLinkInfo] = extractIssues.option {
-      projectCache.get(nameKey).getCommentLinks.asScala
-    }.toList.flatten
+    val commentLinks: List[CommentLinkInfo] = extractIssues
+      .option {
+        projectCache.get(nameKey).getCommentLinks.asScala
+      }
+      .toList
+      .flatten
 
-    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, commentLinks.asJava)
+    userActivitySummary(repoManager.openRepository(projectRes.getNameKey),
+                        commentLinks,
+                        startDate,
+                        stopDate,
+                        extractBranches,
+                        aggregationStrategy)
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(repo, startDate, stopDate, extractBranches, aggregationStrategy))
+  }
+
+  def userActivitySummary(repo: Repository,
+                          commentLinks: List[CommentLinkInfo],
+                          startDate: Option[Long],
+                          stopDate: Option[Long],
+                          extractBranches: Boolean,
+                          aggregationStrategy: AggregationStrategy) =
+    ManagedResource.use(repo) { r =>
+      val stats = new Statistics(r, commentLinks.asJava)
+
+      histogram
+        .get(r,
+             new AggregatedHistogramFilterByDates(r,
+                                                  startDate,
+                                                  stopDate,
+                                                  extractBranches,
+                                                  aggregationStrategy))
         .par
         .flatMap(aggregated => UserActivitySummary.apply(stats)(aggregated))
         .toStream
     }
-  }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util.Set[String])
+case class CommitInfo(sha1: String,
+                      date: Long,
+                      merge: Boolean,
+                      files: java.util.Set[String])
 
 case class IssueInfo(code: String, link: String)
 
@@ -190,7 +224,7 @@ object UserActivitySummary {
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
-    uca.key.split("/", INCLUDESEMPTY) match {
+    uca.key.split("/", 6) match {
       case Array(email, year, month, day, hour, branch) =>
         statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
           UserActivitySummary(
