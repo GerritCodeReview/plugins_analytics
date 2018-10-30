@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d073fbf9_a5fbf1ea",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d3019d0_51ed619d",
+      "range": {
+        "startLine": 158,
+        "startChar": 63,
+        "endLine": 158,
+        "endChar": 67
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e03fd77c_80f9f1c0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c925bd73_35f5712d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e03fd77c_80f9f1c0",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 27
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "983ac981_16a96502",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a004f1c_973c0f76",
+      "range": {
+        "startLine": 192,
+        "startChar": 8,
+        "endLine": 192,
+        "endChar": 18
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e23598a_4700b459",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2606f4de_1700730c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e23598a_4700b459",
+      "range": {
+        "startLine": 202,
+        "startChar": 41,
+        "endLine": 202,
+        "endChar": 47
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "660fdd91_37fa01d9",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2018-10-30T16:13:49Z",
       "side": 1,
       "message": "Consider to constraint type of AggregationStrategy",
+      "range": {
+        "startLine": 68,
+        "startChar": 39,
+        "endLine": 68,
+        "endChar": 83
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78891070_e163f136",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "The code will get quite complicated by doing this. I don\u0027t think it is worth doing at this stage.\nThe whole aggregation model needs to be rethought.",
+      "parentUuid": "660fdd91_37fa01d9",
       "range": {
         "startLine": 68,
         "startChar": 39,
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "3f3f061c_90c9504b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2633b450_cfee4642",
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb316a22_de214409",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
         "patchSetId": 8
@@ -154,6 +292,30 @@
       "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "554c5647_5fe505aa",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsBranches.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb316a22_de214409",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "c1444b26_e3c11cb0",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BranchesExtractorSpec.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d995015_959a2795",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 77
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08818496_8832fa87",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
         "patchSetId": 8
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "03ee4d33_01d0083a",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08818496_8832fa87",
+      "range": {
+        "startLine": 118,
+        "startChar": 21,
+        "endLine": 118,
+        "endChar": 53
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "336f94f2_064456a1",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
         "patchSetId": 8
@@ -223,6 +433,30 @@
       "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7352b83_fd9722a1",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregationSpec.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-10-30T17:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "336f94f2_064456a1",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 18
+      },
+      "revId": "27fe277ce28fd9874c9f72558c580ea7fe5fc498",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
