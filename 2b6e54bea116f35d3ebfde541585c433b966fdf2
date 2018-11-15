@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9451a7a0_8cfc1b44",
+        "filename": "build.sbt",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-15T00:54:42Z",
+      "side": 1,
+      "message": "Should this also be updated?",
+      "revId": "2b6e54bea116f35d3ebfde541585c433b966fdf2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
