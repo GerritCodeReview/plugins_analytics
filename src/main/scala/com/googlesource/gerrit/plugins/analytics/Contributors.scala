@@ -24,8 +24,6 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
 
-import scala.util.Try
-
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
@@ -130,10 +128,11 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
-                                    projectCache:ProjectCache,
+                                    projectCache: ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter,
                                     commitsStatisticsCache: CommitsStatisticsCache) {
+
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
@@ -141,7 +140,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats  = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
+      val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
@@ -155,10 +154,10 @@ case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean
 
 case class IssueInfo(code: String, link: String)
 
-case class UserActivitySummary(year: Integer,
-                               month: Integer,
-                               day: Integer,
-                               hour: Integer,
+case class UserActivitySummary(year: Option[Int],
+                               month: Option[Int],
+                               day: Option[Int],
+                               hour: Option[Int],
                                name: String,
                                email: String,
                                numCommits: Integer,
@@ -179,25 +178,32 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    def stringToIntOrNull(x: String): Integer = Try(new Integer(x)).getOrElse(null)
+    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+      val maybeBranches =
+        uca.key.branch.filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
-    uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
-      case Array(email, year, month, day, hour, branch) =>
-        statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
-          val maybeBranches =
-            Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
-
-          UserActivitySummary(
-            stringToIntOrNull(year), stringToIntOrNull(month), stringToIntOrNull(day), stringToIntOrNull(hour),
-            uca.getName, email, stat.commits.size,
-            stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
-              .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
-              .isForMergeCommits,stat.isForBotLike
-          )
-        }
-      case _ => throw new Exception(s"invalid key format found ${uca.key}")
+      UserActivitySummary(
+        uca.key.year,
+        uca.key.month,
+        uca.key.day,
+        uca.key.hour,
+        uca.getName,
+        uca.key.email,
+        stat.commits.size,
+        stat.numFiles,
+        stat.numDistinctFiles,
+        stat.addedLines,
+        stat.deletedLines,
+        stat.commits.toArray,
+        maybeBranches,
+        stat.issues.map(_.code).toArray,
+        stat.issues.map(_.link).toArray,
+        uca.getLatest,
+        stat.isForMergeCommits,
+        stat.isForBotLike
+      )
     }
+
   }
 }
 
