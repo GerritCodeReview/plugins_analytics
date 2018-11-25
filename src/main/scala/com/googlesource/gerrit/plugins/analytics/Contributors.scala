@@ -130,10 +130,11 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
-                                    projectCache:ProjectCache,
+                                    projectCache: ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter,
                                     commitsStatisticsCache: CommitsStatisticsCache) {
+
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
@@ -141,7 +142,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats  = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
+      val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
@@ -176,28 +177,37 @@ case class UserActivitySummary(year: Integer,
                               )
 
 object UserActivitySummary {
+  def stringToIntOrNull(x: Option[Int]): Integer = Try(new Integer(x.get)).getOrElse(null)
+
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    def stringToIntOrNull(x: String): Integer = Try(new Integer(x)).getOrElse(null)
+    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+      val maybeBranches =
+        uca.key.branch.filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
-    uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
-      case Array(email, year, month, day, hour, branch) =>
-        statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
-          val maybeBranches =
-            Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
-
-          UserActivitySummary(
-            stringToIntOrNull(year), stringToIntOrNull(month), stringToIntOrNull(day), stringToIntOrNull(hour),
-            uca.getName, email, stat.commits.size,
-            stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
-              .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
-              .isForMergeCommits,stat.isForBotLike
-          )
-        }
-      case _ => throw new Exception(s"invalid key format found ${uca.key}")
+      UserActivitySummary(
+        stringToIntOrNull(uca.key.year),
+        stringToIntOrNull(uca.key.month),
+        stringToIntOrNull(uca.key.day),
+        stringToIntOrNull(uca.key.hour),
+        uca.getName,
+        uca.key.email,
+        stat.commits.size,
+        stat.numFiles,
+        stat.numDistinctFiles,
+        stat.addedLines,
+        stat.deletedLines,
+        stat.commits.toArray,
+        maybeBranches,
+        stat.issues.map(_.code).toArray,
+        stat.issues.map(_.link).toArray,
+        uca.getLatest,
+        stat.isForMergeCommits,
+        stat.isForBotLike
+      )
     }
+
   }
 }
 
