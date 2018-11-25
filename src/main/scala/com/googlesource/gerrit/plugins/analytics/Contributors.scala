@@ -167,10 +167,10 @@ case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util
 
 case class IssueInfo(code: String, link: String)
 
-case class UserActivitySummary(year: Integer,
-                               month: Integer,
-                               day: Integer,
-                               hour: Integer,
+case class UserActivitySummary(year: Option[Int],
+                               month: Option[Int],
+                               day: Option[Int],
+                               hour: Option[Int],
                                name: String,
                                email: String,
                                numCommits: Integer,
@@ -192,22 +192,19 @@ object UserActivitySummary {
 
     implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
 
-    uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
-      case Array(email, year, month, day, hour, branch) =>
-        statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
-          val maybeBranches =
-            Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
+    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+      val maybeBranches =
+        uca.key.branch.filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
           UserActivitySummary(
-            year, month, day, hour, uca.getName, email, stat.commits.size,
+            uca.key.year, uca.key.month, uca.key.day, uca.key.hour, uca.getName, uca.key.email, stat.commits.size,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
             stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
               .isForMergeCommits
           )
         }
-      case _ => throw new Exception(s"invalid key format found ${uca.key}")
-    }
+
   }
 }
 

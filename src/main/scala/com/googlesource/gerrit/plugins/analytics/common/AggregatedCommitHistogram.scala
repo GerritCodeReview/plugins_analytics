@@ -16,12 +16,12 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import java.util.Date
 
-import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.BY_BRANCH
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.{AggregationKey, BY_BRANCH}
 import org.eclipse.jgit.lib.PersonIdent
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.stat.{CommitHistogram, CommitHistogramFilter, UserCommitActivity}
 
-class AggregatedUserCommitActivity(val key: String, val name: String, val email: String)
+class AggregatedUserCommitActivity(val key: AggregationKey, val name: String, val email: String)
   extends UserCommitActivity(name, email)
 
 class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
@@ -38,11 +38,11 @@ class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
 
   override def include(commit: RevCommit, user: PersonIdent): AggregatedCommitHistogram = {
     val key = aggregationStrategy.mapping(user, commit.getAuthorIdent.getWhen)
-    val activity = Option(users.get(key)) match {
+    val activity = Option(users.get(key.toString)) match {
       case None =>
         val newActivity = new AggregatedUserCommitActivity(key,
           user.getName, user.getEmailAddress)
-        users.put(key, newActivity)
+        users.put(key.toString, newActivity)
         newActivity
       case Some(foundActivity) => foundActivity
     }
@@ -56,7 +56,7 @@ class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
 }
 
 object AggregatedCommitHistogram {
-  type AggregationStrategyMapping = (PersonIdent, Date) => String
+  type AggregationStrategyMapping = (PersonIdent, Date) => AggregationKey
 }
 
 abstract class AbstractCommitHistogramFilter(aggregationStrategy: AggregationStrategy)
