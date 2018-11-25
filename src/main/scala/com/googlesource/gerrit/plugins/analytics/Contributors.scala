@@ -134,6 +134,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter,
                                     commitsStatisticsCache: CommitsStatisticsCache) {
+
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
@@ -179,25 +180,34 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    def stringToIntOrNull(x: String): Integer = Try(new Integer(x)).getOrElse(null)
+    def stringToIntOrNull(x: Option[Int]): Integer = Try(new Integer(x.get)).getOrElse(null)
 
-    uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
-      case Array(email, year, month, day, hour, branch) =>
-        statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
-          val maybeBranches =
-            Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
+    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+      val maybeBranches =
+        uca.key.branch.filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
-          UserActivitySummary(
-            stringToIntOrNull(year), stringToIntOrNull(month), stringToIntOrNull(day), stringToIntOrNull(hour),
-            uca.getName, email, stat.commits.size,
-            stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
-              .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
-              .isForMergeCommits,stat.isForBotLike
-          )
-        }
-      case _ => throw new Exception(s"invalid key format found ${uca.key}")
+      UserActivitySummary(
+        stringToIntOrNull(uca.key.year),
+        stringToIntOrNull(uca.key.month),
+        stringToIntOrNull(uca.key.day),
+        stringToIntOrNull(uca.key.hour),
+        uca.getName,
+        uca.key.email,
+        stat.commits.size,
+        stat.numFiles,
+        stat.numDistinctFiles,
+        stat.addedLines,
+        stat.deletedLines,
+        stat.commits.toArray,
+        maybeBranches,
+        stat.issues.map(_.code).toArray,
+        stat.issues.map(_.link).toArray,
+        uca.getLatest,
+        stat.isForMergeCommits,
+        stat.isForBotLike
+      )
     }
+
   }
 }
 
