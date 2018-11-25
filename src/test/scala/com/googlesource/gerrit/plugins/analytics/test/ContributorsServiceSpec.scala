@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.lang.reflect.Type
 
-import com.google.gerrit.acceptance.UseLocalDisk
+import com.google.gerrit.acceptance.{RestResponse, UseLocalDisk}
 import com.google.gson.{Gson, JsonDeserializationContext, JsonDeserializer, JsonElement}
 import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL_HOUR
@@ -40,11 +40,12 @@ class ContributorsServiceSpec extends FlatSpec with Matchers with GerritTestDaem
       newPersonIdent(aContributorName, aContributorEmail)
     )
 
-    val statsJson = daemonTest.restSession.get(s"/projects/${fileRepositoryName.get()}/analytics~contributors?aggregate=${EMAIL_HOUR.name}")
+    val urlAnalytics = s"/projects/${fileRepositoryName.get()}/analytics~contributors?aggregate=${EMAIL_HOUR.name}"
+    val statsJson: RestResponse = daemonTest.restSession.get(urlAnalytics)
 
     statsJson.assertOK()
 
-    val stats = TestGson().fromJson(statsJson.getEntityContent, classOf[UserActivitySummary])
+    val stats: UserActivitySummary = TestGson().fromJson(statsJson.getEntityContent, classOf[UserActivitySummary])
 
     inside(stats) {
       case UserActivitySummary(_,_,_,_,theAuthorName,theAuthorEmail,numCommits,numFiles, numDistinctFiles, addedLines, deletedLines, commits, _, _, _, _, _, _) =>
@@ -68,9 +69,10 @@ object TestGson {
       json.getAsJsonArray.asScala.map(_.getAsString).toSet
   }
 
-  def apply(): Gson =
+  def apply(): Gson ={
     new GsonFormatter()
     .gsonBuilder
     .registerTypeHierarchyAdapter(classOf[Iterable[String]], new SetStringDeserializer)
     .create()
+  }
 }
