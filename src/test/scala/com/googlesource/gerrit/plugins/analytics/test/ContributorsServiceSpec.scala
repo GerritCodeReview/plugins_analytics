@@ -17,7 +17,7 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.lang.reflect.Type
 
 import com.google.gerrit.acceptance.UseLocalDisk
-import com.google.gson.{Gson, JsonDeserializationContext, JsonDeserializer, JsonElement}
+import com.google.gson._
 import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL_HOUR
 import com.googlesource.gerrit.plugins.analytics.common.GsonFormatter
@@ -47,7 +47,7 @@ class ContributorsServiceSpec extends FlatSpec with Matchers with GerritTestDaem
     val stats = TestGson().fromJson(statsJson.getEntityContent, classOf[UserActivitySummary])
 
     inside(stats) {
-      case UserActivitySummary(_,_,_,_,theAuthorName,theAuthorEmail,numCommits,numFiles, numDistinctFiles, addedLines, deletedLines, commits, _, _, _, _, _, _) =>
+      case UserActivitySummary(_, _, _, _, theAuthorName, theAuthorEmail, numCommits, numFiles, numDistinctFiles, addedLines, deletedLines, commits, _, _, _, _, _, _) =>
         theAuthorName shouldBe aContributorName
         theAuthorEmail shouldBe aContributorEmail
         numCommits shouldBe 1
@@ -68,9 +68,16 @@ object TestGson {
       json.getAsJsonArray.asScala.map(_.getAsString).toSet
   }
 
+  class OptionDeserializer extends JsonDeserializer[Option[Any]] {
+    override def deserialize(jsonElement: JsonElement, `type`: Type, jsonDeserializationContext: JsonDeserializationContext): Option[Any] = {
+      Some(jsonElement)
+    }
+  }
+
   def apply(): Gson =
     new GsonFormatter()
-    .gsonBuilder
-    .registerTypeHierarchyAdapter(classOf[Iterable[String]], new SetStringDeserializer)
-    .create()
+      .gsonBuilder
+      .registerTypeHierarchyAdapter(classOf[Iterable[String]], new SetStringDeserializer)
+      .registerTypeHierarchyAdapter(classOf[Option[Any]], new OptionDeserializer())
+      .create()
 }
