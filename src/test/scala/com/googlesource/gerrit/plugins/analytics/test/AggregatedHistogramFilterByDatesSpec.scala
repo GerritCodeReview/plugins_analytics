@@ -17,17 +17,34 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.util.Date
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
-import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
+import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.lib.PersonIdent
+import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
 
+import scala.collection.mutable.{Map => MMap}
+
 class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with BeforeAndAfterEach with Matchers {
 
+  var commitToHashTags: MMap[String, Seq[String]] = MMap.empty
 
-  "Author history filter" should
-    "select one commit without intervals restriction" in {
+  object FakeHashTagsExtractorImpl extends HashTagsExtractor {
+    override def tagsOfCommit(commit: RevCommit): Seq[String] = commitToHashTags.getOrElse(commit.getName, Seq.empty[String])
+  }
+
+  def addHashTagsToCommit(commit: RevCommit, hashtags: Seq[String]): Unit = {
+    commitToHashTags.put(commit.getName, hashtags.distinct)
+  }
+
+  override def beforeEach() {
+    commitToHashTags = MMap.empty
+    super.beforeEach()
+  }
+
+  behavior of "Author history filter"
+  it should "select one commit without intervals restriction" in {
 
     add("file.txt", "some content")
     val filter = new AggregatedHistogramFilterByDates()
@@ -121,5 +138,86 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     val userActivity = filter.getHistogram.getUserActivity
 
     userActivity should have size 2
+  }
+
+  it should "aggregate commits of the same user separately when they have different hashtags and hashtagsExtractor is set" in {
+
+    val commit = add("file1.txt", "add file1.txt")
+    addHashTagsToCommit(commit, Seq("hashtag1", "hashtag2"))
+
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      hashTagsExtractor= Some(FakeHashTagsExtractorImpl)
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
+  }
+
+  it should "aggregate commits of the same user together when hashtagsExtractor is set but there are no hashtags" in {
+
+    val commit = add("file1.txt", "add file1.txt")
+    addHashTagsToCommit(commit, Seq())
+
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      hashTagsExtractor= Some(FakeHashTagsExtractorImpl)
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 1
+  }
+
+  it should "aggregate commits of the same user separately when they are in different branches and different hashtags are set (hashtags > branches)" in {
+    val repo = new FileRepository(testRepo)
+    val c1 = add("file1.txt", "add file1.txt to master branch")
+    addHashTagsToCommit(c1, Seq("hashtag1", "hashtag2"))
+
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      branchesExtractor = Some(new BranchesExtractor(repo)),
+      hashTagsExtractor = Some(FakeHashTagsExtractorImpl)
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
+    val firstBucket = userActivity.head
+    val firstKey = firstBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    val secondBucket = userActivity.last
+    val secondKey= secondBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    Seq(firstKey, secondKey).min.toString should endWith("/master/hashtag1")
+    Seq(firstKey, secondKey).max.toString should endWith("/master/hashtag2")
+  }
+
+  it should "aggregate commits of the same user separately when they are in different branches and different hashtags are set (branches > hashtags)" in {
+    val repo = new FileRepository(testRepo)
+    val c1 = add("file1.txt", "add file1.txt to master branch")
+    addHashTagsToCommit(c1, Seq("hashtag1"))
+    branch("another/branch")
+
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      branchesExtractor = Some(new BranchesExtractor(repo)),
+      hashTagsExtractor = Some(FakeHashTagsExtractorImpl)
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
+    val firstBucket = userActivity.head
+    firstBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    val firstKey = firstBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    val secondBucket = userActivity.last
+    secondBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    val secondKey = secondBucket.asInstanceOf[AggregatedUserCommitActivity].key.toString
+    Seq(firstKey, secondKey).min.toString should endWith("/another/branch/hashtag1")
+    Seq(firstKey, secondKey).max.toString should endWith("/master/hashtag1")
   }
 }
