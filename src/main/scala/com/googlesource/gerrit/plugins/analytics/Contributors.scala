@@ -16,11 +16,15 @@ package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
+import com.google.gerrit.reviewdb.server.ReviewDb
+import com.google.gerrit.server.change.ChangeFinder
 import com.google.gerrit.server.git.GitRepositoryManager
+import com.google.gerrit.server.notedb.{AbstractChangeNotes, ChangeNoteJson, LegacyChangeNoteRead, NoteDbMetrics}
 import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
+import com.google.gerrit.server.query.change.InternalChangeQuery
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
-import com.google.inject.Inject
+import com.google.inject.{Inject, Provider}
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
@@ -39,6 +43,10 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   @ArgOption(name = "--extract-branches", aliases = Array("-r"),
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
+
+  @ArgOption(name = "--extract-hashtags", aliases = Array("-t"),
+    usage = "CORRECT")
+  private var extractHashTags: Boolean = false
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -76,7 +84,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, extractHashTags), stdout)
 
 }
 
@@ -122,6 +130,10 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--extract-hashtags", aliases = Array("-t"),
+    usage = "CORRECT")
+  private var extractHashTags: Boolean = false
+
   @ArgOption(name = "--extract-issues", aliases = Array("-i"),
     usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
   private var extractIssues: Boolean = false
@@ -130,32 +142,35 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, extractHashTags)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache:ProjectCache,
+                                    changeNotesArgs: AbstractChangeNotes.Args,
+                                    changeNoteJson: ChangeNoteJson,
+                                    noteDbMetrics: NoteDbMetrics,
                                     histogram: UserActivityHistogram,
+                                    legacyChangeNoteRead: LegacyChangeNoteRead,
                                     gsonFmt: GsonFormatter) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, extractHashTags: Boolean)
   : TraversableOnce[UserActivitySummary] = {
     val nameKey = projectRes.getNameKey
     val commentLinks: List[CommentLinkInfo] = extractIssues.option {
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
-
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo, commentLinks.asJava)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
+      val maybeHashtagExtractor = extractHashTags.option(new HashTagsExtractorImpl(changeNotesArgs, changeNoteJson, legacyChangeNoteRead, noteDbMetrics, repo, projectRes.getNameKey))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, maybeHashtagExtractor, aggregationStrategy))
         .par
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
@@ -180,6 +195,7 @@ case class UserActivitySummary(year: Option[Int],
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               hashtag: Option[String],
                                issuesCodes: Array[String],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
@@ -199,7 +215,7 @@ object UserActivitySummary {
           UserActivitySummary(
             uca.key.year, uca.key.month, uca.key.day, uca.key.hour, uca.getName, uca.key.email, stat.commits.size,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
+            stat.commits.toArray, maybeBranches, uca.key.hashtag ,stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
               .isForMergeCommits
           )
