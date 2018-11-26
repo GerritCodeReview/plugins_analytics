@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.{BY_BRANCH, BY_HASHTAG, GENERIC_AGG}
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 
 /**
@@ -25,17 +27,49 @@ class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Op
                                        val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
   extends AbstractCommitHistogramFilter(aggregationStrategy) {
 
+  implicit class Cartesian[X](xs: Traversable[X]) {
+    def cart[Y](ys: Traversable[Y]) = for { x <- xs; y <- ys } yield (x, y)
+  }
+
+//  case class HashTagExtractor()
+//  val hashTagsExtractor: Option[HashTagExtractor] = ???
+
+  def getExtendedAggregationStrategies(commit: RevCommit): Seq[AggregationStrategy] = {
+
+    val extractBranches = branchesExtractor.isDefined
+    val extractHashtags = false
+
+    val branches: Seq[Option[String]] = branchesExtractor.map(
+      _.branchesOfCommit(commit.getId).map(Some(_)).toSeq)
+      .getOrElse(Seq.empty[Option[String]])
+//    val hashtags: Seq[Option[String]] = Seq("hashtag1", "hashtag2").map(Some(_))
+    val hashtags: Seq[Option[String]] = Seq.empty
+
+    val max = Math.max(branches.length, hashtags.length)
+
+    val aggregationTuple = (for {
+      b <- List.tabulate(max)(i => branches.lift(i).getOrElse(None))
+      h <- List.tabulate(max)(i => hashtags.lift(i).getOrElse(None))
+      if !extractBranches || b.isDefined
+      if !extractHashtags || h.isDefined
+    } yield (b, h)).distinct
+
+    aggregationTuple.map{ case (b,h) =>
+      val newMapping: AggregationStrategyMapping = (p, d) =>
+      aggregationStrategy.mapping(p, d).copy(hashtag = h, branch = b)
+
+      GENERIC_AGG(aggregationStrategy, newMapping)
+    }
+
+  }
+
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
 
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      if(branchesExtractor.isDefined) {
-        val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
-        getHistogram.includeWithBranches(commit, author, branches)
-      } else {
-        getHistogram.include(commit, author)
-      }
+      val extendedAggregations = getExtendedAggregationStrategies(commit)
+      getHistogram.includeWithStrategies(commit, author, extendedAggregations)
       true
     } else {
       false

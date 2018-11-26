@@ -167,10 +167,10 @@ case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util
 
 case class IssueInfo(code: String, link: String)
 
-case class UserActivitySummary(year: Option[Int],
-                               month: Option[Int],
-                               day: Option[Int],
-                               hour: Option[Int],
+case class UserActivitySummary(year: Int,
+                               month: Int,
+                               day: Int,
+                               hour: Int,
                                name: String,
                                email: String,
                                numCommits: Integer,
@@ -180,6 +180,7 @@ case class UserActivitySummary(year: Option[Int],
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               hashtag: String,
                                issuesCodes: Array[String],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
@@ -197,9 +198,9 @@ object UserActivitySummary {
         uca.key.branch.filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
           UserActivitySummary(
-            uca.key.year, uca.key.month, uca.key.day, uca.key.hour, uca.getName, uca.key.email, stat.commits.size,
+            uca.key.year.getOrElse(0), uca.key.month.getOrElse(0), uca.key.day.getOrElse(0), uca.key.hour.getOrElse(0), uca.getName, uca.key.email, stat.commits.size,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
-            stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
+            stat.commits.toArray, maybeBranches, uca.key.hashtag.getOrElse("nada") ,stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
               .isForMergeCommits
           )
