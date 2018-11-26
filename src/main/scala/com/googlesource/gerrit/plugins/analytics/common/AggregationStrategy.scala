@@ -28,7 +28,6 @@ sealed trait AggregationStrategy {
 
 object AggregationStrategy {
   val baseValues = List(EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR)
-  val MAX_MAPPING_TOKENS = 6
 
   def apply(name: String): AggregationStrategy =
     baseValues.find(_.name == name.toUpperCase) match {
@@ -46,7 +45,8 @@ object AggregationStrategy {
                             month: Option[Int] = None,
                             day: Option[Int] = None,
                             hour: Option[Int] = None,
-                            branch: Option[String] = None)
+                            branch: Option[String] = None,
+                            hashtag: Option[String] = None)
 
   object EMAIL extends AggregationStrategy {
     val name: String = "EMAIL"
@@ -93,5 +93,10 @@ object AggregationStrategy {
     val name: String = s"BY_BRANCH($branch)"
     val mapping: (PersonIdent, Date) => AggregationKey = (p, d) =>
       baseAggregationStrategy.mapping(p, d).copy(branch = Some(branch))
+  }
+
+  case class DYNAMIC_AGGREGATION(baseAggregationStrategy: AggregationStrategy, mapping: AggregationStrategyMapping)
+    extends AggregationStrategy {
+    val name: String = s"DYNAMIC_AGGREGATION"
   }
 }
