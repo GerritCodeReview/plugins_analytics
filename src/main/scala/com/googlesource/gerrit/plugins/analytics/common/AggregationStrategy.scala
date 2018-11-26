@@ -46,9 +46,11 @@ object AggregationStrategy {
                             month: Option[Int] = None,
                             day: Option[Int] = None,
                             hour: Option[Int] = None,
-                            branch: Option[String] = None) {
+                            branch: Option[String] = None,
+                            hashtag: Option[String] = None
+                           ) {
     override def toString: String = {
-      s"$email/${year.getOrElse("")}/${month.getOrElse("")}/${day.getOrElse("")}/${hour.getOrElse("")}/${branch.getOrElse("")}"
+      s"$email/${year.getOrElse("")}/${month.getOrElse("")}/${day.getOrElse("")}/${hour.getOrElse("")}/${branch.getOrElse("")}/${hashtag.getOrElse("")}"
     }
   }
 
@@ -98,4 +100,18 @@ object AggregationStrategy {
     val mapping: (PersonIdent, Date) => AggregationKey = (p, d) =>
       baseAggregationStrategy.mapping(p, d).copy(branch = Some(branch))
   }
+
+  case class BY_HASHTAG(hashtag: String,
+                       baseAggregationStrategy: AggregationStrategy)
+    extends AggregationStrategy {
+    val name: String = s"BY_HASHTAG($hashtag)"
+    val mapping: (PersonIdent, Date) => AggregationKey = (p, d) =>
+      baseAggregationStrategy.mapping(p, d).copy(hashtag = Some(hashtag))
+  }
+
+  case class GENERIC_AGG(baseAggregationStrategy: AggregationStrategy, mapping: AggregationStrategyMapping)
+    extends AggregationStrategy {
+    val name: String = s"GENERIC_AGG"
+  }
+
 }
