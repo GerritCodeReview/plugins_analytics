@@ -17,7 +17,7 @@ package com.googlesource.gerrit.plugins.analytics.common
 import java.util.Date
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.{AggregationKey, BY_BRANCH}
-import org.eclipse.jgit.lib.PersonIdent
+import org.eclipse.jgit.lib.{PersonIdent}
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.stat.{CommitHistogram, CommitHistogramFilter, UserCommitActivity}
 
@@ -27,12 +27,10 @@ class AggregatedUserCommitActivity(val key: AggregationKey, val name: String, va
 class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
   extends CommitHistogram {
 
-  def includeWithBranches(commit: RevCommit, user: PersonIdent, branches: Set[String]): Unit = {
-    for ( branch <- branches ) {
-      val originalStrategy = aggregationStrategy
-      this.aggregationStrategy = BY_BRANCH(branch, aggregationStrategy)
+  def includeWithStrategies(commit: RevCommit, user: PersonIdent, strategies: Seq[AggregationStrategy]): Unit = {
+    for (strategy <- strategies) {
+      this.aggregationStrategy = strategy
       this.include(commit, user)
-      this.aggregationStrategy = originalStrategy
     }
   }
 
