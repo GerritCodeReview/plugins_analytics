@@ -15,12 +15,10 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import java.io.PrintWriter
-
-import com.google.gerrit.server.OutputFormat
-import com.google.gson.{Gson, GsonBuilder, JsonSerializer}
-import com.google.inject.Singleton
 import java.lang.reflect.Type
 
+import com.google.gerrit.server.OutputFormat
+import com.google.inject.Singleton
 import com.google.gson._
 
 @Singleton
@@ -28,6 +26,7 @@ class GsonFormatter {
   val gsonBuilder: GsonBuilder =
     OutputFormat.JSON_COMPACT.newGsonBuilder
       .registerTypeHierarchyAdapter(classOf[Iterable[Any]], new IterableSerializer)
+      .registerTypeAdapter(classOf[Option[Any]], new OptionSerializer())
 
   def format[T](values: TraversableOnce[T], out: PrintWriter) {
     val gson: Gson = gsonBuilder.create
@@ -45,4 +44,13 @@ class GsonFormatter {
     }
   }
 
+}
+
+class OptionSerializer extends JsonSerializer[Option[Any]] {
+  def serialize(src: Option[Any], typeOfSrc: Type, context: JsonSerializationContext): JsonElement = {
+    src match {
+      case None     => JsonNull.INSTANCE
+      case Some(v)  => context.serialize(v)
+    }
+  }
 }
