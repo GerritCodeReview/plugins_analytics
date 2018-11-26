@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82624e16_14c9baef",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-11-26T10:17:33Z",
+      "side": 0,
+      "message": "This can be removed from AggregationStrategy",
+      "range": {
+        "startLine": 195,
+        "startChar": 43,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "0608dd8080556dd6fa94a6db8091fe0c788a9962",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
