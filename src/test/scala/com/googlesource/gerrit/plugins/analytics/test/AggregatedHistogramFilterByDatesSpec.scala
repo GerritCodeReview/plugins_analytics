@@ -17,11 +17,14 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.util.Date
 
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
-import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
+import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor, HashTagsExtractor, HashTagsExtractorImpl}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.lib.PersonIdent
+import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitFinder
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
+
+import scala.collection.mutable.{Map => MMap}
 
 class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase with BeforeAndAfterEach with Matchers {
 
@@ -115,6 +118,31 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GitTestCase wit
     val filter = new AggregatedHistogramFilterByDates(
       aggregationStrategy=EMAIL,
       branchesExtractor = Some(new BranchesExtractor(repo))
+    )
+
+    new CommitFinder(testRepo).setFilter(filter).find
+    val userActivity = filter.getHistogram.getUserActivity
+
+    userActivity should have size 2
+  }
+
+  it should "aggregate commits of the same user separately when they have different hashtags and hashtagsExtractor is set" in {
+
+    case object FakeHashTagsExtractorImpl extends HashTagsExtractor {
+      var commitToHashTags: MMap[String, Seq[String]] = MMap.empty
+      override def tagsOfCommit(commit: RevCommit): Seq[String] = commitToHashTags.getOrElse(commit.getName, Seq.empty[String])
+    }
+
+    def addHashTagsToCommit(commit: RevCommit, hashtags: Seq[String]): Unit = {
+      FakeHashTagsExtractorImpl.commitToHashTags.put(commit.getName, hashtags.distinct)
+    }
+
+    val commit = add("file1.txt", "add file1.txt")
+    addHashTagsToCommit(commit, Seq("hashtag1", "hashtag2"))
+
+    val filter = new AggregatedHistogramFilterByDates(
+      aggregationStrategy=EMAIL,
+      hashTagsExtractor= Some(FakeHashTagsExtractorImpl)
     )
 
     new CommitFinder(testRepo).setFilter(filter).find

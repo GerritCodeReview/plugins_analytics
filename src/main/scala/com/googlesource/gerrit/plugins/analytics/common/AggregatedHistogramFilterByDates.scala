@@ -14,33 +14,85 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.GENERIC_AGGREGATION
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
+import org.slf4j.LoggerFactory
 
 /**
   * Commit filter that includes commits only on the specified interval
   * starting from and to excluded
   */
-class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
-                                       val branchesExtractor: Option[BranchesExtractor] = None,
-                                       val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
-  extends AbstractCommitHistogramFilter(aggregationStrategy) {
+class AggregatedHistogramFilterByDates(
+                                        val from: Option[Long] = None,
+                                        val to: Option[Long] = None,
+                                        val branchesExtractor: Option[BranchesExtractor] = None,
+                                        val hashTagsExtractor: Option[HashTagsExtractor] = None,
+                                        val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
+    extends AbstractCommitHistogramFilter(aggregationStrategy) {
+
+  val log = LoggerFactory.getLogger(classOf[AggregatedHistogramFilterByDates])
+
+  private def getExtendedAggregationStrategies(
+      commit: RevCommit): Seq[AggregationStrategy] = {
+
+    val extractBranches = branchesExtractor.isDefined
+    val extractHashtags = hashTagsExtractor.isDefined
+
+    val branches: Seq[Option[String]] = branchesExtractor
+      .map(_.branchesOfCommit(commit.getId).map(Some(_)).toSeq)
+      .getOrElse(Seq.empty[Option[String]])
+    val hashtags: Seq[Option[String]] = hashTagsExtractor
+      .map(
+        e =>
+          e.tagsOfCommit(commit)
+            .map(Some(_)))
+      .getOrElse(Seq.empty[Option[String]])
+
+    log.debug(s"Aggregable branches: $branches, aggregable hashtags: $hashtags")
+
+    val max = Math.max(branches.length, hashtags.length)
+
+    val aggregationTuple = (for {
+      b <- List.tabulate(max)(i => branches.lift(i).getOrElse(None))
+      h <- List.tabulate(max)(i => hashtags.lift(i).getOrElse(None))
+      if !extractBranches || b.isDefined
+      if !extractHashtags || h.isDefined
+    } yield (b, h)).distinct
+
+    val extendedAggregationStrategies = aggregationTuple.map {
+      case (b, h) =>
+        val newMapping: AggregationStrategyMapping = (p, d) =>
+          aggregationStrategy.mapping(p, d).copy(hashtag = h, branch = b)
+
+        GENERIC_AGGREGATION(aggregationStrategy, newMapping)
+    }
+
+    if(extendedAggregationStrategies.isEmpty) {
+      Seq(aggregationStrategy)
+    }
+    else {
+      extendedAggregationStrategies
+    }
+  }
 
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
 
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      if(branchesExtractor.isDefined) {
-        val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
-        getHistogram.includeWithBranches(commit, author, branches)
-      } else {
-        getHistogram.include(commit, author)
-      }
+      val extendedAggregations = getExtendedAggregationStrategies(commit)
+      getHistogram.includeWithStrategies(commit, author, extendedAggregations)
       true
     } else {
       false
     }
   }
 
-  override def clone = new AggregatedHistogramFilterByDates(from, to, branchesExtractor, aggregationStrategy)
+  override def clone =
+    new AggregatedHistogramFilterByDates(from,
+                                         to,
+                                         branchesExtractor,
+                                         hashTagsExtractor,
+                                         aggregationStrategy)
 }
