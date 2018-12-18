@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "da14c6bf_851fe978",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "Indentation seems a bit off. Any way we can maintain the previous formatting?\nWe can reformat in a separate commit if you think this needs reformatting",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc75a02_fcb21be9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "this method is really massive.\nI find it quite difficult to follow what it does and why.\nIs there any way we can break it down in smaller components and make it more expressive?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04372a3_bed58ad1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "What\u0027s the meaning of Properties in this context?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70957f4e_3737310e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "can we not just use branches.map(Some(_)).padTo(max, None) instead of fill(max - branches.length)",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62898edd_1933f1ab",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "I find a bit confusing that sometime, the left member of the tuple is a hashtag and sometimes is a branch.\nIs this expected?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e51a601_ec60ffd0",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "Here we look at branches and hashtags and then perform actions on aggregationPropertiesTuple.\nBut aggregationPropertiesTuples are already built in terms of branches and hashtags.\nPerhaps we can express the same logic without looking at branches and hashtags at all?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd4c6e3_ec596a96",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "I am not sure generic aggregation expresses the granularity of this aggregation.\nLet\u0027s discuss about better names?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a74de73_7290ab95",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/GsonFormatter.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "do we need to import reflection? Who uses this?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c16c7b18_f528b74e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
         "patchSetId": 10
@@ -41,6 +177,103 @@
         "startChar": 0,
         "endLine": 55,
         "endChar": 34
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823689b6_184ee64e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "Why do we need to lookup refs by objectId as well as objectId by ref?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed96188b_df691a15",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "This is already a mutable map it does not need to be a var as well",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f7d9dcb_ccad990c",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "Does this need to be a case object or can it just be an object?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a38f1e92_24cca076",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "redundant comments?",
+      "range": {
+        "startLine": 175,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 134
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1507f653_437c5450",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-18T15:00:05Z",
+      "side": 1,
+      "message": "why do we need to run min and max on these? is the order not deterministic?",
+      "range": {
+        "startLine": 204,
+        "startChar": 1,
+        "endLine": 205,
+        "endChar": 76
       },
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
