@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c16c7b18_f528b74e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-18T14:08:23Z",
+      "side": 1,
+      "message": "These parameters might not be needed once we will have a clear way pf extracting hashtags from Gerrit",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08de7a8d_c233e90c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-18T14:08:23Z",
+      "side": 1,
+      "message": "This all logic will change once we will have a way of extracting hashtags form Gerrit",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
