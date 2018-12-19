@@ -282,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "f146b314_b8873164",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/GsonFormatter.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:31:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "264006a3_a3c28d3d",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c16c7b18_f528b74e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
         "patchSetId": 10
@@ -380,6 +398,24 @@
     },
     {
       "key": {
+        "uuid": "957ad7ca_83d9d184",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:31:07Z",
+      "side": 1,
+      "message": "You can use `.clear` to remove all keys",
+      "parentUuid": "c29dfb30_8910f244",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f7d9dcb_ccad990c",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
         "patchSetId": 10
@@ -409,6 +445,24 @@
       "side": 1,
       "message": "No need to. Removed.",
       "parentUuid": "8f7d9dcb_ccad990c",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bfb43c8_488c5ac1",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:31:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e209867e_13e211e7",
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -450,6 +504,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "a38f1e92_24cca076",
+      "range": {
+        "startLine": 175,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 134
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10577219_b3647a17",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:31:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3b372495_559b1228",
       "range": {
         "startLine": 175,
         "startChar": 1,
