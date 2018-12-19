@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6feb29c3_2500bae4",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25ad15e8_66511e65",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "012db007_67a14cfb",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 11
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "c7272c4c_d221d808",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390d4841_4b197eca",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed8170ed_5aa28d0f",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 11
@@ -73,6 +109,24 @@
       "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2f7fd8_4cb093d6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "The logic is:\nif(both branches and hashtags are defined) {\n  both the values of the tuple must be defined\n} else {\n doesn\u0027t matter, even if just one of the 2 is defined it is ok..when building the strategy key we will take care of it\n}\n\nThere are quite some tests to test this logic. Hopefully I have covered all the scenarios.",
+      "parentUuid": "ed8170ed_5aa28d0f",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "6ba54ad5_48cd7fca",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b36d63ff_a057d865",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f43d6ba6_0ab0ae79",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 11
@@ -107,6 +179,24 @@
       "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "859d0d44_b08d920b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f43d6ba6_0ab0ae79",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +217,24 @@
     },
     {
       "key": {
+        "uuid": "fd3e3bf7_1468dec5",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "665c9efc_34112821",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61a84fd6_d41fc163",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
         "patchSetId": 11
@@ -144,6 +252,24 @@
     },
     {
       "key": {
+        "uuid": "2cba0c07_fd82f62a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "You are right it might be enough an objectId, but I\u0027d prefer to defer the amendment once we have a clear idea of the interface to extract hashtags from Gerrit.",
+      "parentUuid": "61a84fd6_d41fc163",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d64da3d_9a3a0c03",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
         "patchSetId": 11
@@ -158,6 +284,24 @@
       "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "763d1b09_da1fdb6d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T13:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d64da3d_9a3a0c03",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
