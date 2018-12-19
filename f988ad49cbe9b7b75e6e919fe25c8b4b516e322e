@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25ad15e8_66511e65",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Is the hashtag associated to a commit or to a change?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390d4841_4b197eca",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "I think grouping all into tuples makes it more difficult to read, because it forces us to keep accessing ._1, ._2, which are not really expressive.\n\nIf we pass branches and hashtags separately then we can do something like:\n\nval max \u003d Math.max(branches.length, hashes.length)\n\nfor{\n  b \u003c- List.tabulate(max)(i \u003d\u003e branches.lift(i).getOrElse(None))\n  h \u003c- List.tabulate(max)(i \u003d\u003e hashes.lift(i).getOrElse(None))\n  ...\n}",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8170ed_5aa28d0f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Are we sure this condition is correct?\nWhy do we always want to keep this tuple is either hashes or branches is empty?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b36d63ff_a057d865",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "I am not sure we need this method that extracts _both_ hashtags and branches and puts them in a tuple.\nHow about we just have:\n\nprivate def getHashtags(commit: RevCommit) \u003d hashTagsExtractor.map(_.tagsOfCommit(commit)).getOrElse(Set.empty)\nprivate def getBranches(commit: RevCommit) \u003d branchesExtractor.map(_.branchesOfCommit(commit.getId)).getOrElse(Set.empty)\n\nI think it reads better",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f43d6ba6_0ab0ae79",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Do we need to deal with lists?\nBranchesOfCommit is a map which values is a set, and this is the only user of that method, but yet it modifies its output.\nIf we don\u0027t care about the order in which branches and hashtags are returned, then perhaps we could work with sets all along?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665c9efc_34112821",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Should this be DYNAMIC_AGGREGATION?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a84fd6_d41fc163",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/HashTagsExtractorImpl.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Do we need to pass the entire revCommit to this method?\nBranches extractor works on an objectId.\nIs it possible to normalize the interfaces of the two?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d64da3d_9a3a0c03",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2018-12-19T11:22:56Z",
+      "side": 1,
+      "message": "Do we have a test what happens when extractHashtags is set but no hashtags are found?",
+      "revId": "f988ad49cbe9b7b75e6e919fe25c8b4b516e322e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
