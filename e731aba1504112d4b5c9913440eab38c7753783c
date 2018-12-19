@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7a1a840_17e8b228",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da14c6bf_851fe978",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbc75a02_fcb21be9",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-18T15:00:05Z",
       "side": 1,
       "message": "this method is really massive.\nI find it quite difficult to follow what it does and why.\nIs there any way we can break it down in smaller components and make it more expressive?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7138f667_96908d48",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Addressed in next Change Set.",
+      "parentUuid": "dbc75a02_fcb21be9",
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "784cf6d3_f5e423e8",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "True. They are actually the values of the properties used for the aggregation. Changed.",
+      "parentUuid": "f04372a3_bed58ad1",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70957f4e_3737310e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-12-18T15:00:05Z",
       "side": 1,
       "message": "can we not just use branches.map(Some(_)).padTo(max, None) instead of fill(max - branches.length)",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e08449_89719532",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Yep good point. See next changeset.",
+      "parentUuid": "70957f4e_3737310e",
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "cb01f20b_cf5f1767",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Addressed in the next change set.",
+      "parentUuid": "62898edd_1933f1ab",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e51a601_ec60ffd0",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 10
@@ -98,6 +188,24 @@
       "writtenOn": "2018-12-18T15:00:05Z",
       "side": 1,
       "message": "Here we look at branches and hashtags and then perform actions on aggregationPropertiesTuple.\nBut aggregationPropertiesTuples are already built in terms of branches and hashtags.\nPerhaps we can express the same logic without looking at branches and hashtags at all?",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242f1539_c6278d7c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Addressed in the next Change set",
+      "parentUuid": "2e51a601_ec60ffd0",
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "b620dc86_7d042600",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Change it to DYNAMIC_AGGREGATION, it might be clearer. I\u0027m gonna give another go to see if I can get to a simpler way of composing the aggregations.",
+      "parentUuid": "4dd4c6e3_ec596a96",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a74de73_7290ab95",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/GsonFormatter.scala",
         "patchSetId": 10
@@ -135,6 +261,24 @@
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "264006a3_a3c28d3d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/GsonFormatter.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "It is required to define the signature of the serialize method which is an implementation of the Gson serialize interface.",
+      "parentUuid": "6a74de73_7290ab95",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -218,6 +362,24 @@
     },
     {
       "key": {
+        "uuid": "c29dfb30_8910f244",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Still need to be a var to be able to erase it at line #42. Did you have something else in mind?",
+      "parentUuid": "ed96188b_df691a15",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f7d9dcb_ccad990c",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
         "patchSetId": 10
@@ -232,6 +394,24 @@
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e209867e_13e211e7",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "No need to. Removed.",
+      "parentUuid": "8f7d9dcb_ccad990c",
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +435,30 @@
       "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b372495_559b1228",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-19T10:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a38f1e92_24cca076",
+      "range": {
+        "startLine": 175,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 134
+      },
+      "revId": "e731aba1504112d4b5c9913440eab38c7753783c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
