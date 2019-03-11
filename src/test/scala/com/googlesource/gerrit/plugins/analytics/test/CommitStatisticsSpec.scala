@@ -24,8 +24,9 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
 
 
   class TestEnvironment {
+
     val repo = new FileRepository(testRepo)
-    val stats = new Statistics(repo)
+    val stats = new Statistics(repo, TestBotLikeExtractor)
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
@@ -39,19 +40,19 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "sum to another compatible CommitStatistics generating an aggregated stat" in {
-    val commit1 = CommitInfo("sha_1", 1000l, false, newHashSet("file1"))
-    val commit2 = CommitInfo("sha_2", 2000l, false, newHashSet("file1"))
-    val commit3 = CommitInfo("sha_3", 3000l, false, newHashSet("file2"))
-    val commit4 = CommitInfo("sha_4", 1000l, false, newHashSet("file1"))
+    val commit1 = CommitInfo("sha_1", 1000l, false, botLike = false, newHashSet("file1"))
+    val commit2 = CommitInfo("sha_2", 2000l, false, botLike = false, newHashSet("file1"))
+    val commit3 = CommitInfo("sha_3", 3000l, false, botLike = false, newHashSet("file2"))
+    val commit4 = CommitInfo("sha_4", 1000l, false, botLike = false, newHashSet("file1"))
 
-    val stat1 = CommitsStatistics(3, 4, false, List(commit1, commit2))
-    val stat2 = CommitsStatistics(5, 7, false, List(commit3, commit4))
+    val stat1 = CommitsStatistics(3, 4, false, false, List(commit1, commit2))
+    val stat2 = CommitsStatistics(5, 7, false, false, List(commit3, commit4))
 
-    (stat1 + stat2) shouldBe CommitsStatistics(8, 11, false, List(commit1, commit2, commit3, commit4))
+    (stat1 + stat2) shouldBe CommitsStatistics(8, 11, false, false, List(commit1, commit2, commit3, commit4))
   }
 
   it should "fail if trying to be added to a CommitStatistics object for a different isMerge value" in {
-    an [IllegalArgumentException] should be thrownBy  (CommitsStatistics.EmptyMerge + CommitsStatistics.Empty)
+    an [IllegalArgumentException] should be thrownBy  (CommitsStatistics.EmptyMerge + CommitsStatistics.EmptyNonMerge)
   }
 
   it should "stats multiple files added" in new TestEnvironment {
