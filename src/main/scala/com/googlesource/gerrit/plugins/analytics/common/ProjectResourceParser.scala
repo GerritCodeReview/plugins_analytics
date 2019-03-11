@@ -18,6 +18,7 @@ import java.io.IOException
 
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException
 import com.google.gerrit.server.project.{ProjectResource, ProjectsCollection}
+
 import org.kohsuke.args4j.Argument
 
 trait ProjectResourceParser {
