@@ -35,6 +35,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   private var beginDate: Option[Long] = None
   private var endDate: Option[Long] = None
   private var granularity: Option[AggregationStrategy] = None
+  private var botLikeRegexps: List[String] = List.empty[String]
 
   @ArgOption(name = "--extract-branches", aliases = Array("-r"),
     usage = "Do extra parsing to extract a list of all branches for each line")
@@ -74,9 +75,15 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
   private var extractIssues: Boolean = false
 
+  @ArgOption(name = "--bot-like-regexps", aliases = Array("-n"),
+    usage = "comma separated list of regexps that identify a bot-like commit, commits that modify only files matching these will be flagged as bot-like")
+  def setBotLikeRegexps(value: String): Unit = {
+    botLikeRegexps = value.split(",").toList
+  }
+
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps), stdout)
 
 }
 
@@ -87,6 +94,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
   private var beginDate: Option[Long] = None
   private var endDate: Option[Long] = None
   private var granularity: Option[AggregationStrategy] = None
+  private var botLikeRegexps: List[String] = List.empty[String]
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -126,11 +134,17 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
   private var extractIssues: Boolean = false
 
+  @ArgOption(name = "--bot-like-regexps", aliases = Array("-n"),
+    usage = "comma separated list of regexps that identify a bot-like commit, commits that modify only files matching these will be flagged as bot-like")
+  def setBotLikeRegexps(value: String): Unit = {
+    botLikeRegexps = value.split(",").toList
+  }
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -142,7 +156,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import scala.collection.JavaConverters._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, botLikeIdentifiers: List[String])
   : TraversableOnce[UserActivitySummary] = {
     val nameKey = projectRes.getNameKey
     val commentLinks: List[CommentLinkInfo] = extractIssues.option {
@@ -150,9 +164,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
     }.toList.flatten
 
 
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, commentLinks.asJava)
+      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
@@ -163,7 +176,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean, files: java.util.Set[String])
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: java.util.Set[String])
 
 case class IssueInfo(code: String, link: String)
 
@@ -183,7 +196,8 @@ case class UserActivitySummary(year: Integer,
                                issuesCodes: Array[String],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
-                               isMerge: Boolean
+                               isMerge: Boolean,
+                               isBotLike: Boolean
                               )
 
 object UserActivitySummary {
@@ -203,7 +217,7 @@ object UserActivitySummary {
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
             stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
-              .isForMergeCommits
+              .isForMergeCommits,stat.isForBotLike
           )
         }
       case _ => throw new Exception(s"invalid key format found ${uca.key}")
