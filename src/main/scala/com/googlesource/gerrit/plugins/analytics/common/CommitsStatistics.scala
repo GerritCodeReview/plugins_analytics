@@ -35,15 +35,18 @@ import scala.util.matching.Regex
   * @param isForMergeCommits    true if the current instance is including stats for merge commits and false if
   *                             calculated for NON merge commits. The current code is not generating stats objects for
   *                             a mixture of merge and non-merge commits
+  * @param isForBotLike         true if the current instance is including BOT-like commits, false otherwise
   * @param commits              list of commits the stats are calculated for
   */
 case class CommitsStatistics(
                               addedLines: Int,
                               deletedLines: Int,
                               isForMergeCommits: Boolean,
+                              isForBotLike: Boolean,
                               commits: List[CommitInfo],
                               issues: List[IssueInfo] = Nil
                             ) {
+  require(commits.forall(_.botLike == isForBotLike), s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type")
   require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
 
   /**
@@ -73,11 +76,13 @@ case class CommitsStatistics(
 }
 
 object CommitsStatistics {
-  val Empty = CommitsStatistics(0, 0, false, List[CommitInfo](), List[IssueInfo]())
-  val EmptyMerge = Empty.copy(isForMergeCommits = true)
+  val EmptyNonMerge = CommitsStatistics(0, 0, false, false, List[CommitInfo](), List[IssueInfo]())
+  val EmptyBotNonMerge = EmptyNonMerge.copy(isForBotLike = true)
+  val EmptyMerge = EmptyNonMerge.copy(isForMergeCommits = true)
+  val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
+class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
   val replacers = commentInfoList.map(info =>
@@ -86,7 +91,11 @@ class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkIn
       Option(info.link).getOrElse(info.html)))
 
   /**
-    * Returns up to two different CommitsStatistics object grouping the stats into merge and non-merge commits
+    * Returns up to four different CommitsStatistics object grouping the stats into:
+    * Non Merge - Non Bot
+    * Merge     - Non Bot
+    * Non Merge - Bot
+    * Merge     - Bot
     *
     * @param commits
     * @return
@@ -97,10 +106,16 @@ class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkIn
 
     val (mergeStatsSeq, nonMergeStatsSeq) = stats.partition(_.isForMergeCommits)
 
-    val nonMergeStats = nonMergeStatsSeq.foldLeft(CommitsStatistics.Empty)(_ + _)
-    val mergeStats = mergeStatsSeq.foldLeft(CommitsStatistics.EmptyMerge)(_ + _)
+    val (mergeBotStatsSeq, mergeNonBotStatsSeq) = mergeStatsSeq.partition(_.isForBotLike)
+    val (nonMergeBotStatsSeq, nonMergeNonBotStatsSeq) = nonMergeStatsSeq.partition(_.isForBotLike)
 
-    List(nonMergeStats, mergeStats).filterNot(_.isEmpty)
+    List(
+      nonMergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyNonMerge)(_ + _), // Non Merge - Non Bot
+      mergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyMerge)(_ + _),       // Merge     - Non Bot
+      nonMergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotNonMerge)(_ + _), // Non Merge - Bot
+      mergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotMerge)(_ + _)        // Merge     - Bot
+    )
+    .filterNot(_.isEmpty)
   }
 
   protected def forSingleCommit(objectId: ObjectId): CommitsStatistics = {
@@ -138,9 +153,9 @@ class Statistics(repo: Repository, commentInfoList: java.util.List[CommentLinkIn
 
       val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
 
-      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, files)
+      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
 
-      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, List(commitInfo), extractIssues(commitMessage))
+      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
     }
   }
 
