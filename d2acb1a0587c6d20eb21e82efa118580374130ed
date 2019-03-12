@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b822ae5b_060058b7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "What if we have a | in the regexp? would it work ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 116,
+        "endLine": 26,
+        "endChar": 117
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340feab1_01bffa01",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "If botLikeIdentifiers is empty this method could just return false, isn\u0027t it? So there won\u0027t even be the necessity of defining the MATCH_NOTHING placeholder RegExp, right?",
+      "range": {
+        "startLine": 28,
+        "startChar": 56,
+        "endLine": 28,
+        "endChar": 105
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3bdc72_162e4d5b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "nit: the list of the files can even be shorter in the test I believe",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420f8fae_87b1b36e",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "\"files do not match\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341d38b1_f24a503f",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "nit: list can be shorter",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e064b4f_d3df1915",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-12T17:37:29Z",
+      "side": 1,
+      "message": "nit: list can be shorter",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
