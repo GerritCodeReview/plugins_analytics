@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb21a55a_9847f68f",
+        "filename": "README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2019-03-13T09:33:29Z",
+      "side": 1,
+      "message": "I think the flag name and documentation should clarify that we are talking about file names",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b822ae5b_060058b7",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
         "patchSetId": 5
@@ -13,6 +30,30 @@
       "writtenOn": "2019-03-12T17:37:29Z",
       "side": 1,
       "message": "What if we have a | in the regexp? would it work ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 116,
+        "endLine": 26,
+        "endChar": 117
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50396a48_260ce5f0",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2019-03-13T09:33:29Z",
+      "side": 1,
+      "message": "It should actually since you are just using this in the string concatenation phase",
+      "parentUuid": "b822ae5b_060058b7",
       "range": {
         "startLine": 26,
         "startChar": 116,
@@ -42,6 +83,40 @@
         "endLine": 28,
         "endChar": 105
       },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dcd62e1_b655a4fe",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2019-03-13T09:33:29Z",
+      "side": 1,
+      "message": "you could directly use exists I think",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fd8e160_c38475c6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1059414
+      },
+      "writtenOn": "2019-03-13T09:33:29Z",
+      "side": 1,
+      "message": "I would call just isBotLike",
       "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
