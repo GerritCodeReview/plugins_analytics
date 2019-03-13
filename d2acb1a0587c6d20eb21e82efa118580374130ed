@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4ca1747c_1397a57c",
+        "filename": "README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Good point\nAny suggestion?\n\nbotlike-filename-matchers?\nbot-like-filename-matchers?\n\nbotlike-filename-regexps?\nbot-like-filename-regexps?",
+      "parentUuid": "bb21a55a_9847f68f",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b822ae5b_060058b7",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
         "patchSetId": 5
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "ed6f3aaa_a66d3996",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Good question @ponch, I asked myself the same thing.\nOR operator has left-to-right precedence, so it should not matter if you were using the OR symbol.\n\nConsider, bar1|bar2, in the following, for example:\n\n--bot-like-regexps\u003d\u0027foo,bar1|bar2,baz\u0027\n\nthis would endup in:\n\nval botRegexps\u003d\"foo|bar1|bar2|baz\"\n\nwhich still honours the bar1|bar2 intention",
+      "parentUuid": "b822ae5b_060058b7",
+      "range": {
+        "startLine": 26,
+        "startChar": 116,
+        "endLine": 26,
+        "endChar": 117
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "340feab1_01bffa01",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
         "patchSetId": 5
@@ -106,6 +148,48 @@
     },
     {
       "key": {
+        "uuid": "32429853_7378f083",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "do you mean in the definition of isBotLike Stefano?\n\nexists will find the first element in the collection that matches the predicate and then returns a boolean accordingly.\nHere we need to make sure that *all* files match the predicate, so exists won\u0027t work, unless I am misinterpreting your comment.\n\nI can use:\nbotLikeIdentifiers.nonEmpty \u0026\u0026 files.forall(botRegexps.findFirstIn(_).isDefined)",
+      "parentUuid": "3dcd62e1_b655a4fe",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03f474b1_4a7e0556",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Yep good idea it\u0027s more compact",
+      "parentUuid": "340feab1_01bffa01",
+      "range": {
+        "startLine": 28,
+        "startChar": 56,
+        "endLine": 28,
+        "endChar": 105
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fd8e160_c38475c6",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 5
@@ -117,6 +201,24 @@
       "writtenOn": "2019-03-13T09:33:29Z",
       "side": 1,
       "message": "I would call just isBotLike",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a390a4_9882854a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "I would prefer to stick to the isFor* naming, as it is semantically equivalent to the isForMergeCommit.\n\nthe boolean we are exposing in the final payload is indeed named `is_bot_like`, this is just an internal naming convention.\n\nI am happy to change bot isForBotLike and isForMergeCommits though, as long as they move consistently.\n\nWhat do you think?",
+      "parentUuid": "4fd8e160_c38475c6",
       "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -146,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "f214aafc_bfcc07b0",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "I wanted this test to serve as documentation, so I decided to provide a real use-case scenario.\n\nBut you are right, I\u0027ll amend this",
+      "parentUuid": "4d3bdc72_162e4d5b",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "420f8fae_87b1b36e",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
         "patchSetId": 5
@@ -166,6 +292,30 @@
       "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842e0aa8_da02ed60",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "420f8fae_87b1b36e",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "d0d1d813_16298fba",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "341d38b1_f24a503f",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e064b4f_d3df1915",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
         "patchSetId": 5
@@ -212,6 +386,30 @@
       "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3825feaa_29b6f15e",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractorImplSpec.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e064b4f_d3df1915",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
