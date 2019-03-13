@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "41838911_20d29756",
+        "filename": "README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T11:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "085e60e6_5bf87168",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b822ae5b_060058b7",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
         "patchSetId": 5
@@ -264,6 +282,24 @@
       "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fd3d4ab_377c3b15",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-03-13T11:19:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "68a390a4_9882854a",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
