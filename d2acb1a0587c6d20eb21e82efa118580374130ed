@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "085e60e6_5bf87168",
+        "filename": "README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-13T10:48:26Z",
+      "side": 1,
+      "message": "botlike-filename-regexps +1",
+      "parentUuid": "4ca1747c_1397a57c",
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b822ae5b_060058b7",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
         "patchSetId": 5
@@ -96,6 +114,30 @@
       "side": 1,
       "message": "Good question @ponch, I asked myself the same thing.\nOR operator has left-to-right precedence, so it should not matter if you were using the OR symbol.\n\nConsider, bar1|bar2, in the following, for example:\n\n--bot-like-regexps\u003d\u0027foo,bar1|bar2,baz\u0027\n\nthis would endup in:\n\nval botRegexps\u003d\"foo|bar1|bar2|baz\"\n\nwhich still honours the bar1|bar2 intention",
       "parentUuid": "b822ae5b_060058b7",
+      "range": {
+        "startLine": 26,
+        "startChar": 116,
+        "endLine": 26,
+        "endChar": 117
+      },
+      "revId": "d2acb1a0587c6d20eb21e82efa118580374130ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7094c1e4_38871e59",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BotLikeExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-03-13T10:48:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed6f3aaa_a66d3996",
       "range": {
         "startLine": 26,
         "startChar": 116,
