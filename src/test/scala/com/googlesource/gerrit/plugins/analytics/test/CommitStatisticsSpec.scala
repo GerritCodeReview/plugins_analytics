@@ -16,15 +16,14 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsLoader, Statistics}
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 @UseLocalDisk
-class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with Matchers with Inside {
-
+class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
   class TestEnvironment {
     val repo = fileRepository
-    val stats = new Statistics(repo, TestBotLikeExtractor)
+    val stats = new Statistics(fileRepositoryName, commitsStatisticsNoCache)
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
