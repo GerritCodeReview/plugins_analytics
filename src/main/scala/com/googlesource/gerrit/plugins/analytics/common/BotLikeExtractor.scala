@@ -14,11 +14,12 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.inject.Inject
+import com.google.inject.{ImplementedBy, Inject}
 import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
 
 import scala.util.matching.Regex
 
+@ImplementedBy(classOf[BotLikeExtractorImpl])
 trait BotLikeExtractor {
   def isBotLike(files: Set[String]): Boolean
 }
