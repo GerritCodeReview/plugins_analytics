@@ -22,7 +22,7 @@ import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConversions._
 import scala.util.matching.Regex
@@ -82,7 +82,7 @@ object CommitsStatistics {
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
+class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil, cache: CacheApi[ObjectId, CommitsStatistics] = new InMemoryCommitStatisticsCache) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
   val replacers = commentInfoList.map(info =>
@@ -102,7 +102,7 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
     */
   def forCommits(commits: ObjectId*): Iterable[CommitsStatistics] = {
 
-    val stats = commits.map(forSingleCommit)
+    val stats = commits.map(cache.getOrUpdate(_, forSingleCommit))
 
     val (mergeStatsSeq, nonMergeStatsSeq) = stats.partition(_.isForMergeCommits)
 
@@ -138,24 +138,23 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
 
       val newTree = new CanonicalTreeParser(null, reader, commit.getTree)
 
-      val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
-      df.setRepository(repo)
-      df.setDiffComparator(RawTextComparator.DEFAULT)
-      df.setDetectRenames(true)
-      val diffs = df.scan(oldTree, newTree)
-      case class Lines(deleted: Int, added: Int) {
-        def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
+      use(new DiffFormatter(DisabledOutputStream.INSTANCE)) { df =>
+        df.setRepository(repo)
+        df.setContext(0)
+        df.setDiffComparator(RawTextComparator.DEFAULT)
+        df.setDetectRenames(true)
+        val diffs = df.scan(oldTree, newTree)
+
+        val lines = (for {
+          diff <- diffs
+          edit <- df.toFileHeader(diff).toEditList
+        } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
+
+        val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
+
+        val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
+        CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
       }
-      val lines = (for {
-        diff <- diffs
-        edit <- df.toFileHeader(diff).toEditList
-      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
-
-      val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
-
-      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
-
-      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
     }
   }
 
@@ -171,5 +170,9 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
   }
 
   case class Replacer(pattern: Regex, replaced: String)
+
+  case class Lines(deleted: Int, added: Int) {
+    def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
+  }
 
 }
