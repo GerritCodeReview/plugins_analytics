@@ -18,7 +18,8 @@ class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils w
     mergeCommit(personEmail, fileName = "anotherFile.txt", content="some other content")
     val aggregatedCommits = aggregateBy(EMAIL)
 
-    val List(nonMergeSummary, mergeSummary) = UserActivitySummary.apply(new Statistics(repo, TestBotLikeExtractor))(aggregatedCommits.head)
+    val List(nonMergeSummary, mergeSummary) = UserActivitySummary.apply(
+      new Statistics(CommitsStatisticsNoCache(repo, TestBotLikeExtractor)))(aggregatedCommits.head)
 
     nonMergeSummary.numCommits should be(2)
     mergeSummary.numCommits should be(1)

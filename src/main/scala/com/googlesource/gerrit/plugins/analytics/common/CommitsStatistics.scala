@@ -14,18 +14,9 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.gerrit.extensions.api.projects.CommentLinkInfo
+import com.google.gerrit.reviewdb.client.Project
 import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
-import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
-import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
-import org.eclipse.jgit.lib.{ObjectId, Repository}
-import org.eclipse.jgit.revwalk.RevWalk
-import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
-import org.eclipse.jgit.util.io.DisabledOutputStream
-import org.slf4j.LoggerFactory
-
-import scala.collection.JavaConverters._
-import scala.util.matching.Regex
+import org.eclipse.jgit.lib.ObjectId
 
 /**
   * Collects overall stats on a series of commits and provides some basic info on the included commits
@@ -82,13 +73,7 @@ object CommitsStatistics {
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: List[CommentLinkInfo] = Nil) {
-
-  val log = LoggerFactory.getLogger(classOf[Statistics])
-  val replacers = commentInfoList.map(info =>
-    Replacer(
-      info.`match`.r,
-      Option(info.link).getOrElse(info.html)))
+class Statistics(projectNameKey: Project.NameKey, commitStatsCache: CommitsStatisticsCache) {
 
   /**
     * Returns up to four different CommitsStatistics object grouping the stats into:
@@ -102,7 +87,7 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
     */
   def forCommits(commits: ObjectId*): Iterable[CommitsStatistics] = {
 
-    val stats = commits.map(forSingleCommit)
+    val stats = commits.map(commitStatsCache.get(projectNameKey.get(), _))
 
     val (mergeStatsSeq, nonMergeStatsSeq) = stats.partition(_.isForMergeCommits)
 
@@ -117,58 +102,5 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
     )
     .filterNot(_.isEmpty)
   }
-
-  protected def forSingleCommit(objectId: ObjectId): CommitsStatistics = {
-    import RevisionBrowsingSupport._
-
-    // I can imagine this kind of statistics is already being available in Gerrit but couldn't understand how to access it
-    // which Injection can be useful for this task?
-    use(new RevWalk(repo)) { rw =>
-      val reader = repo.newObjectReader()
-      val commit = rw.parseCommit(objectId)
-      val commitMessage = commit.getFullMessage
-
-      val oldTree = {
-        // protects against initial commit
-        if (commit.getParentCount == 0)
-          new EmptyTreeIterator
-        else
-          new CanonicalTreeParser(null, reader, rw.parseCommit(commit.getParent(0).getId).getTree)
-      }
-
-      val newTree = new CanonicalTreeParser(null, reader, commit.getTree)
-
-      val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
-      df.setRepository(repo)
-      df.setDiffComparator(RawTextComparator.DEFAULT)
-      df.setDetectRenames(true)
-      val diffs = df.scan(oldTree, newTree).asScala
-      case class Lines(deleted: Int, added: Int) {
-        def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
-      }
-      val lines = (for {
-        diff <- diffs
-        edit <- df.toFileHeader(diff).toEditList.asScala
-      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
-
-      val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
-
-      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
-
-      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
-    }
-  }
-
-  def extractIssues(commitMessage: String): List[IssueInfo] =
-    replacers.flatMap {
-      case Replacer(pattern, replaced) =>
-        pattern.findAllIn(commitMessage)
-          .map(code => {
-            val transformed = pattern.replaceAllIn(code, replaced)
-            IssueInfo(code, transformed)
-          })
-    }
-
-  case class Replacer(pattern: Regex, replaced: String)
 
 }

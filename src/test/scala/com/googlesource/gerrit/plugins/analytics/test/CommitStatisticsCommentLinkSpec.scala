@@ -14,10 +14,16 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import java.util
+
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
+import com.google.gerrit.reviewdb.client.Project
+import com.google.gerrit.server.git.{GitRepositoryManager, LocalDiskRepositoryManager}
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsLoader, Statistics}
+import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
@@ -30,14 +36,23 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
     info
   }
 
+  object TestRepositoryManager extends GitRepositoryManager {
+    override def openRepository(name: Project.NameKey): Repository = new FileRepository(testRepo)
+
+    override def createRepository(name: Project.NameKey): Repository = ???
+
+    override def list(): util.SortedSet[Project.NameKey] = ???
+  }
+
+  object ProjectCache
+
   class TestEnvironment(val repo: FileRepository = new FileRepository(testRepo),
                         val commentLinks: List[CommentLinkInfo] = List(
                           createCommentLinkInfo(pattern = "(bug\\s+#?)(\\d+)",
                             link = Some("http://bugs.example.com/show_bug.cgi?id=$2")),
                           createCommentLinkInfo(pattern = "([Bb]ug:\\s+)(\\d+)",
                             html = Some("$1<a href=\"http://trak.example.com/$2\">$2</a>")))) {
-
-    lazy val stats = new Statistics(repo, TestBotLikeExtractor, commentLinks)
+    lazy val stats = new Statistics(CommitsStatisticsNoCache(new CommitsStatisticsLoader(TestRepositoryManager, )
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
