@@ -6,6 +6,8 @@ val pluginName = "analytics"
 
 git.useGitDescribe := true
 
+concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
+
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,
@@ -23,6 +25,8 @@ lazy val root = (project in file("."))
       "com.google.code.gson" % "gson" % "2.8.5" % Provided,
       "joda-time" % "joda-time" % "2.9.9",
 
+      "com.google.gerrit" % "gerrit-acceptance-framework" % gerritApiVersion % Test,
+      "org.bouncycastle" % "bcprov-jdk15on" % "1.60" % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
       "net.codingwell" %% "scala-guice" % "4.1.0" % Test),
 
