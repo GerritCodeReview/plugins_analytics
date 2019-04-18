@@ -16,13 +16,15 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
+import com.google.gerrit.reviewdb.client.Project
+import com.google.gerrit.server.git.GitRepositoryManager
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 @UseLocalDisk
-class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with Matchers with Inside {
+class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
 
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
     val info = new CommentLinkInfo
@@ -32,14 +34,20 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon wit
     info
   }
 
-  class TestEnvironment(val repo: Repository = fileRepository,
-                        val commentLinks: List[CommentLinkInfo] = List(
-                          createCommentLinkInfo(pattern = "(bug\\s+#?)(\\d+)",
-                            link = Some("http://bugs.example.com/show_bug.cgi?id=$2")),
-                          createCommentLinkInfo(pattern = "([Bb]ug:\\s+)(\\d+)",
-                            html = Some("$1<a href=\"http://trak.example.com/$2\">$2</a>")))) {
-
-    lazy val stats = new Statistics(repo, TestBotLikeExtractor, commentLinks)
+  class TestEnvironment(val repo: Repository = fileRepository) {
+    lazy val stats = new Statistics(fileRepositoryName, commitsStatisticsNoCache)
+    testFileRepository.commitFile("project.config",
+      """
+        |[access]
+        |       inheritFrom = All-Projects
+        |[submit]
+        |       action = inherit
+        |[commentlink "link1"]
+        |       match = "(bug\\s+#?)(\\d+)"
+        |       link = "http://bugs.example.com/show_bug.cgi?id=$2"
+        |[commentlink "link2"]
+        |       match = "([Bb]ug:\\s+)(\\d+)"
+        |       link = "http://trak.example.com/$2" """.stripMargin, branch = "refs/meta/config")
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
@@ -67,7 +75,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon wit
     inside(stats.forCommits(simpleTrackComment)) {
       case List(s: CommitsStatistics) =>
         s.issues should have size 1
-        s.issues should contain(IssueInfo("Bug: 1234", "Bug: <a href=\"http://trak.example.com/1234\">1234</a>"))
+        s.issues should contain(IssueInfo("Bug: 1234", "http://trak.example.com/1234"))
     }
   }
 
@@ -79,7 +87,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon wit
       case List(s: CommitsStatistics) =>
         s.issues should contain allOf(
           IssueInfo("bug 12", "http://bugs.example.com/show_bug.cgi?id=12"),
-          IssueInfo("Bug: 23", "Bug: <a href=\"http://trak.example.com/23\">23</a>")
+          IssueInfo("Bug: 23", "http://trak.example.com/23")
         )
     }
   }
