@@ -16,11 +16,13 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsCache, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
+
+  implicit val commitsStatisticsCache: CommitsStatisticsCache = CommitsStatisticsNoCache
 
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
     val info = new CommentLinkInfo
