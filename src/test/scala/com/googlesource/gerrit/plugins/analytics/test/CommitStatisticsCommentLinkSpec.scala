@@ -19,6 +19,7 @@ import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Inside, Matchers}
+import scalacache.caffeine.CaffeineCache
 
 import scala.collection.JavaConverters._
 
@@ -39,6 +40,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
                           createCommentLinkInfo(pattern = "([Bb]ug:\\s+)(\\d+)",
                             html = Some("$1<a href=\"http://trak.example.com/$2\">$2</a>"))).asJava) {
 
+    implicit val cache: CaffeineCache[CommitsStatistics] = CaffeineCache[CommitsStatistics]
     lazy val stats = new Statistics(repo, TestBotLikeExtractor, commentLinks)
   }
 

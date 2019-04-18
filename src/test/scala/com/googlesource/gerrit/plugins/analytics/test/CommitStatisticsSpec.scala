@@ -19,12 +19,13 @@ import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Inside, Matchers}
+import scalacache.caffeine._
 
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
-
   class TestEnvironment {
     val repo = new FileRepository(testRepo)
+    implicit val cache: CaffeineCache[CommitsStatistics] = CaffeineCache[CommitsStatistics]
     val stats = new Statistics(repo, TestBotLikeExtractor)
   }
 
@@ -131,5 +132,4 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       case wrongContent => fail(s"Expected two results instead got $wrongContent")
     }
   }
-
 }

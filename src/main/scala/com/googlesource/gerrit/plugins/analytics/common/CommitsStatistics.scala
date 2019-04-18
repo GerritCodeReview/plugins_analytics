@@ -26,6 +26,9 @@ import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConversions._
 import scala.util.matching.Regex
+import scalacache.caffeine._
+import scalacache.memoization._
+import scalacache.modes.sync._
 
 /**
   * Collects overall stats on a series of commits and provides some basic info on the included commits
@@ -82,7 +85,7 @@ object CommitsStatistics {
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
+class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil)(implicit cache: CaffeineCache[CommitsStatistics]) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
   val replacers = commentInfoList.map(info =>
@@ -118,8 +121,10 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
     .filterNot(_.isEmpty)
   }
 
-  protected def forSingleCommit(objectId: ObjectId): CommitsStatistics = {
+  protected def forSingleCommit(objectId: ObjectId): CommitsStatistics = memoizeSync(None) {
     import RevisionBrowsingSupport._
+
+    log.warn(s"objectId:${objectId}|HITs:${cache.underlying.stats().hitCount()}|MISS:${cache.underlying.stats().missCount()}|SIZE:${cache.underlying.estimatedSize()}")
 
     // I can imagine this kind of statistics is already being available in Gerrit but couldn't understand how to access it
     // which Injection can be useful for this task?
@@ -138,24 +143,23 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
 
       val newTree = new CanonicalTreeParser(null, reader, commit.getTree)
 
-      val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
-      df.setRepository(repo)
-      df.setDiffComparator(RawTextComparator.DEFAULT)
-      df.setDetectRenames(true)
-      val diffs = df.scan(oldTree, newTree)
-      case class Lines(deleted: Int, added: Int) {
-        def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
+      use(new DiffFormatter(DisabledOutputStream.INSTANCE)) { df =>
+        df.setRepository(repo)
+        df.setContext(0)
+        df.setDiffComparator(RawTextComparator.DEFAULT)
+        df.setDetectRenames(true)
+        val diffs = df.scan(oldTree, newTree)
+
+        val lines = (for {
+          diff <- diffs
+          edit <- df.toFileHeader(diff).toEditList
+        } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
+
+        val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
+
+        val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
+        CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
       }
-      val lines = (for {
-        diff <- diffs
-        edit <- df.toFileHeader(diff).toEditList
-      } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
-
-      val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
-
-      val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
-
-      CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage))
     }
   }
 
@@ -171,5 +175,9 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
   }
 
   case class Replacer(pattern: Regex, replaced: String)
+
+  case class Lines(deleted: Int, added: Int) {
+    def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
+  }
 
 }

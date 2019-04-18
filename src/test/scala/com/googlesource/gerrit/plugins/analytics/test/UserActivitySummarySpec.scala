@@ -2,9 +2,10 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
-import com.googlesource.gerrit.plugins.analytics.common.{Statistics, TestUtils}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics, TestUtils}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Matchers}
+import scalacache.caffeine.CaffeineCache
 
 class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils with Matchers {
 
@@ -18,6 +19,7 @@ class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils w
     mergeCommit(personEmail, fileName = "anotherFile.txt", content="some other content")
     val aggregatedCommits = aggregateBy(EMAIL)
 
+    implicit val cache: CaffeineCache[CommitsStatistics] = CaffeineCache[CommitsStatistics]
     val List(nonMergeSummary, mergeSummary) = UserActivitySummary.apply(new Statistics(repo, TestBotLikeExtractor))(aggregatedCommits.head)
 
     nonMergeSummary.numCommits should be(2)

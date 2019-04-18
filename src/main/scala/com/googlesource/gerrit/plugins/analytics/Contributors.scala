@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
+import com.github.benmanes.caffeine.cache.{Cache, Caffeine}
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
@@ -24,6 +25,8 @@ import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
+import scalacache.Entry
+import scalacache.caffeine.CaffeineCache
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
@@ -165,11 +168,20 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
+
+      val underlyingCaffeineCache = Caffeine
+          .newBuilder()
+          .recordStats()
+          .maximumSize(50000L)
+          .build[String, Entry[CommitsStatistics]]
+
+      implicit val customisedCaffeineCache: CaffeineCache[CommitsStatistics] = CaffeineCache(underlyingCaffeineCache)
+
+//      implicit val caffeineCache = CaffeineCache[CommitsStatistics]
       val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .par
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
     }
