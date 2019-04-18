@@ -8,7 +8,7 @@ import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Matchers}
 
 @UseLocalDisk
-class UserActivitySummarySpec extends FlatSpec with GerritTestDaemon with TestUtils with Matchers {
+class UserActivitySummarySpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with TestUtils with Matchers {
 
   "numCommits" should "count only comments filtered by their merge status" in {
     val personEmail = "aCommitter@aCompany.com"
@@ -23,7 +23,7 @@ class UserActivitySummarySpec extends FlatSpec with GerritTestDaemon with TestUt
     cloneRepo.push
 
     val aggregatedCommits = aggregateBy(EMAIL)
-    val summary = UserActivitySummary.apply(new Statistics(fileRepository, TestBotLikeExtractor))(aggregatedCommits.head)
+    val summary = UserActivitySummary.apply(new Statistics(fileRepositoryName, commitsStatisticsNoCache))(aggregatedCommits.head)
 
     val nonMergeSummary = summary.head
     val mergeSummary = summary.drop(1).head
