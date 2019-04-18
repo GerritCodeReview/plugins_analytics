@@ -18,7 +18,9 @@ import java.io.File
 import java.util.{Date, UUID}
 
 import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil, UseLocalDisk}
+import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.reviewdb.client.Project
+import com.google.inject.{AbstractModule, Module}
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -57,6 +59,8 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
 
   implicit var fileRepository: FileRepository = null
 
+  implicit var fileRepositoryName: Project.NameKey = null
+
   protected lazy val author = newPersonIdent("Test Author", "author@test.com")
 
   protected lazy val committer = newPersonIdent("Test Committer", "committer@test.com")
@@ -65,9 +69,8 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
     new PersonIdent(new PersonIdent(name, email), ts)
 
   override def beforeEach {
-    fileRepository = daemonTest.getRepository(
-      daemonTest.newProject(testSpecificRepositoryName))
-
+    fileRepositoryName = daemonTest.newProject(testSpecificRepositoryName)
+    fileRepository = daemonTest.getRepository(fileRepositoryName)
     testFileRepository = GitUtil.newTestRepository(fileRepository)
   }
 
@@ -144,4 +147,13 @@ object GerritTestDaemon extends AbstractDaemonTest {
     repoManager.openRepository(projectName).asInstanceOf[FileRepository]
 
   def adminAuthor = admin.getIdent
+
+  def getInstance[T](clazz: Class[T]): T =
+    server.getTestInjector.getInstance(clazz)
+
+  override def createModule(): Module = new AbstractModule {
+    override def configure(): Unit = {
+      bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
+    }
+  }
 }
