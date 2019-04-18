@@ -16,16 +16,17 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.common.collect.Sets.newHashSet
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CacheApi, CommitsStatistics, InMemoryCommitStatisticsCache, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.ObjectId
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
-
   class TestEnvironment {
     val repo = new FileRepository(testRepo)
-    val stats = new Statistics(repo, TestBotLikeExtractor)
+    val testCache = new TestCommitStatisticsCache
+    val stats = new Statistics(repo, TestBotLikeExtractor, cache = testCache)
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
@@ -132,4 +133,37 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
     }
   }
 
+  it should "retrieve from cache when available" in new TestEnvironment {
+    val change = commit("user", "file1.txt", "line1")
+    val cachedCommit = CommitInfo("sha1", 1L, merge=false, botLike=false, newHashSet("file"))
+    val cachedStat = new CommitsStatistics(addedLines = 0, deletedLines = 0, isForMergeCommits = false, isForBotLike = false, commits = List(cachedCommit))
+    testCache.update(change, cachedStat)
+
+    stats.forCommits(change).head shouldBe cachedStat
+  }
+
+  it should "populate cache with computed result" in new TestEnvironment {
+    val change = commit("user", "file1.txt", "line1")
+
+    testCache.get(change) shouldBe empty
+    val statistics = stats.forCommits(change)
+
+    testCache.get(change) should contain(statistics.head)
+  }
+
+}
+
+class TestCommitStatisticsCache extends CacheApi[ObjectId, CommitsStatistics] {
+  private val cache = collection.mutable.Map.empty[ObjectId, CommitsStatistics]
+
+  def get(el: ObjectId): Option[CommitsStatistics] = cache.get(el)
+
+  def update(el: ObjectId, value: CommitsStatistics): Unit = cache.update(el, value)
+
+  override def getOrUpdate(el: ObjectId, f: => ObjectId => CommitsStatistics): CommitsStatistics = {
+    if (!cache.isDefinedAt(el)) {
+      cache.update(el, f(el))
+    }
+    cache(el)
+  }
 }
