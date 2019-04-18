@@ -150,10 +150,14 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache:ProjectCache,
                                     histogram: UserActivityHistogram,
-                                    gsonFmt: GsonFormatter) {
+                                    gsonFmt: GsonFormatter,
+                                    commitStatsCache: CommitsStatisticsCache
+                                   ) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
+
+  implicit val commitsStatisticsCache: CommitsStatisticsCache = commitStatsCache
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, botLikeIdentifiers: List[String])
@@ -163,13 +167,11 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .par
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
     }

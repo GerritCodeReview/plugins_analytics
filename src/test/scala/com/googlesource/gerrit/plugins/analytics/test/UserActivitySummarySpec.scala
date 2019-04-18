@@ -2,11 +2,13 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
-import com.googlesource.gerrit.plugins.analytics.common.{Statistics, TestUtils}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatisticsCache, Statistics, TestUtils}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Matchers}
 
 class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils with Matchers {
+
+  implicit val commitsStatisticsCache: CommitsStatisticsCache = CommitsStatisticsNoCache
 
   "numCommits" should "count only comments filtered by their merge status" in {
     val personEmail = "aCommitter@aCompany.com"
