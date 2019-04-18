@@ -14,10 +14,18 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import java.util
+
+import com.google.common.collect.ImmutableSortedSet
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
+import com.google.gerrit.reviewdb.client.{AccountGroup, Project}
+import com.google.gerrit.server.git.{GitRepositoryManager, LocalDiskRepositoryManager}
+import com.google.gerrit.server.project.{ProjectCache, ProjectState}
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{BotLikeExtractor, CommitsStatistics, CommitsStatisticsLoader, Statistics}
+import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
@@ -30,14 +38,51 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
     info
   }
 
+  object TestRepositoryManager extends GitRepositoryManager {
+    override def openRepository(name: Project.NameKey): Repository = new FileRepository(testRepo)
+
+    override def createRepository(name: Project.NameKey): Repository = ???
+
+    override def list(): util.SortedSet[Project.NameKey] = ???
+  }
+
+  object TestProjectCache extends ProjectCache {
+    override def getAllProjects: ProjectState = ???
+
+    override def getAllUsers: ProjectState = ???
+
+    override def get(projectName: Project.NameKey): ProjectState = ???
+
+    override def checkedGet(projectName: Project.NameKey): ProjectState = ???
+
+    override def checkedGet(projectName: Project.NameKey, strict: Boolean): ProjectState = ???
+
+    override def evict(p: Project): Unit = ???
+
+    override def evict(p: Project.NameKey): Unit = ???
+
+    override def remove(p: Project): Unit = ???
+
+    override def remove(name: Project.NameKey): Unit = ???
+
+    override def all(): ImmutableSortedSet[Project.NameKey] = ???
+
+    override def guessRelevantGroupUUIDs(): util.Set[AccountGroup.UUID] = ???
+
+    override def byName(prefix: String): ImmutableSortedSet[Project.NameKey] = ???
+
+    override def onCreateProject(newProjectName: Project.NameKey): Unit = ???
+  }
+
   class TestEnvironment(val repo: FileRepository = new FileRepository(testRepo),
                         val commentLinks: List[CommentLinkInfo] = List(
                           createCommentLinkInfo(pattern = "(bug\\s+#?)(\\d+)",
                             link = Some("http://bugs.example.com/show_bug.cgi?id=$2")),
                           createCommentLinkInfo(pattern = "([Bb]ug:\\s+)(\\d+)",
                             html = Some("$1<a href=\"http://trak.example.com/$2\">$2</a>")))) {
-
-    lazy val stats = new Statistics(repo, TestBotLikeExtractor, commentLinks)
+    lazy val stats = new Statistics(new Project.NameKey("testRepo"), CommitsStatisticsNoCache(new CommitsStatisticsLoader(TestRepositoryManager, TestProjectCache, new BotLikeExtractor() {
+      override def isBotLike(files: Set[String]): Boolean = false
+    })))
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
