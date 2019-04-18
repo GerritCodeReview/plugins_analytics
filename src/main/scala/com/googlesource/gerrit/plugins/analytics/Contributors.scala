@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
+import com.google.common.cache.Cache
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
@@ -21,8 +22,11 @@ import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
+import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache.COMMITS_STATISTICS_CACHE
+import org.eclipse.jgit.lib.ObjectId
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -150,7 +154,9 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache:ProjectCache,
                                     histogram: UserActivityHistogram,
-                                    gsonFmt: GsonFormatter) {
+                                    gsonFmt: GsonFormatter,
+                                    @Named(COMMITS_STATISTICS_CACHE) commitStatsCache: Cache[ObjectId, CommitsStatistics]
+                                   ) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
@@ -163,13 +169,13 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks)
+      val commitsStatisticsCache: CommitsStatisticsCacheImpl =
+        CommitsStatisticsCacheImpl(commitStatsCache, repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks)
+      val stats  = new Statistics(commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .par
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
     }

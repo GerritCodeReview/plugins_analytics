@@ -26,7 +26,7 @@ Copy the analytics.jar generated onto the Gerrit's /plugins directory.
 
 ## How to configure
 
-Nothing to configure, it just works.
+Refer to [config.md](config.md) for details on how to configure this plugin.
 
 ## How to use
 

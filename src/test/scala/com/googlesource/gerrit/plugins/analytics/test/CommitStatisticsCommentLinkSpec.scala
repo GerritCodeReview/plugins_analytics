@@ -37,7 +37,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
                           createCommentLinkInfo(pattern = "([Bb]ug:\\s+)(\\d+)",
                             html = Some("$1<a href=\"http://trak.example.com/$2\">$2</a>")))) {
 
-    lazy val stats = new Statistics(repo, TestBotLikeExtractor, commentLinks)
+    lazy val stats = new Statistics(CommitsStatisticsNoCache(repo, TestBotLikeExtractor, commentLinks))
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
