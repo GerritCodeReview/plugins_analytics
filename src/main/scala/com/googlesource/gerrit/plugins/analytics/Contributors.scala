@@ -25,7 +25,6 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
 
-
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
@@ -150,7 +149,9 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache:ProjectCache,
                                     histogram: UserActivityHistogram,
-                                    gsonFmt: GsonFormatter) {
+                                    gsonFmt: GsonFormatter,
+                                    commitStatsCache: CommitsStatisticsCache
+                                   ) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
@@ -163,13 +164,11 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)
+      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)(commitStatsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .par
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
     }
