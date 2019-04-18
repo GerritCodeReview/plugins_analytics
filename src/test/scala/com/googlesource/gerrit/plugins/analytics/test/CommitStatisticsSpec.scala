@@ -21,10 +21,9 @@ import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
-
   class TestEnvironment {
     val repo = new FileRepository(testRepo)
-    val stats = new Statistics(repo, TestBotLikeExtractor)
+    val stats = new Statistics(CommitsStatisticsNoCache(repo, TestBotLikeExtractor))
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
@@ -130,5 +129,4 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       case wrongContent => fail(s"Expected two results instead got $wrongContent")
     }
   }
-
 }

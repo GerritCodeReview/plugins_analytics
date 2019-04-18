@@ -1,4 +1,5 @@
-# Analytics extraction plugin
+
+
 
 Extract commit and review data from Gerrit projects and expose aggregated metrics
 over REST and SSH API.
@@ -23,10 +24,6 @@ The plugin jar file is created under ```target/scala-2.11/analytics.jar```
 ## How to install
 
 Copy the analytics.jar generated onto the Gerrit's /plugins directory.
-
-## How to configure
-
-Nothing to configure, it just works.
 
 ## How to use
 
