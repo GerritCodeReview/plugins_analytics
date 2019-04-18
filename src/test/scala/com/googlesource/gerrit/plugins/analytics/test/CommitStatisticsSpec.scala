@@ -21,10 +21,9 @@ import org.scalatest.{FlatSpec, Inside, Matchers}
 
 @UseLocalDisk
 class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with Matchers with Inside {
-
   class TestEnvironment {
     val repo = fileRepository
-    val stats = new Statistics(repo, TestBotLikeExtractor)
+    val stats = new Statistics(CommitsStatisticsNoCache(repo, TestBotLikeExtractor))
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
