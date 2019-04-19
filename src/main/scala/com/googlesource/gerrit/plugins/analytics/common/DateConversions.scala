@@ -14,8 +14,6 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.gwtjsonrpc.common.JavaSqlTimestampHelper
-
 object DateConversions {
 
   implicit def isoStringToLongDate(s: String): Long = JavaSqlTimestampHelper.parseTimestamp(s).getTime
