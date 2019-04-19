@@ -1,7 +1,7 @@
 package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.common.collect.Sets.newHashSet
-import com.google.gerrit.server.OutputFormat
+import com.google.gerrit.json.OutputFormat
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import org.scalatest.{FlatSpec, Matchers}
 
