@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.gwtjsonrpc.common.JavaSqlTimestampHelper
+import com.google.gerrit.json.JavaSqlTimestampHelper
 
 object DateConversions {
 

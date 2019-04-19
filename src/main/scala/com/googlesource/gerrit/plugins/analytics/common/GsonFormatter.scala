@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import java.io.PrintWriter
 
-import com.google.gerrit.server.OutputFormat
+import com.google.gerrit.json.OutputFormat
 import com.google.gson.{Gson, GsonBuilder}
 import com.google.inject.Singleton
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
