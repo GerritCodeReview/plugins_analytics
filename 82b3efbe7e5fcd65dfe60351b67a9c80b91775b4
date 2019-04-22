@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76b0c606_31f58b07",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-04-22T22:34:48Z",
+      "side": 0,
+      "message": "In case the patched version of gitective-core is still needed for some reasons, then we should provide exact steps how to create this patched version in README.md or alternatively in BUCK build file.",
+      "revId": "82b3efbe7e5fcd65dfe60351b67a9c80b91775b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
