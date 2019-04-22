@@ -28,7 +28,6 @@ java_test(
 
 maven_jar(
   name = 'gitective-core',
-  id = 'io.fabric8:gitective-core:0.9.18-1',
-  repository = MAVEN_LOCAL,
+  id = 'io.fabric8:gitective-core:0.9.18',
   license = 'Apache2.0',
 )
