@@ -18,8 +18,9 @@ import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
-import org.eclipse.jgit.lib.{ObjectId, Repository}
+import org.eclipse.jgit.lib._
 import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
 import org.slf4j.LoggerFactory
@@ -49,7 +50,7 @@ case class CommitsStatistics(
   require(commits.forall(_.botLike == isForBotLike), s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type")
   require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
 
-  private lazy val allFiles: List[String] = commits.flatMap(_.files)
+  lazy val allFiles: List[String] = commits.flatMap(_.files)
 
   /**
     * sum of the number of files in each of the included commits
@@ -83,7 +84,7 @@ object CommitsStatistics {
 }
 
 class Statistics(
-  repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: List[CommentLinkInfo] = Nil)
+  repo: Repository, botLikeExtractor: BotLikeExtractor, treeFilter: TreeFilter = TreeFilter.ALL, commentInfoList: List[CommentLinkInfo] = Nil)
   (commitStatsCache: CommitsStatisticsCache) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
@@ -146,6 +147,7 @@ class Statistics(
         df.setRepository(repo)
         df.setContext(0)
         df.setDiffComparator(RawTextComparator.DEFAULT)
+        df.setPathFilter(treeFilter)
         df.setDetectRenames(true)
         val diffs = df.scan(oldTree, newTree).asScala
 

@@ -14,13 +14,12 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsCache}
-import org.eclipse.jgit.lib.ObjectId
+import com.googlesource.gerrit.plugins.analytics.common.{BinaryFilesCache, CacheBoolean}
 
-object CommitsStatisticsNoCache extends CommitsStatisticsCache {
-  override def get(objectId: ObjectId, funStats: ObjectId => CommitsStatistics): CommitsStatistics = funStats(objectId)
+object BinaryFilesNoCache extends BinaryFilesCache {
+  override def get(key: String, getterF: String => CacheBoolean): CacheBoolean = getterF(key)
 
-  override def put(objectId: ObjectId, commitsStatistics: CommitsStatistics): Unit = ()
+  override def put(key: String, value: CacheBoolean): Unit = ()
 
   override def hitCount: Long = 0
 

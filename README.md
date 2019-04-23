@@ -48,6 +48,26 @@ As an example, you could add the following configuration to the `gerrit.config` 
 * `diskLimit`: Default is disabled
 * `memoryLimit`: 100000 entries
 
+### Binary Files Cache
+
+When the `ignore-binary-file` argument is provided the contributors endpoint will detect binary files that are part
+of commits and it will exclude them from the analytics result.
+Checking whether a file is binary is a quite expensive operation and thus it makes sense to cache the result of this computation.
+
+The binary files cache fulfills precisely this purpose by associating a boolean value to the examined filepath for the requested project.
+
+Again, To achieve this, this plugin makes use of Gerrit built-in cache mechanism as described [here](https://gerrit-review.googlesource.com/Documentation/config-gerrit.html#cache).
+As an example, you could add the following configuration to the `gerrit.config` file:
+
+```
+[cache "analytics.binary_files_cache"]
+        memoryLimit = 100000 # number of entries
+        diskLimit = 52428800 # 50Mb
+```
+
+* `diskLimit`: Default is disabled
+* `memoryLimit`: 100000 entries
+
 ## How to use
 
 Adds new REST API and SSH commands to allow the extraction of repository
@@ -92,6 +112,9 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
 - --extract-issues -i enables the extraction of issues from commentLink
 - --botlike-filename-regexps -n comma separated list of regexps that identify a bot-like commit, commits that modify only files whose name is a match will be flagged as bot-like
+- --ignore-binary-files -I boolean value to indicate whether binary files should be ignored from the analytics.  
+ This means that binary files will not be accounted for in "num_files", "num_distinct_files", "added_lines" and "deleted_lines" fields  
+ and they will not be listed in the "commits.files" field either. Default false.
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 

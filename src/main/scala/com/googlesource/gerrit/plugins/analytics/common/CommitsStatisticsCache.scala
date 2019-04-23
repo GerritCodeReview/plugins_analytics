@@ -22,8 +22,8 @@ import com.google.inject.name.Named
 import org.eclipse.jgit.lib.ObjectId
 
 trait CommitsStatisticsCache {
-  def get(objectId: ObjectId, funStats: ObjectId => CommitsStatistics): CommitsStatistics
-  def put(objectId: ObjectId, commitsStatistics: CommitsStatistics): Unit
+  def get(key: ObjectId, getterF: ObjectId => CommitsStatistics): CommitsStatistics
+  def put(key: ObjectId, value: CommitsStatistics): Unit
   def hitCount: Long
   def evictionCount: Long
   def missCount: Long
