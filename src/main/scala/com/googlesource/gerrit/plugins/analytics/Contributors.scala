@@ -24,9 +24,11 @@ import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
+import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.kohsuke.args4j.{Option => ArgOption}
-import scalacache.Entry
+import scalacache.{CacheConfig, Entry}
 import scalacache.caffeine.CaffeineCache
+import scalacache.memoization.{MemoizationConfig, MethodCallToStringConverter}
 
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
@@ -84,9 +86,13 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     botLikeRegexps = value.split(",").toList
   }
 
+  @ArgOption(name = "--ignore-binary-files", aliases = Array("-I"),
+    usage = "boolean value to indicate whether binary files should be ignored from the analytics. Default false")
+  private var ignoreBinaryFiles: Boolean = false
+
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps, ignoreBinaryFiles), stdout)
 
 }
 
@@ -143,11 +149,15 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     botLikeRegexps = value.split(",").toList
   }
 
+  @ArgOption(name = "--ignore-binary-files", aliases = Array("-I"),
+    usage = "boolean value to indicate whether binary files should be ignored from the analytics. Default false")
+  private var ignoreBinaryFiles: Boolean = false
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps, ignoreBinaryFiles)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -159,16 +169,28 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import scala.collection.JavaConverters._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, botLikeIdentifiers: List[String])
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, botLikeIdentifiers: List[String], ignoreBinaryFiles: Boolean = false)
   : TraversableOnce[UserActivitySummary] = {
     val nameKey = projectRes.getNameKey
     val commentLinks: List[CommentLinkInfo] = extractIssues.option {
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
+    // Binary Cache Config
+    val binaryCacheConfig: CacheConfig = CacheConfig(memoization = MemoizationConfig(TreeWalkerMethodCallToStringConverter))
+
+    implicit val underlingBinaryCache: Cache[String, Entry[Boolean]] = Caffeine
+      .newBuilder()
+      .recordStats()
+      .maximumSize(50000L)
+      .build[String, Entry[Boolean]]
+    implicit val customisedBinaryCaffeineCache: CaffeineCache[Boolean] = CaffeineCache(underlingBinaryCache)(binaryCacheConfig)
+
+    val treeFilter = if (ignoreBinaryFiles) NonBinaryFileFilter() else TreeFilter.ALL
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
 
+      // Stats Cache Config
       val underlyingCaffeineCache = Caffeine
           .newBuilder()
           .recordStats()
@@ -178,7 +200,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       implicit val customisedCaffeineCache: CaffeineCache[CommitsStatistics] = CaffeineCache(underlyingCaffeineCache)
 
 //      implicit val caffeineCache = CaffeineCache[CommitsStatistics]
-      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)
+      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), treeFilter, commentLinks.asJava)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))

@@ -18,8 +18,9 @@ import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
-import org.eclipse.jgit.lib.{ObjectId, Repository}
+import org.eclipse.jgit.lib._
 import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
 import org.slf4j.LoggerFactory
@@ -85,7 +86,12 @@ object CommitsStatistics {
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil)(implicit cache: CaffeineCache[CommitsStatistics]) {
+class Statistics(
+  repo: Repository,
+  botLikeExtractor: BotLikeExtractor,
+  treeFilter: TreeFilter = TreeFilter.ALL,
+  commentInfoList: java.util.List[CommentLinkInfo] = Nil)
+  (implicit cache: CaffeineCache[CommitsStatistics]) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
   val replacers = commentInfoList.map(info =>
@@ -147,6 +153,7 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
         df.setRepository(repo)
         df.setContext(0)
         df.setDiffComparator(RawTextComparator.DEFAULT)
+        df.setPathFilter(treeFilter)
         df.setDetectRenames(true)
         val diffs = df.scan(oldTree, newTree)
 

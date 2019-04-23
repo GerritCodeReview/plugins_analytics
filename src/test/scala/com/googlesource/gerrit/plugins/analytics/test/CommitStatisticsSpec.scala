@@ -16,8 +16,9 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.common.collect.Sets.newHashSet
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, NonBinaryFileFilter, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.scalatest.{FlatSpec, Inside, Matchers}
 import scalacache.caffeine._
 
@@ -131,5 +132,36 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
 
       case wrongContent => fail(s"Expected two results instead got $wrongContent")
     }
+  }
+
+  it should "include binary files when they are not filtered out" in new TestEnvironment {
+    val allStats = new Statistics(repo, TestBotLikeExtractor, treeFilter = TreeFilter.ALL)
+    val aBinaryFile = "aBinaryFile"
+    val asciiFile = "aFile"
+
+    val asciiCommit = add(asciiFile, "some ascii content")
+    val binaryCommit = add(aBinaryFile, Array.range(1, 512).map(_.toByte))
+
+    inside(allStats.forCommits(asciiCommit, binaryCommit)) {
+      case List(stats: CommitsStatistics) =>
+        stats.changedFiles should contain only(asciiFile, aBinaryFile)
+        stats.numFiles shouldBe 2
+    }
+  }
+
+  it should "ignore binary files when they are filtered out" in new TestEnvironment {
+    implicit val binaryCache: CaffeineCache[Boolean] = CaffeineCache[Boolean]
+    val nonBinaryStats = new Statistics(repo, TestBotLikeExtractor, treeFilter = NonBinaryFileFilter())
+    val asciiFile = "aFile"
+
+    val asciiCommit = add(asciiFile, "some ascii content")
+    val binaryCommit = add("aBinaryFile", Array.range(1, 512).map(_.toByte))
+
+    inside(nonBinaryStats.forCommits(asciiCommit, binaryCommit)) {
+      case List(stats: CommitsStatistics) =>
+        stats.changedFiles should contain only asciiFile
+        stats.numFiles shouldBe 1
+    }
+
   }
 }
