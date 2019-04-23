@@ -72,6 +72,9 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
 - --extract-issues -i enables the extraction of issues from commentLink
 - --botlike-filename-regexps -n comma separated list of regexps that identify a bot-like commit, commits that modify only files whose name is a match will be flagged as bot-like
+- --ignore-binary-files -I boolean value to indicate whether binary files should be ignored from the analytics.  
+ This means that binary files will not be accounted for in "num_files", "num_distinct_files", "added_lines" and "deleted_lines" fields  
+ and they will not be listed in the "commits.files" field either. Default false.
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 

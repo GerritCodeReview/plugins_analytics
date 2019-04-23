@@ -35,7 +35,7 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.io.{File, PrintWriter}
+import java.io.{File, FileOutputStream, PrintWriter}
 import java.nio.file.Files
 import java.text.MessageFormat
 import java.util.Date
@@ -225,6 +225,24 @@ trait GitTestCase extends BeforeAndAfterEach {
     add(repo, path, content, message, author, committer)
   }
 
+  protected def add(path: String, content: Array[Byte]): RevCommit = {
+    val file = new File(testRepo.getParentFile, path)
+    if (!file.getParentFile.exists) assert(file.getParentFile.mkdirs)
+    if (!file.exists) assert(file.createNewFile)
+
+    val outStream = new FileOutputStream(file)
+    try {
+      outStream.write(content)
+    }
+    finally {
+      outStream.close()
+    }
+
+    use(Git.open(testRepo)) { git =>
+      git.add.addFilepattern(path).call
+      git.commit.setOnly(path).setMessage(s"Adding binary $file").setAuthor(author).setCommitter(committer).call
+    }
+  }  ensuring (_ != null, s"Unable to commit addition of path $path")
 
   /**
     * Add file to test repository
