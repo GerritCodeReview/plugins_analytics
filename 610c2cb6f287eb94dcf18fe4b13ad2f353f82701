@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1544ecf6_55bdfab7",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:33:58Z",
+      "side": 1,
+      "message": "Specify *which* part of the analytics are ignored: the diff only. A commit with binary files only will still be accounted for, isn\u0027t it?",
+      "range": {
+        "startLine": 75,
+        "startChar": 92,
+        "endLine": 75,
+        "endChar": 110
+      },
+      "revId": "610c2cb6f287eb94dcf18fe4b13ad2f353f82701",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53414d01_eeb66345",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:33:58Z",
+      "side": 1,
+      "message": "Is this change associated with the performance improvement?",
+      "range": {
+        "startLine": 42,
+        "startChar": 64,
+        "endLine": 42,
+        "endChar": 81
+      },
+      "revId": "610c2cb6f287eb94dcf18fe4b13ad2f353f82701",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
