@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import org.eclipse.jgit.lib.ObjectId
+import org.slf4j.LoggerFactory
 
 trait CacheApi[A, B] {
   def getOrUpdate(el: A, f: => A => B): B
@@ -28,4 +29,20 @@ final class InMemoryCommitStatisticsCache extends CacheApi[ObjectId, CommitsStat
     cache.update(el, f(el))
     cache(el)
   })
+}
+
+final class InMemoryNonBinaryFileCache extends CacheApi[String, Boolean] {
+
+  private val log = LoggerFactory.getLogger(classOf[InMemoryNonBinaryFileCache])
+  private val cache = collection.mutable.Map.empty[String, Boolean]
+
+  override def getOrUpdate(el: String, f: => String => Boolean): Boolean = {
+    if(!cache.isDefinedAt(el)) {
+      cache.update(el, f(el))
+    }
+    else {
+      log.debug(s"cache_hit: $el -> ${cache(el)}")
+    }
+    cache(el)
+  }
 }
