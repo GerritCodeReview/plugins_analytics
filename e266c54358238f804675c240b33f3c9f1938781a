@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7e56a53_e3be557d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:28:11Z",
+      "side": 1,
+      "message": "Can you include the performance improvements metrics you\u0027ve observed?\nE.g. scenario \u003d Gerrit Code Review repo\nbefore: 60s, after: 30s",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f47271_107ac13c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:28:11Z",
+      "side": 1,
+      "message": "This is the default anyway: why bothering instantiating it again?",
+      "range": {
+        "startLine": 168,
+        "startChar": 104,
+        "endLine": 168,
+        "endChar": 139
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3bd67dd_6a595028",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CacheApi.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:28:11Z",
+      "side": 1,
+      "message": "The Android Open Source Project",
+      "range": {
+        "startLine": 1,
+        "startChar": 22,
+        "endLine": 1,
+        "endChar": 37
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1be483_675b5685",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-23T16:28:11Z",
+      "side": 1,
+      "message": "Is this related to performance improvement? or just a bug fix of a problem you saw in the meantime?",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 24
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
