@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5a93c17_8589599e",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-04-24T10:36:03Z",
+      "side": 1,
+      "message": "The analytics don\u0027t show any diff per se, it only shows _statistics_ on the diff, such as added/deleted lines. Ignoring binary files means that binary files will not be diffed at all (this is what gives the performance boost).\n\nSo to answer your question, a commit with binary files only will still be accounted for (it will participate to the number of commits graphs), but in its statistics, it will show as:\nmodified files 0, added lines 0, removed lines 0.\n\nif it was included, what would the statistical meaning of added/removed binary lines?\n\nWhat do you think?",
+      "parentUuid": "1544ecf6_55bdfab7",
+      "range": {
+        "startLine": 75,
+        "startChar": 92,
+        "endLine": 75,
+        "endChar": 110
+      },
+      "revId": "610c2cb6f287eb94dcf18fe4b13ad2f353f82701",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53414d01_eeb66345",
         "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "610c2cb6f287eb94dcf18fe4b13ad2f353f82701",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63344bba_522d79c5",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-04-24T10:36:03Z",
+      "side": 1,
+      "message": "The third parameter of the Statistics class is now TreeWalker to be used to extract files from the repo.\nI thought it was better positioned there next to the extractor, as conceptually they are similar.\nThis meant this test needed to have a named argument.",
+      "parentUuid": "53414d01_eeb66345",
+      "range": {
+        "startLine": 42,
+        "startChar": 64,
+        "endLine": 42,
+        "endChar": 81
+      },
+      "revId": "610c2cb6f287eb94dcf18fe4b13ad2f353f82701",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
