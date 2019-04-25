@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "a12e2991_f0060d62",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CacheApi.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-25T20:31:28Z",
+      "side": 1,
+      "message": "\u003e You hit a quite interesting point here, I think is worth discussing.\n\u003e \n\u003e The lifespan of these cache objects is quite brief, as it lasts only for the duration of one request. Within the timeframe of one request, the cache can grow indefinitely, agreed.\n\u003e However, in practice, it is really bound to the maximum number of git objects that can be processed, which also cannot be boundless, or too large, otherwise, the http request would never terminate.\n\u003e \n\u003e Additionally, if we were to use a real cache, what eviction mechanism would we adopt?\n\u003e \n\u003e - LRU doesn\u0027t seem useful here, because the cache gets populated and then destroyed very quickly and the concept of \"recent\" doesn\u0027t really apply here.\n\u003e \n\u003e - Capping the cache to a specific size would open the problem of fine-tuning it:  Different repos, different time-frames, and different extraction parameters would have different requirements. So it would be difficult to find a one-size-fits-all number for this.\n\u003e \n\u003e \n\u003e The intent of this cache is to avoid to perform the same operation (that would lead to the same result) over and over again: perhaps instead of CacheApi, MemoizationApi would be a better name?\n\u003e \n\u003e What do you think?\n\nWhy not just using a Guava cache? Have you thought about it?\nYou would inherit a couple of features:\n\n- Being configurable on gerrit.config\n- Using both in-memory and persistent store\n\nSpecifically, the persistent store would be *really* useful because we could easily end up saving a lot of time rebuilding across runs.",
+      "parentUuid": "2c9fd896_f6383431",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1be483_675b5685",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 6
