@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b22ad694_b889e943",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-25T20:34:46Z",
+      "side": 1,
+      "message": "nit empty space at the end of the line. Same on L76",
+      "range": {
+        "startLine": 75,
+        "startChar": 111,
+        "endLine": 75,
+        "endChar": 113
+      },
+      "revId": "ccecfc922d4ba2bcb9be74ecb2b932be950c865a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf14b64_af04a9f9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-25T20:34:46Z",
+      "side": 1,
+      "message": "I believe the default should be true.\nI don\u0027t see the point of calculating the diff statistics of a binary file.",
+      "range": {
+        "startLine": 90,
+        "startChar": 106,
+        "endLine": 90,
+        "endChar": 111
+      },
+      "revId": "ccecfc922d4ba2bcb9be74ecb2b932be950c865a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d1d8a54_87335721",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-04-25T20:34:46Z",
+      "side": 1,
+      "message": "True",
+      "range": {
+        "startLine": 153,
+        "startChar": 106,
+        "endLine": 153,
+        "endChar": 111
+      },
+      "revId": "ccecfc922d4ba2bcb9be74ecb2b932be950c865a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
