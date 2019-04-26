@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "df779751_918cac19",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-04-26T09:13:43Z",
+      "side": 1,
+      "message": "Empty space at the end of the line is the syntax for a new paragraph in markdown language\nhttps://daringfireball.net/projects/markdown/syntax#p\n\n\"When you do want to insert a \u003cbr /\u003e break tag using Markdown, you end a line with two or more spaces, then type return.\"\n\nI am happy to reformat in some other way though, I know this can be confusing.",
+      "parentUuid": "b22ad694_b889e943",
+      "range": {
+        "startLine": 75,
+        "startChar": 111,
+        "endLine": 75,
+        "endChar": 113
+      },
+      "revId": "ccecfc922d4ba2bcb9be74ecb2b932be950c865a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2bf14b64_af04a9f9",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-25T20:34:46Z",
       "side": 1,
       "message": "I believe the default should be true.\nI don\u0027t see the point of calculating the diff statistics of a binary file.",
+      "range": {
+        "startLine": 90,
+        "startChar": 106,
+        "endLine": 90,
+        "endChar": 111
+      },
+      "revId": "ccecfc922d4ba2bcb9be74ecb2b932be950c865a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94986d9e_3a42a1a8",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-04-26T09:13:43Z",
+      "side": 1,
+      "message": "mmm, I would leave the default to false, to be honest.\nMainly for 3 reasons:\n- Binary files will completely disappear from the list of files modified by the commit (i.e. will not be listed in the \"commits.files\" section). I think it would be confusing if it were the default.\n- git does this: when diffing two commits, binary files are reported, by default.\n- If people are using the analytics endpoint, this change will be transparent to them, otherwise their stats would possibly change for no apparent reason.\n\nWhat do you think?",
+      "parentUuid": "2bf14b64_af04a9f9",
       "range": {
         "startLine": 90,
         "startChar": 106,
