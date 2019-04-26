@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "efaa7f87_a0605b7c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CacheApi.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-04-26T08:51:33Z",
+      "side": 1,
+      "message": "oh yes, interesting point, that\u0027d be useful indeed!\nI\u0027ll try out that implementation and run some more benchmarks",
+      "parentUuid": "a12e2991_f0060d62",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "e266c54358238f804675c240b33f3c9f1938781a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf1be483_675b5685",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 6
