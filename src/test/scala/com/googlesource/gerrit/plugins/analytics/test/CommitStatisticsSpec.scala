@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import com.google.common.collect.Sets.newHashSet
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -39,10 +38,10 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "sum to another compatible CommitStatistics generating an aggregated stat" in {
-    val commit1 = CommitInfo("sha_1", 1000l, false, botLike = false, newHashSet("file1"))
-    val commit2 = CommitInfo("sha_2", 2000l, false, botLike = false, newHashSet("file1"))
-    val commit3 = CommitInfo("sha_3", 3000l, false, botLike = false, newHashSet("file2"))
-    val commit4 = CommitInfo("sha_4", 1000l, false, botLike = false, newHashSet("file1"))
+    val commit1 = CommitInfo("sha_1", 1000l, false, botLike = false, Set("file1"))
+    val commit2 = CommitInfo("sha_2", 2000l, false, botLike = false, Set("file1"))
+    val commit3 = CommitInfo("sha_3", 3000l, false, botLike = false, Set("file2"))
+    val commit4 = CommitInfo("sha_4", 1000l, false, botLike = false, Set("file1"))
 
     val stat1 = CommitsStatistics(3, 4, false, false, List(commit1, commit2))
     val stat2 = CommitsStatistics(5, 7, false, false, List(commit3, commit4))
