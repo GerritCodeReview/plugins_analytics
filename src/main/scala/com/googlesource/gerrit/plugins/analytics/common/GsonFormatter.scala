@@ -17,20 +17,32 @@ package com.googlesource.gerrit.plugins.analytics.common
 import java.io.PrintWriter
 
 import com.google.gerrit.server.OutputFormat
-import com.google.gson.{Gson, GsonBuilder}
+import com.google.gson.{Gson, GsonBuilder, JsonSerializer}
 import com.google.inject.Singleton
-import com.googlesource.gerrit.plugins.analytics.CommitInfo
+import java.lang.reflect.Type
+
+import com.google.gson._
 
 @Singleton
 class GsonFormatter {
   val gsonBuilder: GsonBuilder =
     OutputFormat.JSON_COMPACT.newGsonBuilder
+      .registerTypeHierarchyAdapter(classOf[Iterable[Any]], new IterableSerializer)
 
   def format[T](values: TraversableOnce[T], out: PrintWriter) {
     val gson: Gson = gsonBuilder.create
+
     for (value <- values) {
       gson.toJson(value, out)
       out.println()
     }
   }
+
+  class IterableSerializer extends JsonSerializer[Iterable[Any]] {
+    override def serialize(src: Iterable[Any], typeOfSrc: Type, context: JsonSerializationContext): JsonElement = {
+      import scala.collection.JavaConverters._
+      context.serialize(src.asJava)
+    }
+  }
+
 }

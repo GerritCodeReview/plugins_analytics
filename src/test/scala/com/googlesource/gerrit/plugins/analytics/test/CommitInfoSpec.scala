@@ -1,16 +1,15 @@
 package com.googlesource.gerrit.plugins.analytics.test
 
-import com.google.common.collect.Sets.newHashSet
-import com.google.gerrit.server.OutputFormat
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
+import com.googlesource.gerrit.plugins.analytics.common.GsonFormatter
 import org.scalatest.{FlatSpec, Matchers}
 
 class CommitInfoSpec extends FlatSpec with Matchers {
 
   "CommitInfo" should "be serialised as JSON correctly" in {
-    val commitInfo = CommitInfo(sha1 = "sha", date = 1000l, merge = false, botLike = false, files = newHashSet("file1", "file2"))
+    val commitInfo = CommitInfo(sha1 = "sha", date = 1000l, merge = false, botLike = false, files = Set("file1", "file2"))
 
-    val gsonBuilder = OutputFormat.JSON_COMPACT.newGsonBuilder
+    val gsonBuilder = new GsonFormatter().gsonBuilder
 
     val actual = gsonBuilder.create().toJson(commitInfo)
     List(actual) should contain oneOf(

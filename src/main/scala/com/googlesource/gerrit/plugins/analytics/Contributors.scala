@@ -165,7 +165,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks.asJava)
+      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
@@ -176,7 +176,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: java.util.Set[String])
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: Set[String])
 
 case class IssueInfo(code: String, link: String)
 

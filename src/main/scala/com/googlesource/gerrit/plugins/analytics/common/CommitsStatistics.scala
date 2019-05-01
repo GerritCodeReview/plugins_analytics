@@ -24,7 +24,7 @@ import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
 import org.slf4j.LoggerFactory
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.util.matching.Regex
 
 /**
@@ -82,7 +82,7 @@ object CommitsStatistics {
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: java.util.List[CommentLinkInfo] = Nil) {
+class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: List[CommentLinkInfo] = Nil) {
 
   val log = LoggerFactory.getLogger(classOf[Statistics])
   val replacers = commentInfoList.map(info =>
@@ -142,13 +142,13 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
       df.setRepository(repo)
       df.setDiffComparator(RawTextComparator.DEFAULT)
       df.setDetectRenames(true)
-      val diffs = df.scan(oldTree, newTree)
+      val diffs = df.scan(oldTree, newTree).asScala
       case class Lines(deleted: Int, added: Int) {
         def +(other: Lines) = Lines(deleted + other.deleted, added + other.added)
       }
       val lines = (for {
         diff <- diffs
-        edit <- df.toFileHeader(diff).toEditList
+        edit <- df.toFileHeader(diff).toEditList.asScala
       } yield Lines(edit.getEndA - edit.getBeginA, edit.getEndB - edit.getBeginB)).fold(Lines(0, 0))(_ + _)
 
       val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
@@ -159,7 +159,7 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
     }
   }
 
-  def extractIssues(commitMessage: String): List[IssueInfo] = {
+  def extractIssues(commitMessage: String): List[IssueInfo] =
     replacers.flatMap {
       case Replacer(pattern, replaced) =>
         pattern.findAllIn(commitMessage)
@@ -167,8 +167,7 @@ class Statistics(repo: Repository, botLikeExtractor: BotLikeExtractor, commentIn
             val transformed = pattern.replaceAllIn(code, replaced)
             IssueInfo(code, transformed)
           })
-    }.toList
-  }
+    }
 
   case class Replacer(pattern: Regex, replaced: String)
 
