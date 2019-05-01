@@ -49,19 +49,19 @@ case class CommitsStatistics(
   require(commits.forall(_.botLike == isForBotLike), s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type")
   require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
 
+  private lazy val allFiles: List[String] = commits.flatMap(_.files)
+
   /**
     * sum of the number of files in each of the included commits
     */
-  val numFiles: Int = commits.map(_.files.size).sum
+  lazy val numFiles: Int = allFiles.size
 
   /**
     * number of distinct files the included commits have been touching
     */
-  val numDistinctFiles: Int = changedFiles.size
+  lazy val numDistinctFiles: Int = allFiles.toSet.size
 
   def isEmpty: Boolean = commits.isEmpty
-
-  def changedFiles: Set[String] = commits.map(_.files.toSet).fold(Set.empty)(_ union _)
 
   // Is not a proper monoid since we cannot sum a MergeCommit with a non merge one but it would overkill to define two classes
   def + (that: CommitsStatistics) = {
