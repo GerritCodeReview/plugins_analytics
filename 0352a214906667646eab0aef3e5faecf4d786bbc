@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "312b2a1b_0a02c6db",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/GsonFormatter.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-04T00:38:37Z",
+      "side": 1,
+      "message": "Goot catch !",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 83
+      },
+      "revId": "0352a214906667646eab0aef3e5faecf4d786bbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
