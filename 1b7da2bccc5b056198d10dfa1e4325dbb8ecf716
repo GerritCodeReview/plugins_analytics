@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "46327fa0_f4c24922",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ebd79d7_82a65e44",
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90f62449_93ad0420",
         "filename": "README.md",
         "patchSetId": 15
@@ -39,6 +57,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92526be_4769153b",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f62449_93ad0420",
+      "range": {
+        "startLine": 29,
+        "startChar": 80,
+        "endLine": 29,
+        "endChar": 92
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "6406c824_e5003d8c",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41efe08_dd02c922",
+      "range": {
+        "startLine": 31,
+        "startChar": 27,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c67800ff_2886e92f",
         "filename": "README.md",
         "patchSetId": 15
@@ -85,6 +151,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455d8602_159ccf93",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c67800ff_2886e92f",
+      "range": {
+        "startLine": 35,
+        "startChar": 80,
+        "endLine": 35,
+        "endChar": 91
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "4358372d_fafa07fb",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85ea8d78_56a70d0d",
+      "range": {
+        "startLine": 36,
+        "startChar": 80,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64ef64de_c7926cf7",
         "filename": "README.md",
         "patchSetId": 15
@@ -131,6 +245,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ce0419_fbef19f9",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64ef64de_c7926cf7",
+      "range": {
+        "startLine": 39,
+        "startChar": 80,
+        "endLine": 39,
+        "endChar": 92
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "d575202a_57c97ee2",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aec348b1_2661fc4d",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "594e0482_5dd03966",
         "filename": "README.md",
         "patchSetId": 15
@@ -177,6 +339,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616f811f_9517329c",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "594e0482_5dd03966",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "06307dd5_bc559155",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "disk storage for the cache is disabled",
+      "parentUuid": "d1a1e29c_d454f850",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50d92f20_c1d0fbbb",
         "filename": "README.md",
         "patchSetId": 15
@@ -223,6 +433,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69342180_ff2cbd12",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50d92f20_c1d0fbbb",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -267,6 +501,24 @@
     },
     {
       "key": {
+        "uuid": "20c91f48_766e25a2",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "612e5a53_2e5e9a64",
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dcb7f56_68d0d3a5",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
@@ -278,6 +530,30 @@
       "writtenOn": "2019-05-05T10:57:32Z",
       "side": 1,
       "message": "This is the loading function of the cache: it shouldn\u0027t be passed as parameter because effectively is part of the caching loading logic.\n\nAs a matter of fact, it is used only once and only here. Reusing the get() with a different function wouldn\u0027t make any sense.\n\nExample:\n\ncommitsStatsCache.get(key1, forSingleCommit)\nand then\ncommitsStatsCache.get(key1, anotherComplexFunction)\n\nThe second invocation would be a lie because the commitsStatsCache would still return the computation of the \u0027forSingleCommit\u0027 as cached value.\n\nBottom line: this function doesn\u0027t belong to the get() method but to the constructor of the cache.",
+      "range": {
+        "startLine": 107,
+        "startChar": 52,
+        "endLine": 107,
+        "endChar": 67
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "835277d0_179376be",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "mmmh I see your point. In order to move the forCommits (which is, in fact, the loader function) to the cache, we will need to move all the dependent constructor arguments to the cache itself. Namely,\n\n  repo: Repository,\n  botLikeExtractor: BotLikeExtractor,\n  commentInfoList: List[CommentLinkInfo]\n\nWill need to be moved from Statistics() object to the CommitsStatisticsCache.\n\nI\u0027ll do this in the next patch",
+      "parentUuid": "1dcb7f56_68d0d3a5",
       "range": {
         "startLine": 107,
         "startChar": 52,
@@ -313,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "545a007e_6a27b4ef",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "I was using this locally to understand the usage of the cache.\nWe can get this in grafana, I\u0027ll remove this",
+      "parentUuid": "16f41313_f8b7095e",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 135
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd9046c3_0bf3f34d",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
@@ -333,6 +633,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b898b2d_65c851ae",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "yep I\u0027ll create a different change for this",
+      "parentUuid": "bd9046c3_0bf3f34d",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 10
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "617bfcba_bf6e82cb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "We already discussed this here: https://gerrit-review.googlesource.com/c/plugins/analytics/+/221315/6/src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala#143\n\nI am happy to move this to a different change.",
+      "parentUuid": "a477ae92_eb590f37",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 24
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7703729b_09ccfb6e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
@@ -382,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "e715dffb_32246c1b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "I will do this as part of moving the loading logic from Statistics to the Cache itself",
+      "parentUuid": "7703729b_09ccfb6e",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 52
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "122fb113_099fdc6e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheModule.scala",
         "patchSetId": 15
@@ -393,6 +765,30 @@
       "writtenOn": "2019-05-05T11:25:15Z",
       "side": 1,
       "message": "Instead of rebuilding a new guava cache, why not reusing the diff_intraline?\nIt seems that does *exactly* what we need, the diff between two object ids.\n\nLook at IntraLineLoader.java in Gerrit.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d24c773f_04f96a67",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheModule.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "to be honest, I don\u0027t think diff_intraline does exactly what we need, for the following reasons:\n\n- We don\u0027t need to cache the diff between two object ids. We need to cache the statistics related to an object id. The diff between two object ids is just one of the raw data used to compute statistics. We should cache the wanted result, not one of the components used in computing that result.\n\n- Using the diff_intraline cache might replace hot-in-cache entries by diffs requested by the analytics. For example, if I run analytics for an AOSP project for the time between 2000 and 2005, that will very likely result in:\n\n  - many cache misses, [AOSP project is not necessarily a frequently accessed project], so not much performance improvement.\n  - Populating the diff_intraline cache with many one-off entries, that are only useful within the context of analytics and might never be accessed via gerrit ui.\n\nThoughts?",
+      "parentUuid": "122fb113_099fdc6e",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -473,6 +869,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d99cfa8_44b28d22",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7362d20_90d20feb",
+      "range": {
+        "startLine": 26,
+        "startChar": 58,
+        "endLine": 26,
+        "endChar": 84
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {

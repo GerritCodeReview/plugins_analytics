@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac347113_5c47c7b9",
+        "filename": "build.sbt",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "a2bd1af2_6264ff9e",
+      "revId": "233de99fb028d3de754e6df979dc1712725e5962",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5572b9c4_eb40b0dc",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 15
@@ -69,6 +87,24 @@
       "revId": "233de99fb028d3de754e6df979dc1712725e5962",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea418904_20eb7660",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f1d5b69d_500f0c92",
+      "revId": "233de99fb028d3de754e6df979dc1712725e5962",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

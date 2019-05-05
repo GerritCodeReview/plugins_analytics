@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "574f4d1e_3e6abbeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "532fa0db_fcdd7619",
+      "range": {
+        "startLine": 27,
+        "startChar": 35,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "62eb4ce63162c1ed458a06b5846d89ab7bd6b4e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b509db97_51fb534b",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a5985a3d_6100af53",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b509db97_51fb534b",
+      "range": {
+        "startLine": 175,
+        "startChar": 23,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "62eb4ce63162c1ed458a06b5846d89ab7bd6b4e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ee2f11c_1096d805",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "62eb4ce63162c1ed458a06b5846d89ab7bd6b4e0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b612ac03_84caf115",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee2f11c_1096d805",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 69
+      },
+      "revId": "62eb4ce63162c1ed458a06b5846d89ab7bd6b4e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
