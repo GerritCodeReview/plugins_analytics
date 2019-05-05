@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2bd1af2_6264ff9e",
+        "filename": "build.sbt",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:39:44Z",
+      "side": 0,
+      "message": "nit: unrelated space change",
+      "revId": "233de99fb028d3de754e6df979dc1712725e5962",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
