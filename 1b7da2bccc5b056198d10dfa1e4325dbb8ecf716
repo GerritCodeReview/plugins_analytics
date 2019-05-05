@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3ebd79d7_82a65e44",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:43:50Z",
+      "side": 1,
+      "message": "If there is something to configure, you should put into the config.md.\nThis README.md is becoming the entire plugin\u0027s documentation, which isn\u0027t the purpose.",
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90f62449_93ad0420",
         "filename": "README.md",
         "patchSetId": 15
@@ -110,6 +127,98 @@
         "startChar": 80,
         "endLine": 39,
         "endChar": 92
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec348b1_2661fc4d",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:43:50Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594e0482_5dd03966",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:43:50Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a1e29c_d454f850",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:43:50Z",
+      "side": 1,
+      "message": "Can you clarify? Limiting the disk size is disabled or there is no disk-level caching?",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d92f20_c1d0fbbb",
+        "filename": "README.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T10:43:50Z",
+      "side": 1,
+      "message": "No need to specify `entries` but just the default value",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 31
       },
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
