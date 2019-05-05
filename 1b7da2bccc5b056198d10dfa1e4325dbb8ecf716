@@ -566,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "4621c2ae_9444c541",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:30:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "835277d0_179376be",
+      "range": {
+        "startLine": 107,
+        "startChar": 52,
+        "endLine": 107,
+        "endChar": 67
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16f41313_f8b7095e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
