@@ -378,6 +378,92 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a357abb5_8f9882d0",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T12:02:37Z",
+      "side": 1,
+      "message": "Pass this implicitly",
+      "range": {
+        "startLine": 40,
+        "startChar": 77,
+        "endLine": 40,
+        "endChar": 103
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7362d20_90d20feb",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T12:02:37Z",
+      "side": 1,
+      "message": "Pass this implicitly",
+      "range": {
+        "startLine": 26,
+        "startChar": 58,
+        "endLine": 26,
+        "endChar": 84
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a47d0ac1_867bd216",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitsStatisticsNoCache.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T12:02:37Z",
+      "side": 1,
+      "message": "This isn\u0027t needed because the Gerrit caches have already metrics associated.",
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0028dc0_2089d130",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/UserActivitySummarySpec.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T12:02:37Z",
+      "side": 1,
+      "message": "Pass this implicitly",
+      "range": {
+        "startLine": 21,
+        "startChar": 114,
+        "endLine": 21,
+        "endChar": 140
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
