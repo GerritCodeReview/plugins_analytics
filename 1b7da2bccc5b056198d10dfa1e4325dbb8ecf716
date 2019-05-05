@@ -519,6 +519,24 @@
     },
     {
       "key": {
+        "uuid": "d4dca640_2d64363f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-05T19:44:34Z",
+      "side": 1,
+      "message": "Just a note that the CommitsStatisticsCache will not be a singleton for the entire JVM because its instance now depends on runtime arguments, such as repository, botlikeExtraction and commitLinks.\n\nThe underlying guava cache, however, will be a singleton.",
+      "parentUuid": "20c91f48_766e25a2",
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dcb7f56_68d0d3a5",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
