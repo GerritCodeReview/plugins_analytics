@@ -355,6 +355,29 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122fb113_099fdc6e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheModule.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-05T11:25:15Z",
+      "side": 1,
+      "message": "Instead of rebuilding a new guava cache, why not reusing the diff_intraline?\nIt seems that does *exactly* what we need, the diff between two object ids.\n\nLook at IntraLineLoader.java in Gerrit.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
