@@ -749,6 +749,30 @@
     },
     {
       "key": {
+        "uuid": "367ddbc3_479cd270",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-06T14:03:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "617bfcba_bf6e82cb",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 24
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7703729b_09ccfb6e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
@@ -840,6 +864,30 @@
       "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08539bf_f68c566b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheModule.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-06T14:03:13Z",
+      "side": 1,
+      "message": "\u003e to be honest, I don\u0027t think diff_intraline does exactly what we need, for the following reasons:\n\u003e \n\u003e - We don\u0027t need to cache the diff between two object ids. We need to cache the statistics related to an object id. The diff between two object ids is just one of the raw data used to compute statistics. We should cache the wanted result, not one of the components used in computing that result.\n\nFair enough, so we could at least *use* the diff_intraline, to get the diffs and use that for calculating and caching our statistics :-)\n\nBut that can be done in a separate change, not necessarily this one.\n\n\u003e - Using the diff_intraline cache might replace hot-in-cache entries by diffs requested by the analytics. For example, if I run analytics for an AOSP project for the time between 2000 and 2005, that will very likely result in:\n\u003e \n\u003e   - many cache misses, [AOSP project is not necessarily a frequently accessed project], so not much performance improvement.\n\u003e   - Populating the diff_intraline cache with many one-off entries, that are only useful within the context of analytics and might never be accessed via gerrit ui.\n\nYou are thinking about the AOSP use-case, and that makes sense. However, this plugin is used more generally for other projects also, and typically the ones that are hosted on Gerrit.",
+      "parentUuid": "d24c773f_04f96a67",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
