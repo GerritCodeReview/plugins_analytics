@@ -773,6 +773,30 @@
     },
     {
       "key": {
+        "uuid": "f7aa55da_1bca5e84",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-06T14:27:18Z",
+      "side": 1,
+      "message": "The diff between SHA1s could easily come from the cache, so all this part could go.\n\nFor now, I\u0027m fine to keep it here, but just need at least 1 line of comment.",
+      "parentUuid": "367ddbc3_479cd270",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 24
+      },
+      "revId": "1b7da2bccc5b056198d10dfa1e4325dbb8ecf716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7703729b_09ccfb6e",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatistics.scala",
         "patchSetId": 15
