@@ -94,6 +94,30 @@
       "revId": "4f52c8c1b4373da410b5c3fa8da729f8d1fb6ec8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbebe3e_511a860b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCache.scala",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-06T16:07:38Z",
+      "side": 1,
+      "message": "\u003e The repository name needs to be part of the cache key\n\nI see, it makes sense. Just a note this is also true for _all_ others parameters, which are:\n  repo: Repository, botLikeExtractor: BotLikeExtractor, commentInfoList: List[CommentLinkInfo]\n\nThis is going to make that cacheKey bigger. Also, the key serializer would probably need to be adjusted accordingly.",
+      "parentUuid": "f96fc2b7_f2702d54",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "4f52c8c1b4373da410b5c3fa8da729f8d1fb6ec8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
