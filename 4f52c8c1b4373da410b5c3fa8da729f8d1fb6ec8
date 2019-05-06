@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "423da0aa_291b835b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCache.scala",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-06T14:38:53Z",
+      "side": 1,
+      "message": "According to Guava Caches, this needs to be moved into a Loader class and referenced in the cache binding as \u0027.loader(Loader.class)\u0027",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "4f52c8c1b4373da410b5c3fa8da729f8d1fb6ec8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
