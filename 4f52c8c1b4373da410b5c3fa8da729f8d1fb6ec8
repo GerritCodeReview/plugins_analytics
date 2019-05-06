@@ -70,6 +70,30 @@
       "revId": "4f52c8c1b4373da410b5c3fa8da729f8d1fb6ec8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96fc2b7_f2702d54",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCache.scala",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-06T15:53:08Z",
+      "side": 1,
+      "message": "\u003e I am not sure this could be moved to a loader class because as things stand to instantiate a loader would require need runtime arguments, such as the Repository, which is passed in as an argument in the request (runtime).\n\nThe repository name needs to be part of the cache key, otherwise, if you had two repos with the same SHA1 (100% possible), you could end up with keys clashes.\n\n\u003e Having said that, I am quite curious to see how to achieve this, if possible :)\n\nAll Gerrit uses this mechanism, so it is possible.",
+      "parentUuid": "0570121e_0f1f803a",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "4f52c8c1b4373da410b5c3fa8da729f8d1fb6ec8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
