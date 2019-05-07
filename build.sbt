@@ -1,6 +1,6 @@
 enablePlugins(GitVersioning)
 
-val gerritApiVersion = "2.16"
+val gerritApiVersion = "2.16.8"
 
 val pluginName = "analytics"
 
