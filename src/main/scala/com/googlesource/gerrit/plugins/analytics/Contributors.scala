@@ -29,13 +29,14 @@ import org.kohsuke.args4j.{Option => ArgOption}
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
-                                    val gsonFmt: GsonFormatter)
+                                    val gsonFmt: GsonFormatter,
+                                    val config: AnalyticsConfig)
   extends SshCommand with ProjectResourceParser {
 
   private var beginDate: Option[Long] = None
   private var endDate: Option[Long] = None
   private var granularity: Option[AggregationStrategy] = None
-  private var botLikeRegexps: List[String] = List.empty[String]
+  private var botLikeRegexps: List[String] = config.botlikeFilenameRegexps
 
   @ArgOption(name = "--extract-branches", aliases = Array("-r"),
     usage = "Do extra parsing to extract a list of all branches for each line")
@@ -75,12 +76,6 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
   private var extractIssues: Boolean = false
 
-  @ArgOption(name = "--botlike-filename-regexps", aliases = Array("-n"),
-    usage = "comma separated list of regexps that identify a bot-like commit, commits that modify only files whose name is a match will be flagged as bot-like")
-  def setBotLikeRegexps(value: String): Unit = {
-    botLikeRegexps = value.split(",").toList
-  }
-
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
       granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps), stdout)
@@ -88,13 +83,14 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 }
 
 class ContributorsResource @Inject()(val executor: ContributorsService,
-                                     val gson: GsonFormatter)
+                                     val gson: GsonFormatter,
+                                     val config: AnalyticsConfig)
   extends RestReadView[ProjectResource] {
 
   private var beginDate: Option[Long] = None
   private var endDate: Option[Long] = None
   private var granularity: Option[AggregationStrategy] = None
-  private var botLikeRegexps: List[String] = List.empty[String]
+  private var botLikeRegexps: List[String] = config.botlikeFilenameRegexps
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -133,12 +129,6 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
   @ArgOption(name = "--extract-issues", aliases = Array("-i"),
     usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
   private var extractIssues: Boolean = false
-
-  @ArgOption(name = "--botlike-filename-regexps", aliases = Array("-n"),
-    usage = "comma separated list of regexps that identify a bot-like commit, commits that modify only files whose name is a match will be flagged as bot-like")
-  def setBotLikeRegexps(value: String): Unit = {
-    botLikeRegexps = value.split(",").toList
-  }
 
   override def apply(projectRes: ProjectResource) =
     Response.ok(
