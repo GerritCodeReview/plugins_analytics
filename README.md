@@ -26,7 +26,7 @@ Copy the analytics.jar generated onto the Gerrit's /plugins directory.
 
 ## How to configure
 
-Nothing to configure, it just works.
+See the relevant section in the [configuration guide](src/main/resources/Documentation/config.md)
 
 ## How to use
 
@@ -71,7 +71,6 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --aggregate -granularity -g one of email, email_year, email_month, email_day, email_hour defaulting to aggregation by email
 - --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
 - --extract-issues -i enables the extraction of issues from commentLink
-- --botlike-filename-regexps -n comma separated list of regexps that identify a bot-like commit, commits that modify only files whose name is a match will be flagged as bot-like
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 
@@ -105,7 +104,7 @@ Flags the commit as bot-like when *all* files in that commit match any of the fo
     * \\.settings
 
 ```
-curl 'http://gerrit.mycompany.com/projects/myproject/analytics~contributors?botlike-filename-regexps=.%2B%5C.xml%2C.%2B%5C.bzl%2CBUILD%2CWORKSPACE%2C%5C.gitignore%2Cplugins%2F%2C%5C.settings'
+curl 'http://gerrit.mycompany.com/projects/myproject/analytics~contributors'
 
 {
   "year": 2018,
