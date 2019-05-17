@@ -25,6 +25,7 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
 
+import scala.util.Try
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
@@ -194,7 +195,7 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
+    def stringToIntOrNull(x: String): Integer = Try(new Integer(x)).getOrElse(null)
 
     uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
       case Array(email, year, month, day, hour, branch) =>
@@ -203,7 +204,8 @@ object UserActivitySummary {
             Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
           UserActivitySummary(
-            year, month, day, hour, uca.getName, email, stat.commits.size,
+            stringToIntOrNull(year), stringToIntOrNull(month), stringToIntOrNull(day), stringToIntOrNull(hour),
+            uca.getName, email, stat.commits.size,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
             stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
