@@ -26,5 +26,7 @@ class AnalyticsConfig @Inject() (val pluginConfigFactory: PluginConfigFactory, @
   val Contributors = "contributors"
   val BotlikeFilenameRegexp = "botlike-filename-regexp"
 
-  lazy val botlikeFilenameRegexps: List[String] = pluginConfig.getStringList(Contributors, null, BotlikeFilenameRegexp).toList
+  lazy val botlikeFilenameRegexps: List[String] = pluginConfigBotLikeFilenameRegexp
+
+  private lazy val pluginConfigBotLikeFilenameRegexp = pluginConfig.getStringList(Contributors, null, BotlikeFilenameRegexp).toList
 }

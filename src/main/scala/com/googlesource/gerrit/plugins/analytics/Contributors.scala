@@ -78,7 +78,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
 
 }
 
@@ -134,28 +134,28 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues, botLikeRegexps)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache:ProjectCache,
                                     histogram: UserActivityHistogram,
-                                    gsonFmt: GsonFormatter) {
+                                    gsonFmt: GsonFormatter,
+                                    botLikeExtractor: BotLikeExtractor) {
   import RichBoolean._
 
   import scala.collection.JavaConverters._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean, botLikeIdentifiers: List[String])
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
   : TraversableOnce[UserActivitySummary] = {
     val nameKey = projectRes.getNameKey
     val commentLinks: List[CommentLinkInfo] = extractIssues.option {
       projectCache.get(nameKey).getCommentLinks.asScala
     }.toList.flatten
 
-
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
-      val stats = new Statistics(repo, new BotLikeExtractorImpl(botLikeIdentifiers), commentLinks)
+      val stats = new Statistics(repo, botLikeExtractor, commentLinks)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))

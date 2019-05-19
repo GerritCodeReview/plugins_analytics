@@ -14,13 +14,16 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.inject.Inject
+import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
+
 import scala.util.matching.Regex
 
 trait BotLikeExtractor {
   def isBotLike(files: Set[String]): Boolean
 }
 
-class BotLikeExtractorImpl(botLikeIdentifiers: List[String]) extends BotLikeExtractor {
-  private val botRegexps = new Regex(botLikeIdentifiers.mkString("|"))
-  override def isBotLike(files: Set[String]): Boolean = botLikeIdentifiers.nonEmpty && files.forall(botRegexps.findFirstIn(_).isDefined)
+class BotLikeExtractorImpl @Inject() (val analyticsConfig: AnalyticsConfig) extends BotLikeExtractor {
+  private val botRegexps = new Regex(analyticsConfig.botlikeFilenameRegexps.mkString("|"))
+  override def isBotLike(files: Set[String]): Boolean = analyticsConfig.botlikeFilenameRegexps.nonEmpty && files.forall(botRegexps.findFirstIn(_).isDefined)
 }
