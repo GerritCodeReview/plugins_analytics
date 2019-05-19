@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
 import com.googlesource.gerrit.plugins.analytics.test.GitTestCase
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -22,7 +23,7 @@ class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GitTestCase {
   behavior of "isBotLike"
 
   it should "return true when all files match bot-like identifiers" in {
-    val extractor = new BotLikeExtractorImpl(List(""".+\.xml"""))
+    val extractor = newBotLikeExtractorImpl(List(""".+\.xml"""))
 
     extractor.isBotLike(Set(
       "some/path/AFile.xml",
@@ -32,7 +33,7 @@ class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GitTestCase {
   }
 
   it should "return false when at least one file does not match bot-like identifiers" in {
-    val extractor = new BotLikeExtractorImpl(List(""".+\.xml"""))
+    val extractor = newBotLikeExtractorImpl(List(""".+\.xml"""))
 
     extractor.isBotLike(Set(
       "some/path/AFile.xml",
@@ -42,10 +43,14 @@ class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GitTestCase {
   }
 
   it should "return false when no bot-like identifiers have been provided" in {
-    val extractor = new BotLikeExtractorImpl(List.empty)
+    val extractor = newBotLikeExtractorImpl(List.empty)
 
     extractor.isBotLike(Set("some/path/anyFile")).shouldBe(false)
 
   }
+
+  private def newBotLikeExtractorImpl(botLikeRegexps: List[String]) = new BotLikeExtractorImpl(new AnalyticsConfig(null, null) {
+    override val botlikeFilenameRegexps = botLikeRegexps
+  })
 
 }
