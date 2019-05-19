@@ -17,10 +17,13 @@ package com.googlesource.gerrit.plugins.analytics
 import com.google.gerrit.extensions.restapi.RestApiModule
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
+import com.googlesource.gerrit.plugins.analytics.common.{BotLikeExtractor, BotLikeExtractorImpl}
 
 class Module extends AbstractModule {
 
   override protected def configure() {
+    bind(classOf[BotLikeExtractor]).to(classOf[BotLikeExtractorImpl])
+
     install(new RestApiModule() {
       override protected def configure() = {
         get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
