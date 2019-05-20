@@ -40,18 +40,22 @@ import java.nio.file.Files
 import java.text.MessageFormat
 import java.util.Date
 
+import com.google.gerrit.acceptance.AbstractDaemonTest
+import com.google.gerrit.testing.ConfigSuite
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.api.errors.GitAPIException
-import org.eclipse.jgit.lib.{Constants, PersonIdent, Ref}
+import org.eclipse.jgit.lib.{Config, Constants, PersonIdent, Ref}
 import org.eclipse.jgit.merge.MergeStrategy
 import org.eclipse.jgit.notes.Note
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitUtils
-import org.scalatest.{BeforeAndAfterEach, Suite}
+import org.scalatest.{Args, BeforeAndAfterEach, Status, Suite}
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 
 
 /**
@@ -60,6 +64,22 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
   */
 trait GitTestCase extends BeforeAndAfterEach {
   self: Suite =>
+
+  val daemonTest = GerritDaemonTest
+
+  protected abstract override def runTest(testName: String, args: Args): Status = {
+    var status: Option[Status] = None
+    val runLamba = () => super.runTest(testName, args)
+
+    val result = daemonTest.testRunner.apply(new Statement() {
+      override def evaluate(): Unit = {
+        status = Some(runLamba.apply())
+      }
+    }, Description.createTestDescription(getClass.getName, testName)).evaluate()
+
+    status.get
+  }
+
   /**
     * Test repository .git directory
     */
@@ -429,4 +449,8 @@ trait GitTestCase extends BeforeAndAfterEach {
       deleteBranch(testRepo, tmpBranch.getName)
     }
   }
+}
+
+object GerritDaemonTest extends AbstractDaemonTest {
+  baseConfig = new Config()
 }
