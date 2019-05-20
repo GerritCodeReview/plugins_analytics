@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7847313e_850d1f91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-20T12:20:14Z",
+      "side": 1,
+      "message": "did you mean \"commits\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "179bc7b5e71b1f5943559f8cf0ae2bdae2fa3446",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b674f379_1e03856d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/AnalyticsConfig.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-20T12:20:14Z",
+      "side": 1,
+      "message": "Why does this need to be a def now?",
+      "range": {
+        "startLine": 29,
+        "startChar": 3,
+        "endLine": 29,
+        "endChar": 4
+      },
+      "revId": "179bc7b5e71b1f5943559f8cf0ae2bdae2fa3446",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72374d8d_e5118689",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/AnalyticsConfig.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-20T12:20:14Z",
+      "side": 1,
+      "message": "nit: no need for brackets",
+      "range": {
+        "startLine": 29,
+        "startChar": 45,
+        "endLine": 29,
+        "endChar": 47
+      },
+      "revId": "179bc7b5e71b1f5943559f8cf0ae2bdae2fa3446",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
