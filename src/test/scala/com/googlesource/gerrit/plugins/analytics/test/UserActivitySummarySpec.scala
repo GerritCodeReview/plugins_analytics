@@ -4,6 +4,7 @@ import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
 import com.googlesource.gerrit.plugins.analytics.common.{Statistics, TestUtils}
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Matchers}
 
 class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils with Matchers {
@@ -24,8 +25,8 @@ class UserActivitySummarySpec extends FlatSpec with GitTestCase with TestUtils w
     mergeSummary.numCommits should be(1)
   }
 
-  def getRepoOwnedByPerson(email: String = author.getEmailAddress): FileRepository = {
-    val repo = new FileRepository(testRepo)
+  def getRepoOwnedByPerson(email: String = author.getEmailAddress): Repository = {
+    val repo = testRepo.getRepository
 
     val conf = repo.getConfig
     conf.load()
