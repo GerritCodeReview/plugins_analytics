@@ -1,24 +1,3 @@
-//
-// Copyright (c) 2011 Kevin Sawicki <kevinsawicki@gmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-// IN THE SOFTWARE.
-//
 // Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,27 +14,24 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import java.io.{File, PrintWriter}
-import java.nio.file.Files
+import java.io.File
 import java.text.MessageFormat
-import java.util.Date
+import java.util.{Date, UUID}
 
-import com.google.gerrit.acceptance.AbstractDaemonTest
-import com.google.gerrit.testing.ConfigSuite
-import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
-import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
+import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil, UseLocalDisk}
+import com.google.gerrit.reviewdb.client.Project
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
-import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.api.errors.GitAPIException
-import org.eclipse.jgit.lib.{Config, Constants, PersonIdent, Ref}
+import org.eclipse.jgit.api.{Git, MergeResult}
+import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.junit.TestRepository
+import org.eclipse.jgit.lib._
 import org.eclipse.jgit.merge.MergeStrategy
-import org.eclipse.jgit.notes.Note
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitUtils
-import org.scalatest.{Args, BeforeAndAfterEach, Status, Suite}
-import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
+import org.scalatest.{Args, BeforeAndAfterEach, Status, Suite}
 
 
 /**
@@ -64,6 +40,10 @@ import org.junit.runners.model.Statement
   */
 trait GitTestCase extends BeforeAndAfterEach {
   self: Suite =>
+
+  val TmpDir = System.getProperty("java.io.tmpdir")
+
+  type GitRepository = TestRepository[FileRepository]
 
   val daemonTest = GerritDaemonTest
 
@@ -80,15 +60,12 @@ trait GitTestCase extends BeforeAndAfterEach {
     status.get
   }
 
-  /**
-    * Test repository .git directory
-    */
-  protected var testRepo: File = null
+  protected var testRepo: GitRepository = null
 
   /**
     * Author used for commits
     */
-  protected val author = new PersonIdent("Test Author", "author@test.com")
+  protected lazy val author = daemonTest.adminAuthor
 
   def newPersonIdent(name: String = "Test Person", email: String = "person@test.com", ts: Date = new Date()) =
     new PersonIdent(new PersonIdent(name, email), ts)
@@ -98,359 +75,94 @@ trait GitTestCase extends BeforeAndAfterEach {
     */
   protected val committer = new PersonIdent("Test Committer", "committer@test.com")
 
-  /**
-    * Set up method that initializes git repository
-    *
-    *
-    */
-
-  override def beforeEach = {
-    testRepo = initRepo
+  override def beforeEach {
+    testRepo = GitUtil.newTestRepository(
+      daemonTest.getRepository(
+        daemonTest.newProject(testSpecificRepositoryName)))
   }
 
-  /**
-    * Initialize a new repo in a new directory
-    *
-    * @return created .git folder
-    * @throws GitAPIException
-    */
-  protected def initRepo: File = {
-    val dir = Files.createTempDirectory(threadSpecificDirectoryPrefix).toFile
-    Git.init.setDirectory(dir).setBare(false).call
-    val repo = new File(dir, Constants.DOT_GIT)
-    assert(repo.exists)
-    repo.deleteOnExit()
-    repo
+  private def testSpecificRepositoryName = "git-test-case-" + UUID.randomUUID().toString
+
+  implicit class PimpedGitRepository(repo: GitRepository) {
+
+    def branch(name: String, startPoint: String): Ref =
+      repo.git.branchCreate.setName(name).setStartPoint(startPoint).call
+
+    def gitClone: GitRepository = {
+      val clonedRepository = Git.cloneRepository
+        .setDirectory(new File(s"$TmpDir/${testSpecificRepositoryName}_clone"))
+        .setURI(repo.getRepository.getDirectory.toURI.toString)
+        .call()
+        .getRepository.asInstanceOf[FileRepository]
+
+      GitUtil.newTestRepository(clonedRepository)
+    }
+
+    def commitFile(path: String, content: String, author: PersonIdent = author, committer: PersonIdent = committer, branch: String = "refs/heads/master", message: String = ""): RevCommit =
+      repo.branch(branch).commit()
+        .add(path, content)
+        .author(author)
+        .committer(committer)
+        .message(message)
+        .create
+
+    def commitFiles(files: Iterable[(String, String)], author: PersonIdent = author, committer: PersonIdent = committer, branch: String = "refs/heads/master", message: String = ""): RevCommit = {
+      val commit = repo.branch(branch).commit()
+        .author(author)
+        .committer(committer)
+        .message(message)
+
+      files.foldLeft(commit) {
+        (commit, fileAndContent) => commit.add(fileAndContent._1, fileAndContent._2)
+      }.create()
+    }
+
+    def mergeBranch(branch: String, withCommit: Boolean, message: String = "merging branch"): MergeResult = {
+      repo.git.merge.setStrategy(MergeStrategy.RESOLVE)
+        .include(CommitUtils.getRef(repo.getRepository, branch))
+        .setCommit(withCommit)
+        .setFastForward(FastForwardMode.NO_FF)
+        .setMessage(message)
+        .call
+    }
+
+    def push =
+      repo.git.push.setPushAll.call
   }
 
-  private def threadSpecificDirectoryPrefix =
-    "git-test-case-" + Thread.currentThread().getName.replaceAll("~[0-9a-zA-Z]", "_") + System.nanoTime
-
-  /**
-    * Create branch with name and checkout
-    *
-    * @param name
-    * @return branch ref
-    *
-    */
-  protected def branch(name: String): Ref = branch(testRepo, name)
-
-  /**
-    * Delete branch with name
-    *
-    * @param name
-    * @return branch ref
-    *
-    */
-  protected def deleteBranch(name: String): String = deleteBranch(testRepo, name)
-
-  /**
-    * Create branch with name and checkout
-    *
-    * @param repo
-    * @param name
-    * @return branch ref
-    *
-    */
-  protected def branch(repo: File, name: String): Ref = {
-    use(Git.open(repo)) { git =>
-      git.branchCreate.setName(name).call
-      checkout(repo, name)
-    }
-  }
-
-  /**
-    * Delete branch with name
-    *
-    * @param repo
-    * @param name
-    * @return branch ref
-    *
-    */
-  protected def deleteBranch(repo: File, name: String): String = {
-    use(Git.open(repo)) { git =>
-      git.branchDelete().setBranchNames(name).setForce(true).call.get(0)
-    }
-  }
-
-  /**
-    * Checkout branch
-    *
-    * @param name
-    * @return branch ref
-    *
-    */
-  protected def checkout(name: String): Ref = checkout(testRepo, name)
-
-  /**
-    * Checkout branch
-    *
-    * @param repo
-    * @param name
-    * @return branch ref
-    *
-    */
-  @throws[Exception]
-  protected def checkout(repo: File, name: String): Ref = {
-    use(Git.open(repo)) { git =>
-      git.checkout.setName(name).call
-    }
-  } ensuring(_ != null, "Unable to checkout result")
-
-  /**
-    * Create tag with name
-    *
-    * @param name
-    * @return tag ref
-    *
-    */
-  protected def tag(name: String): Ref = tag(testRepo, name)
-
-  /**
-    * Create tag with name
-    *
-    * @param repo
-    * @param name
-    * @return tag ref
-    *
-    */
-  protected def tag(repo: File, name: String): Ref = {
-    use(Git.open(repo)) { git =>
-      git.tag.setName(name).setMessage(name).call
-      git.getRepository.getTags.get(name)
-    }
-  } ensuring(_ != null, s"Unable to tag file $name")
-
-  /**
-    * Add file to test repository
-    *
-    * @param path
-    * @param content
-    * @return commit
-    *
-    */
-  protected def add(path: String, content: String, author: PersonIdent = author, committer: PersonIdent = committer): RevCommit = add(testRepo, path, content, author, committer)
-
-  /**
-    * Add file to test repository
-    *
-    * @param repo
-    * @param path
-    * @param content
-    * @return commit
-    *
-    */
-  protected def add(repo: File, path: String, content: String, author: PersonIdent, committer: PersonIdent): RevCommit = {
-    val message = MessageFormat.format("Committing {0} at {1}", path, new Date)
-    add(repo, path, content, message, author, committer)
-  }
-
-
-  /**
-    * Add file to test repository
-    *
-    * @param repo
-    * @param path
-    * @param content
-    * @param message
-    * @return commit
-    *
-    */
-  protected def add(repo: File, path: String, content: String, message: String, author: PersonIdent, committer: PersonIdent): RevCommit = {
-    val file = new File(repo.getParentFile, path)
-    if (!file.getParentFile.exists) assert(file.getParentFile.mkdirs)
-    if (!file.exists) assert(file.createNewFile)
-
-    val writer = new PrintWriter(file)
-    try
-      writer.print(Option(content).fold("")(identity))
-    finally writer.close()
-
-    use(Git.open(repo)) { git =>
-      git.add.addFilepattern(path).call
-      git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
-    }
-  }  ensuring (_ != null, s"Unable to commit addition of path $path")
-
-  /**
-    * Move file in test repository
-    *
-    * @param from
-    * @param to
-    * @return commit
-    *
-    */
-  protected def mv(from: String, to: String): RevCommit = mv(testRepo, from, to, MessageFormat.format("Moving {0} to {1} at {2}", from, to, new Date))
-
-  /**
-    * Move file in test repository
-    *
-    * @param from
-    * @param to
-    * @param message
-    * @return commit
-    *
-    */
-  protected def mv(from: String, to: String, message: String): RevCommit = mv(testRepo, from, to, message)
-
-  /**
-    * Move file in test repository
-    *
-    * @param repo
-    * @param from
-    * @param to
-    * @param message
-    * @return commit
-    *
-    */
-  protected def mv(repo: File, from: String, to: String, message: String): RevCommit = {
-    val file = new File(repo.getParentFile, from)
-    file.renameTo(new File(repo.getParentFile, to))
-
-    use(Git.open(testRepo)) { git =>
-      git.rm.addFilepattern(from)
-      git.add.addFilepattern(to).call
-      git.commit.setAll(true).setMessage(message).setAuthor(author).setCommitter(committer).call
-    }
-  } ensuring (_ != null, "Unable to commit MV operation")
-
-  /**
-    * Add files to test repository
-    *
-    * @param contents iterable of file names and associated content
-    * @return commit
-    *
-    */
-  protected def add(contents: Iterable[(String, String)]): RevCommit = add(testRepo, contents, "Committing multiple files")
-
-  /**
-    * Add files to test repository
-    *
-    * @param repo
-    * @param contents iterable of file names and associated content
-    * @param message
-    * @return commit
-    *
-    */
-  protected def add(repo: File, contents: Iterable[(String, String)], message: String): RevCommit = {
-    use(Git.open(testRepo)) { git =>
-      var i = 0
-      contents.foreach { case (path, content) =>
-        val file = new File(repo.getParentFile, path)
-        if (!file.getParentFile.exists) require(file.getParentFile.mkdirs, s"Cannot create parent dir '${file.getParent}'")
-        if (!file.exists) require(file.createNewFile, s"Cannot create file '$file'")
-        val writer = new PrintWriter(file)
-        try
-          writer.print(content)
-        finally writer.close()
-        git.add.addFilepattern(path).call
-      }
-
-      git.commit.setMessage(message).setAuthor(author).setCommitter(committer).call
-    }
-  } ensuring (_ != null, "Unable to commit content addition")
-
-  /**
-    * Merge given branch into current branch
-    *
-    * @param branch
-    * @return result
-    *
-    */
-  protected def mergeBranch(branch: String, withCommit: Boolean): MergeResult = {
-    use(Git.open(testRepo)) { git =>
-      git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getRef(git.getRepository, branch)).setCommit(withCommit).setFastForward(FastForwardMode.NO_FF).setMessage(s"merging branch $branch").call
-    }
-  }
-
-    /**
-    * Merge ref into current branch
-    *
-    * @param ref
-    * @return result
-    *
-    */
-  protected def merge(ref: String): MergeResult = {
-    use(Git.open(testRepo)) { git =>
-      git.merge.setStrategy(MergeStrategy.RESOLVE).include(CommitUtils.getCommit(git.getRepository, ref)).call
-    }
-  }
-
-  /**
-    * Add note to latest commit with given content
-    *
-    * @param content
-    * @return note
-    *
-    */
-  protected def note(content: String): Note = note(content, "commits")
-
-  /**
-    * Add note to latest commit with given content
-    *
-    * @param content
-    * @param ref
-    * @return note
-    *
-    */
-  protected def note(content: String, ref: String): Note = {
-    use(Git.open(testRepo)) { git =>
-      git.notesAdd.setMessage(content).setNotesRef(Constants.R_NOTES + ref).setObjectId(CommitUtils.getHead(git.getRepository)).call
-    }
-  } ensuring (_ != null, "Unable to add note")
-
-  /**
-    * Delete and commit file at path
-    *
-    * @param path
-    * @return commit
-    *
-    */
-  protected def delete(path: String): RevCommit = {
-    val message = MessageFormat.format("Committing {0} at {1}", path, new Date)
-    use(Git.open(testRepo)) { git =>
-      git.rm.addFilepattern(path).call
-      git.commit.setOnly(path).setMessage(message).setAuthor(author).setCommitter(committer).call
-    }
-  } ensuring (_ != null, "Unable to commit delete operation")
-
-  /**
-    * commit specified content into a file, as committer
-    *
-    * @param committer - the author of this commit
-    * @param fileName - the name of the file
-    * @param content - the content of the file
-    * @param when - the date of the commit
-    * @return RevCommit
-    *
-    */
-  protected def commit(committer: String, fileName: String, content: String, when: Date = new Date(), message: Option[String] = None): RevCommit = {
-    val person = newPersonIdent(committer, committer, when)
-    add(testRepo, fileName, content, author = person, committer = author, message = message.getOrElse("** no message **"))
-  }
 
   /**
     * commit specified content into a file, as committer and merge into current branch
     *
     * @param committer - the author of this commit
-    * @param fileName - the name of the file
-    * @param content - the content of the file
+    * @param fileName  - the name of the file
+    * @param content   - the content of the file
     * @return MergeResult
     *
     */
-  protected def mergeCommit(committer: String, fileName: String, content: String): MergeResult = {
-    val currentBranch = Git.open(testRepo).getRepository.getBranch
-    val tmpBranch = branch(testRepo, "tmp")
+  protected def mergeCommit(committer: String, fileName: String, content: String, repo: GitRepository = testRepo): MergeResult = {
+    val currentBranch = repo.getRepository.getFullBranch
+    val personIdent = newPersonIdent(committer, committer)
+    val tmpBranch = repo.branch("tmp", currentBranch)
     try {
-      commit(committer, fileName, content)
-      checkout(currentBranch)
-      mergeBranch(tmpBranch.getName, withCommit = true)
+      repo.commitFile(fileName, content, branch = tmpBranch.getName, author = personIdent, committer = personIdent)
+      repo.mergeBranch(tmpBranch.getName, withCommit = true)
     } finally {
-      deleteBranch(testRepo, tmpBranch.getName)
+      repo.git.branchDelete().setBranchNames(tmpBranch.getName).setForce(true).call.get(0)
     }
   }
 }
 
+@UseLocalDisk
 object GerritDaemonTest extends AbstractDaemonTest {
   baseConfig = new Config()
+
+  def newProject(nameSuffix: String) = {
+    resourcePrefix = ""
+    super.createProject(nameSuffix, allProjects, false)
+  }
+
+  def getRepository(projectName: Project.NameKey): FileRepository = repoManager.openRepository(projectName).asInstanceOf[FileRepository]
+
+  def adminAuthor = admin.getIdent
 }
