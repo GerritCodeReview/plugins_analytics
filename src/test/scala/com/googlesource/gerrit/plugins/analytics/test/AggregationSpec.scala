@@ -16,16 +16,20 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy._
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
 import com.googlesource.gerrit.plugins.analytics.common.TestUtils
 import org.eclipse.jgit.revwalk.RevCommit
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 
-class AggregationSpec extends FlatSpec with Matchers with GitTestCase with TestUtils with Inspectors {
+@UseLocalDisk
+class AggregationSpec extends FlatSpec with Matchers with GerritDaemonTest with TestUtils with Inspectors {
 
-  def commitAtDate(committer: String, when: String, content: String): RevCommit =
-    commit(committer, "afile.txt", content, new Date(isoStringToLongDate(when)))
+  def commitAtDate(committer: String, when: String, content: String): RevCommit = {
+    val personIdent = newPersonIdent(committer, committer, new Date(isoStringToLongDate(when)))
+    testRepo.commitFile("somefile", content, committer = personIdent, author = personIdent)
+  }
 
   "AggregatedHistogramFilter by email and year" should "aggregate two commits from the same author the same year" in {
     commitAtDate("john", "2017-08-01", "first commit")

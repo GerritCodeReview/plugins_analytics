@@ -14,21 +14,23 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
-class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
+@UseLocalDisk
+class CommitStatisticsSpec extends FlatSpec with GerritDaemonTest with Matchers with Inside {
 
 
   class TestEnvironment {
-    val repo = new FileRepository(testRepo)
+    val repo = testRepo.getRepository
     val stats = new Statistics(repo, TestBotLikeExtractor)
   }
 
   "CommitStatistics" should "stats a single file added" in new TestEnvironment {
-    val change = commit("user", "file1.txt", "line1\nline2")
+    val change = testRepo.commitFile("file1.txt", "line1\nline2")
 
     inside(stats.forCommits(change)) { case List(s: CommitsStatistics) =>
       s.numFiles should be(1)
@@ -54,12 +56,12 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "stats multiple files added" in new TestEnvironment {
-    val initial = commit("user", "file1.txt", "line1\nline2\n")
-    val second = add(testRepo,
+    val initial = testRepo.commitFile("file1.txt", "line1\nline2\n")
+    val second = testRepo.commitFiles(
       List(
         "file1.txt" -> "line1\n",
         "file2.txt" -> "line1\nline2\n"
-      ), "second commit")
+      ), message = "second commit")
 
     inside(stats.forCommits(second)) { case List(s: CommitsStatistics) =>
       s.numFiles should be(2)
@@ -69,8 +71,8 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "stats lines eliminated" in new TestEnvironment {
-    val initial = commit("user", "file1.txt", "line1\nline2\nline3")
-    val second = commit("user", "file1.txt", "line1\n")
+    val initial = testRepo.commitFile( "file1.txt", "line1\nline2\nline3")
+    val second = testRepo.commitFile( "file1.txt", "line1\n")
     inside(stats.forCommits(second)) { case List(s: CommitsStatistics) =>
       s.numFiles should be(1)
       s.addedLines should be(0)
@@ -79,17 +81,17 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "stats a Seq[RevCommit]" in new TestEnvironment {
-    val initial = add(testRepo,
+    val initial = testRepo.commitFiles(
       List(
         "file1.txt" -> "line1\n",
         "file3.txt" -> "line1\nline2\n"),
-      "first commit")
+      message = "first commit")
 
-    val second = add(testRepo,
+    val second = testRepo.commitFiles(
       List(
         "file1.txt" -> "line1a\n",
         "file2.txt" -> "line1\nline2\n"),
-      "second commit")
+      message = "second commit")
 
     inside(stats.forCommits(initial, second)) { case List(nonMergeStats: CommitsStatistics) =>
       nonMergeStats.numFiles should be(4)
@@ -100,7 +102,7 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "return zero value stats if the commit does not include any file" in new TestEnvironment {
-    val emptyCommit = add(testRepo, List.empty, "Empty commit")
+    val emptyCommit = testRepo.commitFiles(List.empty, message = "Empty commit")
     inside(stats.forCommits(emptyCommit)) { case List(stats) =>
       stats.numFiles should be(0)
       stats.addedLines should be(0)
@@ -109,13 +111,15 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "split merge commits and non-merge commits" in new TestEnvironment {
-    val firstNonMerge = commit("user", "file1.txt", "line1\nline2\n")
-    val merge = mergeCommit("user", "file1.txt", "line1\nline2\nline3")
-    val nonMerge = add(testRepo,
+    val clonedRepo = testRepo.gitClone
+    val firstNonMerge = clonedRepo.commitFile("file1.txt", "line1\nline2\n")
+    val merge = clonedRepo.mergeCommitFile("file1.txt", "line1\nline2\nline3")
+    val nonMerge = clonedRepo.commitFiles(
       List(
         "file1.txt" -> "line1\n",
         "file2.txt" -> "line1\nline2\n"),
-      "second commit")
+      message = "second commit")
+    clonedRepo.push
 
     inside(stats.forCommits(firstNonMerge, merge.getNewHead, nonMerge)) {
       case List(nonMergeStats, mergeStats) =>

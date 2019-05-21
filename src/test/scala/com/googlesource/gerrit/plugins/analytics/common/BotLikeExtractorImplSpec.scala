@@ -14,11 +14,12 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.gerrit.acceptance.AbstractDaemonTest
 import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
-import com.googlesource.gerrit.plugins.analytics.test.GitTestCase
+import com.googlesource.gerrit.plugins.analytics.test.{GerritDaemonTest}
 import org.scalatest.{FlatSpec, Matchers}
 
-class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GitTestCase {
+class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GerritDaemonTest {
 
   behavior of "isBotLike"
 
