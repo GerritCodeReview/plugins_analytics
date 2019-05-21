@@ -14,13 +14,15 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
-import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
-class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
+@UseLocalDisk
+class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with Matchers with Inside {
 
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
     val info = new CommentLinkInfo
@@ -30,7 +32,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
     info
   }
 
-  class TestEnvironment(val repo: FileRepository = new FileRepository(testRepo),
+  class TestEnvironment(val repo: Repository = fileRepository,
                         val commentLinks: List[CommentLinkInfo] = List(
                           createCommentLinkInfo(pattern = "(bug\\s+#?)(\\d+)",
                             link = Some("http://bugs.example.com/show_bug.cgi?id=$2")),
@@ -41,39 +43,37 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
-    val nocomments = commit("user", "file1.txt", "content1")
+    val nocomments = testFileRepository.commitFile("file1.txt", "content1")
 
     inside(stats.forCommits(nocomments)) {
       case List(s: CommitsStatistics) =>
         s.issues should have size 0
     }
-
   }
   it should "collect simple bugzilla comments" in new TestEnvironment {
-    val simpleComment = commit("user", "file1.txt", "content2", message =
-      Some("this solves bug #23"))
+    val simpleComment = testFileRepository.commitFile("file1.txt", "content2", message =
+      "this solves bug #23")
 
     inside(stats.forCommits(simpleComment)) {
       case List(s: CommitsStatistics) =>
         s.issues should have size 1
         s.issues should contain(IssueInfo("bug #23", "http://bugs.example.com/show_bug.cgi?id=23"))
     }
-
   }
   it should "collect simple track link" in new TestEnvironment {
-    val simpleTrackComment = commit("user", "file1.txt", "content3", message
-      = Some("this solves Bug: 1234"))
+    val simpleTrackComment = testFileRepository.commitFile("file1.txt", "content3", message
+      = "this solves Bug: 1234")
 
     inside(stats.forCommits(simpleTrackComment)) {
       case List(s: CommitsStatistics) =>
         s.issues should have size 1
         s.issues should contain(IssueInfo("Bug: 1234", "Bug: <a href=\"http://trak.example.com/1234\">1234</a>"))
     }
-
   }
+
   it should "collect multiple links" in new TestEnvironment {
-    val multipleComments = commit("user", "file1.txt", "content4", message =
-      Some("this solves bug 12 and Bug: 23"))
+    val multipleComments = testFileRepository.commitFile("file1.txt", "content4", message =
+      "this solves bug 12 and Bug: 23")
 
     inside(stats.forCommits(multipleComments)) {
       case List(s: CommitsStatistics) =>
@@ -82,7 +82,5 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
           IssueInfo("Bug: 23", "Bug: <a href=\"http://trak.example.com/23\">23</a>")
         )
     }
-
   }
-
 }
