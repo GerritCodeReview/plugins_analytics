@@ -8,7 +8,7 @@ trait TestUtils {
 
   def aggregateBy(strategy: AggregationStrategy): Array[AggregatedUserCommitActivity] = {
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = strategy)
-    new CommitFinder(testRepo).setFilter(filter).find
+    new CommitFinder(testRepo.getRepository).setFilter(filter).find
     filter.getHistogram.getAggregatedUserActivity
   }
 
