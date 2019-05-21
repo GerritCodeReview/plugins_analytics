@@ -14,24 +14,23 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL_YEAR
-import com.googlesource.gerrit.plugins.analytics.test.GitTestCase
-import org.eclipse.jgit.internal.storage.file.FileRepository
+import com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon
 import org.scalatest.{FlatSpec, Matchers}
 
-class UserActivityHistogramTest extends FlatSpec with Matchers with GitTestCase {
+@UseLocalDisk
+class UserActivityHistogramSpec extends FlatSpec with Matchers with GerritTestDaemon {
 
   "UserActivityHistogram" should "return no activities" in {
-    val repo = new FileRepository(testRepo)
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)
-    new UserActivityHistogram().get(repo, filter) should have size 0
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter) should have size 0
   }
 
   it should "aggregate to one activity" in {
-    val repo = new FileRepository(testRepo)
-    add("test.txt", "content")
+    testFileRepository.commitFile("test.txt", "content")
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)
-    new UserActivityHistogram().get(repo, filter) should have size 1
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter) should have size 1
   }
 
 }
