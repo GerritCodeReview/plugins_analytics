@@ -16,12 +16,14 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import java.util.Date
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy._
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
 import com.googlesource.gerrit.plugins.analytics.common.TestUtils
 import org.eclipse.jgit.revwalk.RevCommit
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 
+@UseLocalDisk
 class AggregationSpec extends FlatSpec with Matchers with GitTestCase with TestUtils with Inspectors {
 
   def commitAtDate(committer: String, when: String, content: String): RevCommit =
