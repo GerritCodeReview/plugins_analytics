@@ -14,16 +14,18 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
+@UseLocalDisk
 class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
 
   class TestEnvironment {
-    val repo = new FileRepository(testRepo)
+    val repo = testRepo.getRepository
     val stats = new Statistics(repo, TestBotLikeExtractor)
   }
 
@@ -59,7 +61,7 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       List(
         "file1.txt" -> "line1\n",
         "file2.txt" -> "line1\nline2\n"
-      ), "second commit")
+      ), "second commit", "refs/heads/master")
 
     inside(stats.forCommits(second)) { case List(s: CommitsStatistics) =>
       s.numFiles should be(2)
@@ -83,13 +85,13 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
       List(
         "file1.txt" -> "line1\n",
         "file3.txt" -> "line1\nline2\n"),
-      "first commit")
+      "first commit", "refs/heads/master")
 
     val second = add(testRepo,
       List(
         "file1.txt" -> "line1a\n",
         "file2.txt" -> "line1\nline2\n"),
-      "second commit")
+      "second commit", "refs/heads/master")
 
     inside(stats.forCommits(initial, second)) { case List(nonMergeStats: CommitsStatistics) =>
       nonMergeStats.numFiles should be(4)
@@ -100,7 +102,7 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "return zero value stats if the commit does not include any file" in new TestEnvironment {
-    val emptyCommit = add(testRepo, List.empty, "Empty commit")
+    val emptyCommit = add(testRepo, List.empty, "Empty commit", "refs/heads/master")
     inside(stats.forCommits(emptyCommit)) { case List(stats) =>
       stats.numFiles should be(0)
       stats.addedLines should be(0)
@@ -109,13 +111,15 @@ class CommitStatisticsSpec extends FlatSpec with GitTestCase with Matchers with 
   }
 
   it should "split merge commits and non-merge commits" in new TestEnvironment {
-    val firstNonMerge = commit("user", "file1.txt", "line1\nline2\n")
-    val merge = mergeCommit("user", "file1.txt", "line1\nline2\nline3")
-    val nonMerge = add(testRepo,
+    val clonedRepo = gitClone(testRepo)
+    val firstNonMerge = commit("user", "file1.txt", "line1\nline2\n", repo = clonedRepo)
+    val merge = mergeCommit("user", "file1.txt", "line1\nline2\nline3", repo = clonedRepo)
+    val nonMerge = add(clonedRepo,
       List(
         "file1.txt" -> "line1\n",
         "file2.txt" -> "line1\nline2\n"),
-      "second commit")
+      "second commit", "refs/heads/master")
+    clonedRepo.git.push.setPushAll.call
 
     inside(stats.forCommits(firstNonMerge, merge.getNewHead, nonMerge)) {
       case List(nonMergeStats, mergeStats) =>

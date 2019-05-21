@@ -14,12 +14,15 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import com.google.gerrit.acceptance.UseLocalDisk
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
+@UseLocalDisk
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Matchers with Inside {
 
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
@@ -30,7 +33,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GitTestCase with Mat
     info
   }
 
-  class TestEnvironment(val repo: FileRepository = new FileRepository(testRepo),
+  class TestEnvironment(val repo: Repository = testRepo.getRepository,
                         val commentLinks: List[CommentLinkInfo] = List(
                           createCommentLinkInfo(pattern = "(bug\\s+#?)(\\d+)",
                             link = Some("http://bugs.example.com/show_bug.cgi?id=$2")),
