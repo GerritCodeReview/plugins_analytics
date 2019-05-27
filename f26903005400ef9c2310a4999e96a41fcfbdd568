@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd6d0b10_8be4e41e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "runs",
+      "range": {
+        "startLine": 12,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "705a4318_95b13dd7",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BranchesExtractorSpec.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "I couldn\u0027t find the docs relevant to this annotation.\nwhat is it needed for?",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9212d4a_695f254d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "this is not used",
+      "range": {
+        "startLine": 20,
+        "startChar": 66,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "725485e0_c762a97d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "this could be private",
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6064211_9dedb9dc",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "this could be private",
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472a9554_d40fb343",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "typo: runLambda, not runLamba",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ab801c_d5788bfe",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "this return value is not used",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8efc092b_f85b277f",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "This naked get could explode with a java.util.NoSuchElementException: None.get\nStatus is a sealed trait, so why don\u0027t we change it to be FailedStatus by default so that we don\u0027t deal with an option at all?\n\nsomething like:\n\n  protected abstract override def runTest(testName: String, args: Args): Status \u003d {\n    var status: Status \u003d FailedStatus\n    val runLambda \u003d () \u003d\u003e super.runTest(testName, args)\n\n    daemonTest.testRunner.apply(new Statement() {\n      override def evaluate(): Unit \u003d {\n        status \u003d runLambda.apply()\n      }\n    }, Description.createTestDescription(getClass.getName, testName)).evaluate()\n\n    status\n  }",
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd79cd9c_b69dfb68",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "in scala is more idiomatic to initialize vars with underscore instead of null.\nyou could, if you wish, replace these with:\n\nvar testFileRepository: TestFileRepository \u003d _",
+      "range": {
+        "startLine": 56,
+        "startChar": 47,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ad8f62_705918f1",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 58,
+        "startChar": 48,
+        "endLine": 58,
+        "endChar": 52
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02271fce_dc239d2b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "this instantiation does not depend on anything, does it?\nit doesn\u0027t need to be lazy",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 16
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f8f2574_ec24cdca",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "see above: does this need to be lazy?",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b14f3485_d4c4e92d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T18:46:31Z",
+      "side": 1,
+      "message": "perhaps you could use jgit constants for this: Constants.R_HEADS + Constants.MASTER",
+      "range": {
+        "startLine": 91,
+        "startChar": 134,
+        "endLine": 91,
+        "endChar": 151
+      },
+      "revId": "f26903005400ef9c2310a4999e96a41fcfbdd568",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
