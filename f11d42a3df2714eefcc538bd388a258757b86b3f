@@ -198,6 +198,30 @@
       "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8859f2_5d0b7f28",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-27T20:44:55Z",
+      "side": 1,
+      "message": "The anchor isn\u0027t supported at all in the project.config, I\u0027m unsure why the test was there in the first place.",
+      "parentUuid": "de529abc_58974aad",
+      "range": {
+        "startLine": 78,
+        "startChar": 55,
+        "endLine": 78,
+        "endChar": 85
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
