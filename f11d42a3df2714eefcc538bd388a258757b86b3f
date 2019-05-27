@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c71e2f30_15f05e3e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCache.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T19:38:33Z",
+      "side": 1,
+      "message": "there are many unused imports in this file that should be removed",
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4941627_f03d34c1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T19:38:33Z",
+      "side": 1,
+      "message": "remove return",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d870c1a6_8f2010c7",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T19:38:33Z",
+      "side": 1,
+      "message": "this value depends on the internal implementation of ObjectIdCacheSerializer.\nPerhaps you could use Constants.OBJECT_ID_LENGTH for this?",
+      "range": {
+        "startLine": 49,
+        "startChar": 30,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84772569_c3888243",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T19:38:33Z",
+      "side": 1,
+      "message": "remove return",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de529abc_58974aad",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsCommentLinkSpec.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-27T19:38:33Z",
+      "side": 1,
+      "message": "why has the anchor link now disappeared after the refactoring?",
+      "range": {
+        "startLine": 78,
+        "startChar": 55,
+        "endLine": 78,
+        "endChar": 85
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
