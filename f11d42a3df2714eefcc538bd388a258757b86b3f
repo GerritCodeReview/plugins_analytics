@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b67e984c_015acf27",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCache.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-27T20:01:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c71e2f30_15f05e3e",
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4941627_f03d34c1",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
         "patchSetId": 27
@@ -39,6 +57,30 @@
       "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf4ac05_c6e5cd02",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-27T20:01:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4941627_f03d34c1",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "f9dc08ca_fdece301",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-27T20:01:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d870c1a6_8f2010c7",
+      "range": {
+        "startLine": 49,
+        "startChar": 30,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84772569_c3888243",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
         "patchSetId": 27
@@ -85,6 +151,30 @@
       "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d22ac9_d6f4a10c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsCacheSerializer.scala",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-27T20:01:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84772569_c3888243",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "f11d42a3df2714eefcc538bd388a258757b86b3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
