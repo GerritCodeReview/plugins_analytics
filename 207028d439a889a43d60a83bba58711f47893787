@@ -23,6 +23,30 @@
       "revId": "207028d439a889a43d60a83bba58711f47893787",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0f4aaa_fb958293",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/AggregatedHistogramFilterByDatesSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-05-28T10:04:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41dbae3a_29ae7e23",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "207028d439a889a43d60a83bba58711f47893787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
