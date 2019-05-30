@@ -41,7 +41,7 @@ class CommitsStatisticsLoader @Inject() (
     import RevisionBrowsingSupport._
 
     val objectId = cacheKey.commitId
-    val nameKey = new Project.NameKey(cacheKey.projectName)
+    val nameKey = Project.nameKey(cacheKey.projectName)
     val commentInfoList: Seq[CommentLinkInfo] =
       if(config.isExtractIssues) projectCache.get(nameKey).getCommentLinks.asScala else Seq.empty
     val replacers = commentInfoList.map(info =>

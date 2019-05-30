@@ -1,6 +1,6 @@
 enablePlugins(GitVersioning)
 
-val gerritApiVersion = "3.0.0"
+val gerritApiVersion = "3.1.0-SNAPSHOT"
 
 val pluginName = "analytics"
 
@@ -26,7 +26,7 @@ lazy val root = (project in file("."))
       "joda-time" % "joda-time" % "2.9.9",
 
       "com.google.gerrit" % "gerrit-acceptance-framework" % gerritApiVersion % Test,
-      "org.bouncycastle" % "bcprov-jdk15on" % "1.60" % Test,
+      "org.bouncycastle" % "bcpg-jdk15on" % "1.60" % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
       "net.codingwell" %% "scala-guice" % "4.1.0" % Test),
 
