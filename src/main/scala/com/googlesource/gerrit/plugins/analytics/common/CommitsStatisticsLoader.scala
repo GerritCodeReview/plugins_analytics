@@ -36,7 +36,7 @@ class CommitsStatisticsLoader @Inject() (gitRepositoryManager: GitRepositoryMana
     import RevisionBrowsingSupport._
 
     val objectId = cacheKey.commitId
-    val nameKey = new Project.NameKey(cacheKey.projectName)
+    val nameKey = Project.nameKey(cacheKey.projectName)
     val commentInfoList: Seq[CommentLinkInfo] = projectCache.get(nameKey).getCommentLinks.asScala
     val replacers = commentInfoList.map(info =>
       Replacer(

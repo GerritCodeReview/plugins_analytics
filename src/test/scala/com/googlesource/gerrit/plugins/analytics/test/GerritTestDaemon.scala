@@ -19,6 +19,7 @@ import java.util.{Date, UUID}
 
 import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
 import com.google.gerrit.extensions.annotations.PluginName
+import com.google.gerrit.extensions.client.SubmitType
 import com.google.gerrit.reviewdb.client.Project
 import com.google.inject.{AbstractModule, Module}
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
@@ -139,13 +140,13 @@ object GerritTestDaemon extends AbstractDaemonTest {
 
   def newProject(nameSuffix: String) = {
     resourcePrefix = ""
-    super.createProject(nameSuffix, allProjects, false)
+    super.createProjectOverAPI(nameSuffix, allProjects, false, SubmitType.MERGE_IF_NECESSARY)
   }
 
   def getRepository(projectName: Project.NameKey): FileRepository =
     repoManager.openRepository(projectName).asInstanceOf[FileRepository]
 
-  def adminAuthor = admin.getIdent
+  def adminAuthor = admin.newIdent
 
   def getInstance[T](clazz: Class[T]): T =
     server.getTestInjector.getInstance(clazz)
