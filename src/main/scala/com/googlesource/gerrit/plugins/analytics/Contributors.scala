@@ -14,14 +14,19 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
+import com.google.common.cache.{Cache, LoadingCache}
+import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
+import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache.COMMITS_STATISTICS_CACHE
+import org.eclipse.jgit.lib.ObjectId
 import org.kohsuke.args4j.{Option => ArgOption}
 
 
@@ -71,9 +76,13 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
+  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
+    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
+  private var extractIssues: Boolean = false
+
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
 
 }
 
@@ -121,11 +130,15 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
+    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
+  private var extractIssues: Boolean = false
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -135,9 +148,15 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     commitsStatisticsCache: CommitsStatisticsCache) {
   import RichBoolean._
 
+  import scala.collection.JavaConverters._
+
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
   : TraversableOnce[UserActivitySummary] = {
+    val nameKey = projectRes.getNameKey
+    val commentLinks: List[CommentLinkInfo] = extractIssues.option {
+      projectCache.get(nameKey).getCommentLinks.asScala
+    }.toList.flatten
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats  = new Statistics(projectRes.getNameKey, commitsStatisticsCache)

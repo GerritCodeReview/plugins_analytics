@@ -20,7 +20,7 @@ import com.google.gerrit.reviewdb.client.Project
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.ProjectCache
 import com.google.inject.Inject
-import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, CommitInfo, IssueInfo}
+import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
 import org.eclipse.jgit.revwalk.RevWalk
@@ -30,20 +30,14 @@ import org.eclipse.jgit.util.io.DisabledOutputStream
 import scala.collection.JavaConverters._
 import scala.util.matching.Regex
 
-class CommitsStatisticsLoader @Inject() (
-  gitRepositoryManager: GitRepositoryManager,
-  projectCache: ProjectCache,
-  botLikeExtractor: BotLikeExtractor,
-  config: AnalyticsConfig
-) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
+class CommitsStatisticsLoader @Inject() (gitRepositoryManager: GitRepositoryManager, projectCache: ProjectCache, botLikeExtractor: BotLikeExtractor) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
 
   override def load(cacheKey: CommitsStatisticsCacheKey): CommitsStatistics = {
     import RevisionBrowsingSupport._
 
     val objectId = cacheKey.commitId
     val nameKey = new Project.NameKey(cacheKey.projectName)
-    val commentInfoList: Seq[CommentLinkInfo] =
-      if(config.isExtractIssues) projectCache.get(nameKey).getCommentLinks.asScala else Seq.empty
+    val commentInfoList: Seq[CommentLinkInfo] = projectCache.get(nameKey).getCommentLinks.asScala
     val replacers = commentInfoList.map(info =>
       Replacer(
         info.`match`.r,

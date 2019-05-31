@@ -16,22 +16,17 @@ package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.server.config.PluginConfigFactory
-import com.google.inject.{ImplementedBy, Inject}
+import com.google.inject.Inject
 import org.eclipse.jgit.lib.Config
 
-@ImplementedBy(classOf[AnalyticsConfigImpl])
-trait AnalyticsConfig {
-  def botlikeFilenameRegexps: List[String]
-  def isExtractIssues: Boolean
-}
+class AnalyticsConfig @Inject() (val pluginConfigFactory: PluginConfigFactory, @PluginName val pluginName: String) {
 
-class AnalyticsConfigImpl @Inject() (val pluginConfigFactory: PluginConfigFactory, @PluginName val pluginName: String) extends AnalyticsConfig{
+  lazy val pluginConfig: Config = pluginConfigFactory.getGlobalPluginConfig(pluginName)
+
+  val Contributors = "contributors"
+  val BotlikeFilenameRegexp = "botlike-filename-regexp"
+
   lazy val botlikeFilenameRegexps: List[String] = pluginConfigBotLikeFilenameRegexp
-  lazy val isExtractIssues: Boolean = pluginConfig.getBoolean(Contributors, null, ExtractIssues, false)
 
-  private lazy val pluginConfig: Config = pluginConfigFactory.getGlobalPluginConfig(pluginName)
-  private val Contributors = "contributors"
-  private val BotlikeFilenameRegexp = "botlike-filename-regexp"
-  private val ExtractIssues = "extract-issues"
   private lazy val pluginConfigBotLikeFilenameRegexp = pluginConfig.getStringList(Contributors, null, BotlikeFilenameRegexp).toList
 }

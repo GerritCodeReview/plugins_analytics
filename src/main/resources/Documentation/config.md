@@ -23,15 +23,3 @@ to customize the default parameters for the analytics extraction.
 
   Keep in mind that plugin configurations are written in [git-config style syntax](https://git-scm.com/docs/git-config#_syntax),
   so you should be escaping regular expressions accordingly.
-
-- `contributors.extract-issues`
-
-  when set to true, enables the extraction of issues from commentLink
-
-  Default: false
-
-  example:
-  ```ini
-  [contributors]
-    extract-issues = true
-  ```
