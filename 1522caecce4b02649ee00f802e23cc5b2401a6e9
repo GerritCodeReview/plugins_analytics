@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5109c8c_1739a4a9",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 32
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-05-31T10:39:40Z",
+      "side": 1,
+      "message": "@luca, I think we might have a regression on this.\nThe commentLinks argument is ignored and now commentLinks are *always* extracted by the Loader.\n\nThere\u0027s a thread about this earlier as part in this change: \"...as things stand to instantiate a loader would require need runtime argument...\"\n\nI am sorry I forgot about this and I didn\u0027t spot it during code review.\nIn order for this to work the extrtactIssues arguments needs to be part of the CacheKey.\n\nThoughts?",
+      "revId": "1522caecce4b02649ee00f802e23cc5b2401a6e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
