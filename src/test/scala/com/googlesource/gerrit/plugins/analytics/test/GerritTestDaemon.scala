@@ -21,6 +21,7 @@ import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
 import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.reviewdb.client.Project
 import com.google.inject.{AbstractModule, Module}
+import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -152,6 +153,10 @@ object GerritTestDaemon extends AbstractDaemonTest {
 
   override def createModule(): Module = new AbstractModule {
     override def configure(): Unit = {
+      bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
+        override def botlikeFilenameRegexps: List[String] = List.empty
+        override def isExtractIssues: Boolean = true
+      })
       bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
   }

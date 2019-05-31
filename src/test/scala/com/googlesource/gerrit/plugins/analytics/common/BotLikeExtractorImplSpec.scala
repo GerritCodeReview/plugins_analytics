@@ -46,7 +46,8 @@ class BotLikeExtractorImplSpec extends FlatSpec with Matchers with GerritTestDae
     extractor.isBotLike(Set("some/path/anyFile")).shouldBe(false)
   }
 
-  private def newBotLikeExtractorImpl(botLikeRegexps: List[String]) = new BotLikeExtractorImpl(new AnalyticsConfig(null, null) {
+  private def newBotLikeExtractorImpl(botLikeRegexps: List[String]) = new BotLikeExtractorImpl(new AnalyticsConfig {
     override lazy val botlikeFilenameRegexps = botLikeRegexps
+    override lazy val isExtractIssues: Boolean = false
   })
 }
