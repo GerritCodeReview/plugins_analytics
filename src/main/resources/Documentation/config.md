@@ -35,3 +35,18 @@ to customize the default parameters for the analytics extraction.
   [contributors]
     extract-issues = true
   ```
+
+- `contributors.ignore-binary-files`
+
+  boolean value to indicate whether binary files should be ignored from the analytics.
+  This means that binary files will not be accounted for in `num_files`,
+  `num_distinct_files`, `added_lines` and `deleted_lines` fields and they will not
+  be listed in the `commits.files` field either.
+
+  Default: false
+
+  example:
+  ```ini
+  [contributors]
+    ignore-binary-files = true
+  ```

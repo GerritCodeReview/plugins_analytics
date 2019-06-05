@@ -17,11 +17,14 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.io.File
 import java.util.{Date, UUID}
 
+import com.google.common.cache.LoadingCache
 import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
 import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.reviewdb.client.Project
-import com.google.inject.{AbstractModule, Module}
+import com.google.inject.name.Names
+import com.google.inject.{AbstractModule, Module, TypeLiteral}
 import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
+import com.googlesource.gerrit.plugins.analytics.common.{BinaryFilesCache, BinaryFilesCacheKey, BinaryFilesCacheLoader, CacheBoolean}
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -64,6 +67,8 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
 
   protected lazy val committer = newPersonIdent("Test Committer", "committer@test.com")
 
+  private val TmpDir = System.getProperty("java.io.tmpdir")
+
   def newPersonIdent(name: String = "Test Person", email: String = "person@test.com", ts: Date = new Date()) =
     new PersonIdent(new PersonIdent(name, email), ts)
 
@@ -81,7 +86,6 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
       repo.git.branchCreate.setName(name).setStartPoint(startPoint).call
 
     def gitClone: TestFileRepository = {
-      val TmpDir = System.getProperty("java.io.tmpdir")
       val clonedRepository = Git.cloneRepository
         .setDirectory(new File(s"$TmpDir/${testSpecificRepositoryName}_clone"))
         .setURI(repo.getRepository.getDirectory.toURI.toString)
@@ -98,6 +102,16 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
         .committer(committer)
         .message(message)
         .create
+
+
+    def commitBinaryFile(path: String, content: Array[Byte], author: PersonIdent = author, committer: PersonIdent = committer, branch: String = Constants.MASTER, message: String = ""): RevCommit = {
+      repo.branch(branch).commit()
+        .add(path, repo.blob(content))
+        .author(author)
+        .committer(committer)
+        .message(message)
+        .create
+    }
 
     def commitFiles(files: Iterable[(String, String)], author: PersonIdent = author, committer: PersonIdent = committer, branch: String = Constants.MASTER, message: String = ""): RevCommit = {
       val commit = repo.branch(branch).commit()
@@ -153,9 +167,14 @@ object GerritTestDaemon extends AbstractDaemonTest {
 
   override def createModule(): Module = new AbstractModule {
     override def configure(): Unit = {
+      bind(classOf[BinaryFilesCache]).toInstance(new BinaryFilesCache {
+        override def get(project: String, objectId: ObjectId, filePath: String): CacheBoolean = CacheBoolean(false)
+      })
+
       bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
         override def botlikeFilenameRegexps: List[String] = List.empty
         override def isExtractIssues: Boolean = true
+        override def isIgnoreBinaryFiles: Boolean = false
       })
       bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
