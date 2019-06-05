@@ -24,6 +24,7 @@ import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, CommitInfo, I
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
 import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
 
@@ -34,7 +35,8 @@ class CommitsStatisticsLoader @Inject() (
   gitRepositoryManager: GitRepositoryManager,
   projectCache: ProjectCache,
   botLikeExtractor: BotLikeExtractor,
-  config: AnalyticsConfig
+  config: AnalyticsConfig,
+  binaryFilesCache: BinaryFilesCache
 ) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
 
   override def load(cacheKey: CommitsStatisticsCacheKey): CommitsStatistics = {
@@ -44,6 +46,10 @@ class CommitsStatisticsLoader @Inject() (
     val nameKey = new Project.NameKey(cacheKey.projectName)
     val commentInfoList: Seq[CommentLinkInfo] =
       if(config.isExtractIssues) projectCache.get(nameKey).getCommentLinks.asScala else Seq.empty
+
+    val treeFilter =
+      if (config.isIgnoreBinaryFiles) NonBinaryFilesFilter(nameKey, binaryFilesCache) else TreeFilter.ALL
+
     val replacers = commentInfoList.map(info =>
       Replacer(
         info.`match`.r,
@@ -71,6 +77,7 @@ class CommitsStatisticsLoader @Inject() (
           val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
           df.setRepository(repo)
           df.setDiffComparator(RawTextComparator.DEFAULT)
+          df.setPathFilter(treeFilter)
           df.setDetectRenames(true)
           val diffs = df.scan(oldTree, newTree).asScala
 
