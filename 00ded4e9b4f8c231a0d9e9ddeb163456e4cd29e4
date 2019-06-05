@@ -1,0 +1,313 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa8482bd_b82798de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Configure the analytics plugin",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb59a0f9_bea59d6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Compute",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 9
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8068d1d4_24c6602d",
+        "filename": "config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Why not just defining some file name patterns to ignore?\nAt the end of the day, all binaries have well-known extensions (.iso, .dmg, .tgz, .zip, png, ...)",
+      "range": {
+        "startLine": 34,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4158481c_720dcae4",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Why false? You should not compute binary files in the statistics unless you have a very good reason to do so.",
+      "range": {
+        "startLine": 46,
+        "startChar": 11,
+        "endLine": 46,
+        "endChar": 16
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10623fb_c2e4e5a3",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/AnalyticsConfig.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "ignoreBinaryFiles",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151f940b_475cd55f",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Module.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Not strictly needed.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5eebb1b_f894d616",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesCache.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Is this strictly needed? If we recognize the binary files by its name, we don\u0027t need a cache after all.",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff60a0f7_20e9d97b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesCacheBooleanSerializer.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Same as above: strictly needed?",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df8151a4_5b554a7b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesCacheLoader.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Same as above: strictly needed?",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7004bc19_da928e44",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesCacheModule.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Same as above: strictly needed?",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3475546d_94cbfadf",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/NonBinaryFilesFilter.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "What about just checking the file name in the tree?",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 90
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31fac02_c8b7a9b3",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesCacheKeySerializerSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Not needed if we don\u0027t have a cache.",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f95916b_330d66f7",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/BinaryFilesNoCache.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Not needed, if we don\u0027t have a cache.",
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5939ebc_018687bd",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/NonBinaryFilesFilterSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "512-bytes isn\u0027t really a big file and it shouldn\u0027t be a problem to process.\nWhy the matching of the filename wouldn\u0027t work?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 94
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c17433b_8c82826b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-05T20:48:08Z",
+      "side": 1,
+      "message": "Why do you need TmpDir anywhere else?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "00ded4e9b4f8c231a0d9e9ddeb163456e4cd29e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
