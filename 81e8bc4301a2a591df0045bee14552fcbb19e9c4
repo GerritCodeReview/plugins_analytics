@@ -22,6 +22,30 @@
       "revId": "81e8bc4301a2a591df0045bee14552fcbb19e9c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77796a7_d664ee05",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/IgnoreFileSuffixFilter.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-07T16:54:16Z",
+      "side": 1,
+      "message": "mmm, I think you\u0027re right:\nthe filter is defined as a negation of an ignoredFilter, which reads better as an inclusive one.\nI\u0027ll rename it as: suffixFilter",
+      "parentUuid": "bae977a2_9379dbd1",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "81e8bc4301a2a591df0045bee14552fcbb19e9c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
