@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
-import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsLoader, Statistics}
+import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 @UseLocalDisk
@@ -131,5 +131,4 @@ class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommi
       case wrongContent => fail(s"Expected two results instead got $wrongContent")
     }
   }
-
 }
