@@ -138,6 +138,8 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
 object GerritTestDaemon extends AbstractDaemonTest {
   baseConfig = new Config()
 
+  val IGNORED_FILE_SUFFIX = ".bin"
+
   def newProject(nameSuffix: String) = {
     resourcePrefix = ""
     super.createProject(nameSuffix, allProjects, false)
@@ -156,6 +158,7 @@ object GerritTestDaemon extends AbstractDaemonTest {
       bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
         override def botlikeFilenameRegexps: List[String] = List.empty
         override def isExtractIssues: Boolean = true
+        override def ignoreFileSuffixes: List[String] = List(IGNORED_FILE_SUFFIX)
       })
       bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
