@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
+import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.eclipse.jgit.lib.ObjectId
 
@@ -23,7 +24,7 @@ trait TestCommitStatisticsNoCache {
   lazy val commitsStatisticsNoCache  = CommitsStatisticsNoCache(daemonTest.getInstance(classOf[CommitsStatisticsLoader]))
 }
 
-case class CommitsStatisticsNoCache(commitsStatisticsLoader: CommitsStatisticsLoader) extends CommitsStatisticsCache {
+case class CommitsStatisticsNoCache @Inject() (commitsStatisticsLoader: CommitsStatisticsLoader) extends CommitsStatisticsCache {
   override def get(project: String, objectId: ObjectId): CommitsStatistics =
     commitsStatisticsLoader.load(CommitsStatisticsCacheKey(project, objectId))
 }

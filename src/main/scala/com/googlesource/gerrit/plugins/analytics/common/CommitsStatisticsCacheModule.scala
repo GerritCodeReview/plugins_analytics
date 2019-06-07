@@ -21,6 +21,7 @@ import org.eclipse.jgit.lib.ObjectId
 class CommitsStatisticsCacheModule extends CacheModule() {
 
   override protected def configure(): Unit = {
+    bind(classOf[CommitsStatisticsCache]).to(classOf[CommitsStatisticsCacheImpl])
     persist(CommitsStatisticsCache.COMMITS_STATISTICS_CACHE, classOf[CommitsStatisticsCacheKey], classOf[CommitsStatistics])
       .version(1)
       .diskLimit(-1)
