@@ -17,11 +17,13 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.io.File
 import java.util.{Date, UUID}
 
-import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
-import com.google.gerrit.extensions.annotations.PluginName
+import com.google.gerrit.acceptance._
+import com.google.gerrit.extensions.restapi.RestApiModule
 import com.google.gerrit.reviewdb.client.Project
-import com.google.inject.{AbstractModule, Module}
-import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
+import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
+import com.google.inject.AbstractModule
+import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
+import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -68,6 +70,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
     new PersonIdent(new PersonIdent(name, email), ts)
 
   override def beforeEach {
+    daemonTest.setUpTestPlugin()
     fileRepositoryName = daemonTest.newProject(testSpecificRepositoryName)
     fileRepository = daemonTest.getRepository(fileRepositoryName)
     testFileRepository = GitUtil.newTestRepository(fileRepository)
@@ -135,8 +138,13 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
   }
 }
 
-object GerritTestDaemon extends AbstractDaemonTest {
+@TestPlugin(
+  name = "analytics",
+  sysModule = "com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon$TestModule"
+)
+object GerritTestDaemon extends LightweightPluginDaemonTest {
   baseConfig = new Config()
+  tempDataDir.create()
 
   def newProject(nameSuffix: String) = {
     resourcePrefix = ""
@@ -149,15 +157,21 @@ object GerritTestDaemon extends AbstractDaemonTest {
   def adminAuthor = admin.getIdent
 
   def getInstance[T](clazz: Class[T]): T =
-    server.getTestInjector.getInstance(clazz)
+    plugin.getSysInjector.getInstance(clazz)
 
-  override def createModule(): Module = new AbstractModule {
+  def getCanonicalWebUrl: String = canonicalWebUrl.get()
+
+  def restSession: RestSession = adminRestSession
+
+  class TestModule extends AbstractModule {
     override def configure(): Unit = {
-      bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
-        override def botlikeFilenameRegexps: List[String] = List.empty
-        override def isExtractIssues: Boolean = true
+      bind(classOf[CommitsStatisticsCache]).to(classOf[CommitsStatisticsNoCache])
+      bind(classOf[AnalyticsConfig]).toInstance(TestAnalyticsConfig)
+      install(new RestApiModule() {
+        override protected def configure() = {
+          get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
+        }
       })
-      bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
   }
 }
