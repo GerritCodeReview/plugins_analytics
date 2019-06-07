@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "45f4c724_3cd0ccea",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-07T18:44:31Z",
+      "side": 1,
+      "message": "Makes sense, let\u0027s start small :-)",
+      "parentUuid": "a7e53651_100500e8",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "66e429053b0a4e9c67f07f9bc218711c061475f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0231555_d1d8978b",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsLoader.scala",
         "patchSetId": 1
