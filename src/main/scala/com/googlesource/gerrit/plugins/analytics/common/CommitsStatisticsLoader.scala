@@ -70,6 +70,7 @@ class CommitsStatisticsLoader @Inject() (
 
           val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
           df.setRepository(repo)
+          df.setPathFilter(IgnoreFileSuffixFilter(config))
           df.setDiffComparator(RawTextComparator.DEFAULT)
           df.setDetectRenames(true)
           val diffs = df.scan(oldTree, newTree).asScala

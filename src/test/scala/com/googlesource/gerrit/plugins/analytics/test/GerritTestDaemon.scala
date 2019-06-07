@@ -156,6 +156,7 @@ object GerritTestDaemon extends AbstractDaemonTest {
       bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
         override def botlikeFilenameRegexps: List[String] = List.empty
         override def isExtractIssues: Boolean = true
+        override def ignoreFileSuffixes: List[String] = List.empty
       })
       bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
