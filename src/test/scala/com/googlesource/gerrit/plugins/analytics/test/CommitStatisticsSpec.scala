@@ -18,6 +18,7 @@ import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, CommitsStatisticsLoader, Statistics}
 import org.scalatest.{FlatSpec, Inside, Matchers}
+import GerritTestDaemon.IGNORED_FILE_SUFFIX
 
 @UseLocalDisk
 class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
@@ -132,4 +133,20 @@ class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommi
     }
   }
 
+  it should "ignore specific file suffixes" in new TestEnvironment {
+    val ignoredCommit = testFileRepository.commitFile(s"file$IGNORED_FILE_SUFFIX", "some content")
+    val includedCommit = testFileRepository.commitFile(s"file.txt", "some other content")
+
+    val commit = testFileRepository.commitFiles(
+      List(
+        s"file$IGNORED_FILE_SUFFIX" -> "line1\nline2\n",
+        s"file.txt" -> "line1\nline2\n"
+      ), message = "commit containing a file suffix excluded by statistics")
+
+    inside(stats.forCommits(commit)) { case List(s: CommitsStatistics) =>
+      s.numFiles should be(1)
+      s.addedLines should be(2)
+      s.commits.head.files should contain only "file.txt"
+    }
+  }
 }
