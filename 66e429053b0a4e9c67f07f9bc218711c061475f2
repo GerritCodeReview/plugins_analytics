@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7e53651_100500e8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-07T16:03:25Z",
+      "side": 1,
+      "message": "Mainly for two reasons:\njgit already provides a PathSuffix which we can use without having to implement/test one, but mainly because this is the least powerful solution capable of solving our problem (\"Principle of Least Power\") :)\n\nI thought we can always extend/enhance this if we need to do so in the future, WDYT?",
+      "parentUuid": "06ae9ea3_13f6fb04",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "66e429053b0a4e9c67f07f9bc218711c061475f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0231555_d1d8978b",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsLoader.scala",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "362ac0be_c6420410",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsLoader.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-07T16:03:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a0231555_d1d8978b",
+      "range": {
+        "startLine": 73,
+        "startChar": 27,
+        "endLine": 73,
+        "endChar": 57
+      },
+      "revId": "66e429053b0a4e9c67f07f9bc218711c061475f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "950b094c_04d9c810",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/IgnoreFileSuffixFilter.scala",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "66e429053b0a4e9c67f07f9bc218711c061475f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7687688_541836c6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/IgnoreFileSuffixFilter.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-07T16:03:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "950b094c_04d9c810",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "66e429053b0a4e9c67f07f9bc218711c061475f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
