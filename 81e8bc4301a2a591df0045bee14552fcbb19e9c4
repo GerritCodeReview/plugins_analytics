@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bae977a2_9379dbd1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/IgnoreFileSuffixFilter.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-06-07T16:27:00Z",
+      "side": 1,
+      "message": "What is we called it fileFilter (or something similar). I believe statements for inclusion and exclusion would read better:\n\nfileFilter.include(treeWalk) VS ignoreFilter.include(treeWalk)\n\nIMO the latter sounds a bit strange since it seems like you are ignoring something...but then including it.",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "81e8bc4301a2a591df0045bee14552fcbb19e9c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
