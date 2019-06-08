@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3852d59f_c130bffd",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-08T11:29:56Z",
+      "side": 1,
+      "message": "Do we make some assertion because of that? Or adding an ignored extension as file change and asserting that is not taken into account?",
+      "range": {
+        "startLine": 161,
+        "startChar": 21,
+        "endLine": 161,
+        "endChar": 81
+      },
+      "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
