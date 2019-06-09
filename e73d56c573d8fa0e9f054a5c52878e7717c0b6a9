@@ -22,6 +22,30 @@
       "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0490d44c_18f8c47d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-09T19:25:45Z",
+      "side": 1,
+      "message": "Sorry, I am not sure I understand wha you mean? This is used in a test. What do you mean?",
+      "parentUuid": "3852d59f_c130bffd",
+      "range": {
+        "startLine": 161,
+        "startChar": 21,
+        "endLine": 161,
+        "endChar": 81
+      },
+      "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
