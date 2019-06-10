@@ -46,6 +46,30 @@
       "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2b1da0_a8ea066d",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-06-10T06:39:30Z",
+      "side": 1,
+      "message": "GerritTestDaemon is just a way to run a Gerrit Daemon during tests and shouldn\u0027t be specific to any tests.\n\nThe fact of ignoring files suffixes and testing them that the result should be ignored is more something specific to a test-case rather than GerritTestDaemon.",
+      "parentUuid": "0490d44c_18f8c47d",
+      "range": {
+        "startLine": 161,
+        "startChar": 21,
+        "endLine": 161,
+        "endChar": 81
+      },
+      "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
