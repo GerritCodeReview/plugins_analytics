@@ -19,8 +19,10 @@ import java.util.{Date, UUID}
 
 import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
 import com.google.gerrit.extensions.annotations.PluginName
+import com.google.gerrit.extensions.client.SubmitType
 import com.google.gerrit.reviewdb.client.Project
 import com.google.inject.{AbstractModule, Module}
+import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -136,22 +138,27 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
 
 object GerritTestDaemon extends AbstractDaemonTest {
   baseConfig = new Config()
+  AbstractDaemonTest.temporaryFolder.create()
 
   def newProject(nameSuffix: String) = {
     resourcePrefix = ""
-    super.createProject(nameSuffix, allProjects, false)
+    super.createProjectOverAPI(nameSuffix, allProjects, false, SubmitType.MERGE_IF_NECESSARY)
   }
 
   def getRepository(projectName: Project.NameKey): FileRepository =
     repoManager.openRepository(projectName).asInstanceOf[FileRepository]
 
-  def adminAuthor = admin.getIdent
+  def adminAuthor = admin.newIdent
 
   def getInstance[T](clazz: Class[T]): T =
     server.getTestInjector.getInstance(clazz)
 
   override def createModule(): Module = new AbstractModule {
     override def configure(): Unit = {
+      bind(classOf[AnalyticsConfig]).toInstance(new AnalyticsConfig {
+        override def botlikeFilenameRegexps: List[String] = List.empty
+        override def isExtractIssues: Boolean = true
+      })
       bind(classOf[String]).annotatedWith(classOf[PluginName]).toInstance("analytics")
     }
   }

@@ -14,21 +14,17 @@
 
 package com.googlesource.gerrit.plugins.analytics
 
-import com.google.common.cache.{Cache, LoadingCache}
-import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
 import com.google.inject.Inject
-import com.google.inject.name.Named
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
-import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache.COMMITS_STATISTICS_CACHE
-import org.eclipse.jgit.lib.ObjectId
 import org.kohsuke.args4j.{Option => ArgOption}
 
+import scala.util.Try
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
@@ -76,13 +72,9 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
-  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
-    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
-  private var extractIssues: Boolean = false
-
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
 
 }
 
@@ -130,15 +122,11 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
-  @ArgOption(name = "--extract-issues", aliases = Array("-i"),
-    usage = "Extract a list of issues and links using the Gerrit's commentLink configuration")
-  private var extractIssues: Boolean = false
-
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractIssues)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -148,15 +136,9 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     commitsStatisticsCache: CommitsStatisticsCache) {
   import RichBoolean._
 
-  import scala.collection.JavaConverters._
-
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractIssues: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
   : TraversableOnce[UserActivitySummary] = {
-    val nameKey = projectRes.getNameKey
-    val commentLinks: List[CommentLinkInfo] = extractIssues.option {
-      projectCache.get(nameKey).getCommentLinks.asScala
-    }.toList.flatten
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats  = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
@@ -197,7 +179,7 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    implicit def stringToIntOrNull(x: String): Integer = if (x.isEmpty) null else new Integer(x)
+    def stringToIntOrNull(x: String): Integer = Try(new Integer(x)).getOrElse(null)
 
     uca.key.split("/", AggregationStrategy.MAX_MAPPING_TOKENS) match {
       case Array(email, year, month, day, hour, branch) =>
@@ -206,7 +188,8 @@ object UserActivitySummary {
             Option(branch).filter(_.nonEmpty).map(b => Array(b)).getOrElse(Array.empty)
 
           UserActivitySummary(
-            year, month, day, hour, uca.getName, email, stat.commits.size,
+            stringToIntOrNull(year), stringToIntOrNull(month), stringToIntOrNull(day), stringToIntOrNull(hour),
+            uca.getName, email, stat.commits.size,
             stat.numFiles, stat.numDistinctFiles, stat.addedLines, stat.deletedLines,
             stat.commits.toArray, maybeBranches, stat.issues.map(_.code)
               .toArray, stat.issues.map(_.link).toArray, uca.getLatest, stat
