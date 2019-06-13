@@ -70,6 +70,30 @@
       "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f969e78_460b4a0b",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/GerritTestDaemon.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-13T10:30:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee2b1da0_a8ea066d",
+      "range": {
+        "startLine": 161,
+        "startChar": 21,
+        "endLine": 161,
+        "endChar": 81
+      },
+      "revId": "e73d56c573d8fa0e9f054a5c52878e7717c0b6a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "239b6b95926eb4a77c9a87ff7804dc2653959b77",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4c65b0_f0562d41",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/TestAnalyticsConfig.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-06-13T10:30:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "753e803a_d7e29c08",
+      "revId": "239b6b95926eb4a77c9a87ff7804dc2653959b77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
