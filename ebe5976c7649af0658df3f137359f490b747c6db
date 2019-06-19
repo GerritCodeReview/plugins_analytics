@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4afb27c_2ef2f204",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/hashTagsExtractorImpl.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1065251
+      },
+      "writtenOn": "2019-06-19T13:55:48Z",
+      "side": 1,
+      "message": "NoteDbMetrics is not accessible from here @ponch how did you get around this issue?",
+      "revId": "ebe5976c7649af0658df3f137359f490b747c6db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fe9d27_a89570d1",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/hashTagsExtractorImpl.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1065251
+      },
+      "writtenOn": "2019-06-19T13:55:48Z",
+      "side": 1,
+      "message": "The same here. ChangeNotesParser is not accessible from here",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "ebe5976c7649af0658df3f137359f490b747c6db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
