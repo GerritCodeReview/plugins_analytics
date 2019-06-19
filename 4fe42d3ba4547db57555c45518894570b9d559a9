@@ -68,6 +68,30 @@
       "revId": "4fe42d3ba4547db57555c45518894570b9d559a9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3da76a5_ff50090d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregationStrategy.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1065251
+      },
+      "writtenOn": "2019-06-19T11:57:18Z",
+      "side": 1,
+      "message": "That\u0027s a good point. I do not see any problem with that.",
+      "parentUuid": "ee006b81_7be33b5c",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "4fe42d3ba4547db57555c45518894570b9d559a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
