@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6122bcd4_ebd51284",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2019-06-20T09:19:28Z",
+      "side": 1,
+      "message": "Yeap, you are right just rename the method name please and you can try to use it as an implicit converter\nhttps://docs.scala-lang.org/tour/implicit-conversions.html",
+      "parentUuid": "67a90158_0ddf508a",
+      "revId": "d11e73f3ccf4eca1c8f7f48969a876c930726833",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "407b9848_06d5d7e4",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
         "patchSetId": 9
