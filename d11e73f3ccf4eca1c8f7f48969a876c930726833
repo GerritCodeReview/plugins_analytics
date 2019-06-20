@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cb44ab2_7a761719",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2019-06-20T08:44:29Z",
+      "side": 1,
+      "message": "this method is not needed anymore. We are not converting string to integer. All calls to this method can be replaced with x.orNull",
+      "revId": "d11e73f3ccf4eca1c8f7f48969a876c930726833",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "407b9848_06d5d7e4",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2019-06-20T08:44:29Z",
+      "side": 1,
+      "message": "nit: this can be replaced with uca.key.branch.fold(Array.empty){b\u003d\u003eArray(b)}",
+      "revId": "d11e73f3ccf4eca1c8f7f48969a876c930726833",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f2958e_a75e93ef",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedCommitHistogram.scala",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2019-06-20T08:44:29Z",
+      "side": 1,
+      "message": "nit: You can do toString here so you will avoid doing it twice",
+      "revId": "d11e73f3ccf4eca1c8f7f48969a876c930726833",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
