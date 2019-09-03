@@ -46,6 +46,30 @@
       "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfd5173_fa4def30",
+        "filename": "build.sbt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-09-03T10:52:11Z",
+      "side": 0,
+      "message": "It cannot be provided by the plugin API (or gerrit-acceptance-test library), because bouncy castle libraries are security libraries with signatures and thus cannot be merged in Gerrit\u0027s plugin API library.",
+      "parentUuid": "f89b07de_2b0516a1",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
