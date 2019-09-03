@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccd8f8f2_63e6bd5b",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/CommitsStatisticsLoader.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-09-03T08:25:24Z",
+      "side": 1,
+      "message": "this doesn\u0027t compile, the public constructor is Project.nameKey (note lowercase \u0027n\u0027)",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "9e784f0460d8b81bf2f2491bf465d02283c28a70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
