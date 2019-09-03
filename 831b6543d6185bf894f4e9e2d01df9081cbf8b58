@@ -22,6 +22,30 @@
       "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f89b07de_2b0516a1",
+        "filename": "build.sbt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-09-03T10:40:49Z",
+      "side": 0,
+      "message": "integration tests fail with bouncy castle provider dependency, probably due to binary incompatibility with what gerrit-plugin-api uses:\nThing is, this should not be included at all, as the analytics plugin does not access bc directly, it should be provided by the gerrit-plugin-api.\n\nI will open an issue in gerrit so that bc library is provided by gerrit-plugin-api",
+      "parentUuid": "9d7eee02_454ed80b",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
