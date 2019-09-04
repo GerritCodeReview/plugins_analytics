@@ -94,6 +94,30 @@
       "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63feca9_20ed51cb",
+        "filename": "build.sbt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-09-04T10:42:12Z",
+      "side": 0,
+      "message": "\u003e oh, I didn\u0027t know that was the case.\n\u003e However, why shouldn\u0027t this be provided by the gerrit-acceptance-test framework?\n\nIt wouldn\u0027t work for the same reason, it wouldn\u0027t work to merge the BC library in the plugin API: BC JARs are security JARs and thus signed. If you merged the content of the JARs in another JAR and remove the signature, effectively hacking the JAR content by replacing some of the classes inside the JAR the code wouldn\u0027t work. The tests or productive code would fail. The only way to make it work is to include the original JARs in productive release.war and put the original BC JAR on classpath whe running gerrit tests. That ist exactly what bazel test machiery is doing for gerrit core and for gerrit plugins (in gerrit tree and in standalone build modes). See where this is defined in the standalone plugin build mode [1].\n\nSBT build tool chain should do the same and include original BC libraries during the tests.\n\n* [1] https://github.com/GerritCodeReview/bazlets/blob/master/tools/commons.bzl#L9-L14",
+      "parentUuid": "5dfd8236_02bb5c01",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
