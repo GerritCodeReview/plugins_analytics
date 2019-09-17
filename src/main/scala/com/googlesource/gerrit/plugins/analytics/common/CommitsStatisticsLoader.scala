@@ -34,7 +34,8 @@ class CommitsStatisticsLoader @Inject() (
   gitRepositoryManager: GitRepositoryManager,
   projectCache: ProjectCache,
   botLikeExtractor: BotLikeExtractor,
-  config: AnalyticsConfig
+  config: AnalyticsConfig,
+  ignoreFileSuffixFilter: IgnoreFileSuffixFilter
 ) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
 
   override def load(cacheKey: CommitsStatisticsCacheKey): CommitsStatistics = {
@@ -70,6 +71,7 @@ class CommitsStatisticsLoader @Inject() (
 
           val df = new DiffFormatter(DisabledOutputStream.INSTANCE)
           df.setRepository(repo)
+          df.setPathFilter(ignoreFileSuffixFilter)
           df.setDiffComparator(RawTextComparator.DEFAULT)
           df.setDetectRenames(true)
           val diffs = df.scan(oldTree, newTree).asScala

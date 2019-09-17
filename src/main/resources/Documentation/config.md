@@ -35,3 +35,23 @@ to customize the default parameters for the analytics extraction.
   [contributors]
     extract-issues = true
   ```
+
+- `contributors.ignore-file-suffix`
+
+  List of file suffixes to be ignored from the analytics.
+  Files matching any of the specified suffixes will not be accounted for in
+  `num_files`, `num_distinct_files`, `added_lines` and `deleted_lines` fields
+  nor will they be listed in the `commits.files` array field.
+  This can be used to explicitly ignore binary files for which, file-based
+  statistics makes little or no sense.
+
+  Default: empty
+
+  Example:
+  ```ini
+  [contributors]
+    ignore-file-suffix = .dmg
+    ignore-file-suffix = .ko
+    ignore-file-suffix = .png
+    ignore-file-suffix = .exe
+  ```
