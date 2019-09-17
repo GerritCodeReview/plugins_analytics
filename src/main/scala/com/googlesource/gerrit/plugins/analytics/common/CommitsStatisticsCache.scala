@@ -20,7 +20,6 @@ import com.google.inject.name.Named
 import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache.COMMITS_STATISTICS_CACHE
 import org.eclipse.jgit.lib.ObjectId
 
-@ImplementedBy(classOf[CommitsStatisticsCacheImpl])
 trait CommitsStatisticsCache {
   def get(project: String, objectId: ObjectId): CommitsStatistics
 }
