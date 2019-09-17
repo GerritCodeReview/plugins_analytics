@@ -118,6 +118,30 @@
       "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1859e66_2a1235aa",
+        "filename": "build.sbt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-09-17T13:42:34Z",
+      "side": 0,
+      "message": "I understand David.\nUnfortunately analytics plugin at the moment is built via sbt rather than bazel, so we can\u0027t use the bazlets.\nAt the moment the dependency is added explicitly and things work as expected.",
+      "parentUuid": "d63feca9_20ed51cb",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "831b6543d6185bf894f4e9e2d01df9081cbf8b58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
