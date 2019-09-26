@@ -35,6 +35,7 @@ case class CommitsStatistics(
                               isForMergeCommits: Boolean,
                               isForBotLike: Boolean,
                               commits: List[CommitInfo],
+                              hashTags: Set[String],
                               issues: List[IssueInfo] = Nil
                             ) {
   require(commits.forall(_.botLike == isForBotLike), s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type")
@@ -61,13 +62,14 @@ case class CommitsStatistics(
       addedLines = this.addedLines + that.addedLines,
       deletedLines = this.deletedLines + that.deletedLines,
       commits = this.commits ++ that.commits,
-      issues = this.issues ++ that.issues
+      issues = this.issues ++ that.issues,
+      hashTags = this.hashTags ++ that.hashTags
     )
   }
 }
 
 object CommitsStatistics {
-  val EmptyNonMerge = CommitsStatistics(0, 0, false, false, List[CommitInfo](), List[IssueInfo]())
+  val EmptyNonMerge = CommitsStatistics(0, 0, false, false, List[CommitInfo](), Set.empty, List[IssueInfo]())
   val EmptyBotNonMerge = EmptyNonMerge.copy(isForBotLike = true)
   val EmptyMerge = EmptyNonMerge.copy(isForMergeCommits = true)
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)

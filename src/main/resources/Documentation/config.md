@@ -36,6 +36,18 @@ to customize the default parameters for the analytics extraction.
     extract-issues = true
   ```
 
+- `contributors.extract-hashtags`
+
+  when set to true, enables the extraction of hash-tags from the change commits
+
+  Default: false
+
+  example:
+  ```ini
+  [contributors]
+    extract-hashtags = true
+  ```
+
 - `contributors.ignore-file-suffix`
 
   List of file suffixes to be ignored from the analytics.
