@@ -15,14 +15,18 @@
 package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.restapi.RestApiModule
+import com.google.gerrit.server.notedb.{HashTagsExtractor, HashTagsExtractorFactory, HashTagsExtractorImpl}
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
+import com.google.inject.assistedinject.FactoryModuleBuilder
 import com.googlesource.gerrit.plugins.analytics.common.{BotLikeExtractor, BotLikeExtractorImpl}
 import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCacheModule
+import net.codingwell.scalaguice.ScalaModule
 
-class Module extends AbstractModule {
+class Module extends AbstractModule with ScalaModule {
 
   override protected def configure() {
+
     bind(classOf[BotLikeExtractor]).to(classOf[BotLikeExtractorImpl])
 
     install(new CommitsStatisticsCacheModule())
@@ -31,5 +35,11 @@ class Module extends AbstractModule {
         get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
       }
     })
+
+    install(new FactoryModuleBuilder()
+      .implement(classOf[HashTagsExtractor], classOf[HashTagsExtractorImpl])
+      .build(classOf[HashTagsExtractorFactory])
+    )
+
   }
 }
