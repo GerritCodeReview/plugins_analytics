@@ -15,13 +15,16 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import com.google.gerrit.extensions.restapi.PreconditionFailedException
+import com.google.gerrit.server.notedb.HashTagsExtractor
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository
 import org.gitective.core.CommitFinder
+import org.slf4j.LoggerFactory
 
 @Singleton
 class UserActivityHistogram {
   def get(repo: Repository, filter: AbstractCommitHistogramFilter) = {
+    val log = LoggerFactory.getLogger(classOf[HashTagsExtractor])
     val finder = new CommitFinder(repo)
 
     try {
@@ -32,7 +35,10 @@ class UserActivityHistogram {
       // 'find' throws an IllegalArgumentException when the conditions to walk through the commits tree are not met,
       // i.e: an empty repository doesn't have the starting commit.
       case _: IllegalArgumentException => Array.empty[AggregatedUserCommitActivity]
-      case e: Exception => throw new PreconditionFailedException(s"Cannot find commits: ${e.getMessage}").initCause(e)
+      case e: Exception => {
+        log.error("could not get user activity", e)
+        throw new PreconditionFailedException(s"Cannot find commits: ${e.getMessage}").initCause(e)
+      }
     }
   }
 }

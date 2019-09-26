@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import com.google.gerrit.reviewdb.client.Project
+import com.google.gerrit.entities.Project
 import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import org.eclipse.jgit.lib.ObjectId
 

@@ -46,7 +46,8 @@ object AggregationStrategy {
                             month: Option[Int] = None,
                             day: Option[Int] = None,
                             hour: Option[Int] = None,
-                            branch: Option[String] = None)
+                            branch: Option[String] = None,
+                            hashTag: Option[String] = None)
 
   object EMAIL extends AggregationStrategy {
     val name: String = "EMAIL"
@@ -93,5 +94,10 @@ object AggregationStrategy {
     val name: String = s"BY_BRANCH($branch)"
     val mapping: (PersonIdent, Date) => AggregationKey = (p, d) =>
       baseAggregationStrategy.mapping(p, d).copy(branch = Some(branch))
+  }
+
+  case class DYNAMIC_AGGREGATION(baseAggregationStrategy: AggregationStrategy, mapping: AggregationStrategyMapping)
+    extends AggregationStrategy {
+    val name: String = s"DYNAMIC_AGGREGATION"
   }
 }

@@ -15,8 +15,8 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import com.google.common.cache.CacheLoader
+import com.google.gerrit.entities.Project
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
-import com.google.gerrit.reviewdb.client.Project
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.google.gerrit.server.project.ProjectCache
 import com.google.inject.Inject

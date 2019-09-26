@@ -16,7 +16,6 @@ package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
-import com.google.gerrit.reviewdb.client.Project
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
