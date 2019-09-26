@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
+import com.google.gerrit.server.notedb.{ChangeNotesCache, HashTagsExtractor}
 import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
@@ -39,6 +40,10 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   @ArgOption(name = "--extract-branches", aliases = Array("-r"),
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
+
+  @ArgOption(name = "--extract-hashtags", aliases = Array("-t"),
+    usage = "Do extra parsing to extract hashtags associated to a change")
+  private var extractHashTags: Boolean = false
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -72,7 +77,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractHashTags), stdout)
 
 }
 
@@ -120,30 +125,36 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--extract-hashtags", aliases = Array("-t"),
+    usage = "Do extra parsing to extract hashtags associated to a change")
+  private var extractHashTags: Boolean = false
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, extractHashTags)))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache: ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter,
-                                    commitsStatisticsCache: CommitsStatisticsCache) {
+                                    commitsStatisticsCache: CommitsStatisticsCache,
+                                    changeNotesCache: ChangeNotesCache) {
 
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractHashTags: Boolean)
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
+      val hashTagsExtractor = extractHashTags.option(HashTagsExtractor(projectRes.getNameKey, repo, changeNotesCache))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, hashTagsExtractor, aggregationStrategy))
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
         .toStream
     }
@@ -167,6 +178,7 @@ case class UserActivitySummary(year: Option[Int],
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               hashTag: Option[String],
                                issuesCodes: Array[String],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
@@ -196,6 +208,7 @@ object UserActivitySummary {
         stat.deletedLines,
         stat.commits.toArray,
         maybeBranches,
+        uca.key.hashTag,
         stat.issues.map(_.code).toArray,
         stat.issues.map(_.link).toArray,
         uca.getLatest,
