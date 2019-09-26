@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.extensions.restapi.{BadRequestException, Response, RestReadView}
 import com.google.gerrit.server.git.GitRepositoryManager
+import com.google.gerrit.server.notedb.{ChangeNotesCache, HashTagsExtractor}
 import com.google.gerrit.server.project.{ProjectCache, ProjectResource}
 import com.google.gerrit.server.restapi.project.ProjectsCollection
 import com.google.gerrit.sshd.{CommandMetaData, SshCommand}
@@ -131,7 +132,8 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
                                     projectCache: ProjectCache,
                                     histogram: UserActivityHistogram,
                                     gsonFmt: GsonFormatter,
-                                    commitsStatisticsCache: CommitsStatisticsCache) {
+                                    commitsStatisticsCache: CommitsStatisticsCache,
+                                    changeNotesCache: ChangeNotesCache) {
 
   import RichBoolean._
 
@@ -150,7 +152,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: Set[String])
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: Set[String], hashTags: Set[String])
 
 case class IssueInfo(code: String, link: String)
 
@@ -167,6 +169,7 @@ case class UserActivitySummary(year: Option[Int],
                                deletedLines: Integer,
                                commits: Array[CommitInfo],
                                branches: Array[String],
+                               hashTags: Set[String],
                                issuesCodes: Array[String],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
@@ -196,6 +199,7 @@ object UserActivitySummary {
         stat.deletedLines,
         stat.commits.toArray,
         maybeBranches,
+        stat.hashTags,
         stat.issues.map(_.code).toArray,
         stat.issues.map(_.link).toArray,
         uca.getLatest,

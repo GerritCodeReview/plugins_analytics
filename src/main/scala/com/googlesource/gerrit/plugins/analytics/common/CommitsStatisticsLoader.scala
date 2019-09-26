@@ -15,9 +15,10 @@
 package com.googlesource.gerrit.plugins.analytics.common
 
 import com.google.common.cache.CacheLoader
+import com.google.gerrit.entities.Project
 import com.google.gerrit.extensions.api.projects.CommentLinkInfo
-import com.google.gerrit.reviewdb.client.Project
 import com.google.gerrit.server.git.GitRepositoryManager
+import com.google.gerrit.server.notedb.HashTagsExtractorFactory
 import com.google.gerrit.server.project.ProjectCache
 import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, CommitInfo, IssueInfo}
@@ -35,7 +36,8 @@ class CommitsStatisticsLoader @Inject() (
   projectCache: ProjectCache,
   botLikeExtractor: BotLikeExtractor,
   config: AnalyticsConfig,
-  ignoreFileSuffixFilter: IgnoreFileSuffixFilter
+  ignoreFileSuffixFilter: IgnoreFileSuffixFilter,
+  hashTagsExtractorFactory: HashTagsExtractorFactory
 ) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
 
   override def load(cacheKey: CommitsStatisticsCacheKey): CommitsStatistics = {
@@ -83,8 +85,14 @@ class CommitsStatisticsLoader @Inject() (
 
           val files: Set[String] = diffs.map(df.toFileHeader(_).getNewPath).toSet
 
-          val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files)
-          val commitsStats = CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), extractIssues(commitMessage, replacers).toList)
+          val hashTags =
+            if(config.isExtractHashTags)
+              hashTagsExtractorFactory.create(nameKey, repo).hashTagsOfCommit(commit)
+            else
+              Set.empty[String]
+
+          val commitInfo = CommitInfo(objectId.getName, commit.getAuthorIdent.getWhen.getTime, commit.isMerge, botLikeExtractor.isBotLike(files), files, hashTags)
+          val commitsStats = CommitsStatistics(lines.added, lines.deleted, commitInfo.merge, commitInfo.botLike, List(commitInfo), hashTags, extractIssues(commitMessage, replacers).toList)
 
           commitsStats
         }

@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The Android Open Source Project
+// Copyright (C) 2018 GerritForge Ltd
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.analytics.test
+package google.gerrit.server.notedb
 
-import com.googlesource.gerrit.plugins.analytics.AnalyticsConfig
+import com.google.gerrit.server.notedb.HashTagsExtractor
+import org.eclipse.jgit.revwalk.RevCommit
 
-object TestAnalyticsConfig extends AnalyticsConfig {
-  val IGNORED_FILE_SUFFIX = ".bin"
-  val botlikeFilenameRegexps: List[String] = List.empty
-  val isExtractIssues: Boolean = true
-  val isExtractHashTags: Boolean = false
-  val ignoreFileSuffixes: List[String] = List(IGNORED_FILE_SUFFIX)
+case class TestHashTagsExtractor() extends HashTagsExtractor {
+  override def hashTagsOfCommit(revCommit: RevCommit): Set[String] = Set.empty
 }
