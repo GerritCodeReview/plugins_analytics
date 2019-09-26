@@ -14,7 +14,11 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.google.gerrit.server.notedb.HashTagsExtractor
+import com.googlesource.gerrit.plugins.analytics.common.AggregatedCommitHistogram.AggregationStrategyMapping
+import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.DYNAMIC_AGGREGATION
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
+import org.slf4j.LoggerFactory
 
 /**
   * Commit filter that includes commits only on the specified interval
@@ -22,25 +26,73 @@ import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
   */
 class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
                                        val branchesExtractor: Option[BranchesExtractor] = None,
+                                       val hashTagsExtractor: Option[HashTagsExtractor] = None,
                                        val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
   extends AbstractCommitHistogramFilter(aggregationStrategy) {
+  private final val log = LoggerFactory.getLogger(classOf[AggregatedHistogramFilterByDates])
 
-  override def include(walker: RevWalk, commit: RevCommit) = {
+  type MaybeBranch = Option[String]
+  type MaybeHashTag = Option[String]
+
+  private def getAggregationStrategies(commit: RevCommit): Seq[AggregationStrategy] = {
+    val branches: Seq[String] = getBranches(commit)
+    val hashTags: Seq[String] = getHashTags(commit)
+    log.debug(s"Branches: $branches, HashTags: $hashTags")
+    val aggregationTuples: Seq[(MaybeBranch, MaybeHashTag)] = getAggregationTuples(branches, hashTags)
+    val dynamicAggregationStrategies = composeAggregationStrategies(aggregationTuples)
+    if(dynamicAggregationStrategies.isEmpty) {
+      Seq(aggregationStrategy)
+    }
+    else {
+      dynamicAggregationStrategies
+    }
+  }
+
+  private def composeAggregationStrategies(aggregationTuples: Seq[(MaybeBranch, MaybeHashTag)]): Seq[DYNAMIC_AGGREGATION] = {
+    aggregationTuples.map {
+      case (maybeBranch: MaybeBranch, maybeHashTag: MaybeHashTag) =>
+        val newMapping: AggregationStrategyMapping = (p, d) => {
+          aggregationStrategy.mapping(p, d).copy(branch = maybeBranch, hashTag = maybeHashTag)
+        }
+        DYNAMIC_AGGREGATION(aggregationStrategy, newMapping)
+    }
+  }
+  private def getAggregationTuples(branches: Seq[String], hashTags: Seq[String]): Seq[(MaybeBranch, MaybeHashTag)] = {
+    val max = Math.max(branches.length, hashTags.length)
+    def keepTuple: (MaybeBranch, MaybeHashTag) => Boolean = { (b, h) =>
+      // If both the aggregations are defined, both the values of the tuple
+      // need to be defined
+      if (branches.nonEmpty && hashTags.nonEmpty) {
+        b.isDefined && h.isDefined
+      } else {
+        true
+      }
+    }
+    (for {
+      maybeBranch <- branches.map(Option(_)).padTo(max,None)
+      maybeHashTag <- hashTags.map(Option(_)).padTo(max,None)
+      if keepTuple(maybeBranch, maybeHashTag)
+    } yield (maybeBranch, maybeHashTag)).distinct
+  }
+  private def getHashTags(commit: RevCommit): Seq[String] = {
+    hashTagsExtractor.map (_.tagsOfCommit(commit)).getOrElse(Seq.empty[String])
+  }
+
+  private def getBranches(commit: RevCommit): Seq[String] = {
+    branchesExtractor.map(_.branchesOfCommit(commit.getId).toSeq).getOrElse(Seq.empty[String])
+  }
+
+  override def include(walker: RevWalk, commit: RevCommit): Boolean = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
-
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      if(branchesExtractor.isDefined) {
-        val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
-        getHistogram.includeWithBranches(commit, author, branches)
-      } else {
-        getHistogram.include(commit, author)
-      }
+      val aggregationsStrategies = getAggregationStrategies(commit)
+      getHistogram.includeWithStrategies(commit, author, aggregationsStrategies)
       true
     } else {
       false
     }
   }
 
-  override def clone = new AggregatedHistogramFilterByDates(from, to, branchesExtractor, aggregationStrategy)
+  override def clone = new AggregatedHistogramFilterByDates(from, to, branchesExtractor, hashTagsExtractor, aggregationStrategy)
 }
