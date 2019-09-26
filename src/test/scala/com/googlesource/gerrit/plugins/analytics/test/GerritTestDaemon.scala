@@ -167,6 +167,8 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
 
   def restSession: RestSession = adminRestSession
 
+  override def createChange(): PushOneCommit#Result = super.createChange()
+
   class TestModule extends AbstractModule {
     override def configure(): Unit = {
       bind(classOf[CommitsStatisticsCache]).to(classOf[CommitsStatisticsNoCache])
