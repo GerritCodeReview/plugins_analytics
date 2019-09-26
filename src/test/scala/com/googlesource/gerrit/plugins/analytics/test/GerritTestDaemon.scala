@@ -17,16 +17,18 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.io.File
 import java.util.{Date, UUID}
 
-import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
-import com.google.gerrit.extensions.annotations.PluginName
+import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil, _}
+import com.google.gerrit.entities.Project
 import com.google.gerrit.extensions.client.SubmitType
-import com.google.gerrit.acceptance._
 import com.google.gerrit.extensions.restapi.RestApiModule
-import com.google.gerrit.reviewdb.client.Project
+import com.google.gerrit.server.notedb.{HashTagsExtractor, HashTagsExtractorFactory}
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
-import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
+import com.google.inject.assistedinject.FactoryModuleBuilder
 import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache
+import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
+import google.gerrit.server.notedb.TestHashTagsExtractor
+import net.codingwell.scalaguice.ScalaModule
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -167,7 +169,9 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
 
   def restSession: RestSession = adminRestSession
 
-  class TestModule extends AbstractModule {
+  override def createChange(): PushOneCommit#Result = super.createChange()
+
+  class TestModule extends AbstractModule with ScalaModule {
     override def configure(): Unit = {
       bind(classOf[CommitsStatisticsCache]).to(classOf[CommitsStatisticsNoCache])
       bind(classOf[AnalyticsConfig]).toInstance(TestAnalyticsConfig)
@@ -176,6 +180,10 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
           get(PROJECT_KIND, "contributors").to(classOf[ContributorsResource])
         }
       })
+      install(new FactoryModuleBuilder()
+        .implement(classOf[HashTagsExtractor], classOf[TestHashTagsExtractor])
+        .build(classOf[HashTagsExtractorFactory])
+      )
     }
   }
 }

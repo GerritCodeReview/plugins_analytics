@@ -49,6 +49,7 @@ class IgnoreFileSuffixFilterSpec extends FlatSpec with Matchers with GerritTestD
   private def newIgnoreFileSuffix(suffixes: String*) = IgnoreFileSuffixFilter(new AnalyticsConfig {
     override lazy val botlikeFilenameRegexps = List.empty
     override lazy val isExtractIssues: Boolean = false
+    override lazy val isExtractHashTags: Boolean = false
     override def ignoreFileSuffixes: List[String] = suffixes.toList
   })
 }
