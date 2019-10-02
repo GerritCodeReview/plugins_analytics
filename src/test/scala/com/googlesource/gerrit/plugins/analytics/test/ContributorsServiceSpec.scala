@@ -47,7 +47,7 @@ class ContributorsServiceSpec extends FlatSpec with Matchers with GerritTestDaem
     val stats = TestGson().fromJson(statsJson.getEntityContent, classOf[UserActivitySummary])
 
     inside(stats) {
-      case UserActivitySummary(_, _, _, _, theAuthorName, theAuthorEmail, numCommits, numFiles, numDistinctFiles, addedLines, deletedLines, commits, _, _, _, _, _, _) =>
+      case UserActivitySummary(_, _, _, _, theAuthorName, theAuthorEmail, numCommits, numFiles, numDistinctFiles, addedLines, deletedLines, commits, _, _, _, _, _, _, _) =>
         theAuthorName shouldBe aContributorName
         theAuthorEmail shouldBe aContributorEmail
         numCommits shouldBe 1
