@@ -55,3 +55,14 @@ to customize the default parameters for the analytics extraction.
     ignore-file-suffix = .png
     ignore-file-suffix = .exe
   ```
+- `contributors.extract-hashtags`
+
+  when set to true, enables the extraction of hash-tags from the change commits
+
+  Default: false
+
+  example:
+  ```ini
+  [contributors]
+    extract-hashtags = true
+  ```

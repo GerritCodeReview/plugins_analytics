@@ -21,4 +21,5 @@ object TestAnalyticsConfig extends AnalyticsConfig {
   val botlikeFilenameRegexps: List[String] = List.empty
   val isExtractIssues: Boolean = true
   val ignoreFileSuffixes: List[String] = List(IGNORED_FILE_SUFFIX)
+  val isExtractHashTags: Boolean = true
 }

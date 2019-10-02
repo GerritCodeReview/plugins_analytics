@@ -22,7 +22,12 @@ The plugin jar file is created under ```target/scala-2.11/analytics.jar```
 
 ## How to install
 
-Copy the analytics.jar generated onto the Gerrit's /plugins directory.
+Copy the analytics.jar generated onto the Gerrit's `/plugins` directory.
+Symlink that into gerrit `lib/` directory:
+```bash
+ln -s plugins/analytics.jar lib/analytics.jar
+```
+This is required as a workaround for [this bug](https://bugs.chromium.org/p/gerrit/issues/detail?id=11603)
 
 ## How to configure
 
