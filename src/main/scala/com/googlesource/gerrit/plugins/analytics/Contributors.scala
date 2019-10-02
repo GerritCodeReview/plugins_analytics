@@ -150,7 +150,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   }
 }
 
-case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: Set[String])
+case class CommitInfo(sha1: String, date: Long, merge: Boolean, botLike: Boolean, files: Set[String], hashTags: Set[String] = Set.empty )
 
 case class IssueInfo(code: String, link: String)
 
@@ -171,7 +171,8 @@ case class UserActivitySummary(year: Option[Int],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean,
-                               isBotLike: Boolean
+                               isBotLike: Boolean,
+                               hasTags: Set[String]
                               )
 
 object UserActivitySummary {
@@ -200,7 +201,8 @@ object UserActivitySummary {
         stat.issues.map(_.link).toArray,
         uca.getLatest,
         stat.isForMergeCommits,
-        stat.isForBotLike
+        stat.isForBotLike,
+        stat.hashTags
       )
     }
   }

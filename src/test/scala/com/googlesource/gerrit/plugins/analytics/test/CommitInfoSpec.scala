@@ -13,8 +13,8 @@ class CommitInfoSpec extends FlatSpec with Matchers {
 
     val actual = gsonBuilder.create().toJson(commitInfo)
     List(actual) should contain oneOf(
-      "{\"sha1\":\"sha\",\"date\":1000,\"merge\":false,\"bot_like\":false,\"files\":[\"file1\",\"file2\"]}",
-      "{\"sha1\":\"sha\",\"date\":1000,\"merge\":false,\"bot_like\":false,\"files\":[\"file2\",\"file1\"]}"
+      "{\"sha1\":\"sha\",\"date\":1000,\"merge\":false,\"bot_like\":false,\"files\":[\"file1\",\"file2\"],\"hash_tags\":[]}",
+      "{\"sha1\":\"sha\",\"date\":1000,\"merge\":false,\"bot_like\":false,\"files\":[\"file2\",\"file1\"],\"hash_tags\":[]}"
     )
   }
 
