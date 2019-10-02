@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5558ced7_bdf9be1c",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2019-10-02T18:19:57Z",
+      "side": 1,
+      "message": "Seems like we are trying to aggregate by hashtags here. I thought hashtags were only used for filtering not aggregation, right?",
+      "revId": "e3ee9e87ef980b5885bd460f0c8888191f897fed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
