@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "806e610a_59f336af",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02edb8a1_42092f92",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "This is basically a reverse lookup of the RefDatabase, correct?\nIt is a mandatory requirement for *any* enrichment of the commits with change data.\nThis should be done one-off and not every time for every call.\n\nAdditionally, you can navigate *ONLY* the refs ending with \u0027/meta\u0027",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8740bd2b_8b3591ec",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "This is the RefDatabase, correct? Why do you need to rebuild it in-memory?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39de1dc7_6cdb5ea9",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "hashtagsOfCommit",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e38380_dd9a228d",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "All of this isn\u0027t needed if you keep only the \u0027/meta\u0027 refs in this map.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 90
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb5b345_51230592",
+        "filename": "src/test/scala/google/gerrit/server/notedb/HashTagsExtractorImplSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-02T18:07:23Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
