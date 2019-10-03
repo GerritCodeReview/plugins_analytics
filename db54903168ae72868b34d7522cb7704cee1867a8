@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62bbbb3d_0dc3038a",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-10-03T14:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "806e610a_59f336af",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02edb8a1_42092f92",
         "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-02T18:07:23Z",
       "side": 1,
       "message": "This is basically a reverse lookup of the RefDatabase, correct?\nIt is a mandatory requirement for *any* enrichment of the commits with change data.\nThis should be done one-off and not every time for every call.\n\nAdditionally, you can navigate *ONLY* the refs ending with \u0027/meta\u0027",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04ff98c_a8f260ad",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-10-03T14:44:59Z",
+      "side": 1,
+      "message": "Now that we use cache, HashTagsExtractor creation should be delegated to CommitsStatisticsLoader.\nBut that means, a new HashTagsExtractor would be created for every call to CommitsStatisticsLoader.load() (i.e. every cache miss)and that cannot be a singleton because it is dependent by repo.\n\nHashTagsExtractor(nameKey, repo, changeNotesCache).hashTagsOfCommit(commits)\n\nSo even if we compute objects to refs, lazily as one-off, that would still need to be done for every call to CommitsStatisticsLoader.load().\n\nI am trying to find a good way to extract tags in a performant way.\n\nAny ideas?",
+      "parentUuid": "02edb8a1_42092f92",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -91,6 +139,30 @@
       "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb31ec6f_5e6ee09c",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-10-03T14:44:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39de1dc7_6cdb5ea9",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +233,30 @@
       "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b46de415_ad105fc5",
+        "filename": "src/test/scala/google/gerrit/server/notedb/HashTagsExtractorImplSpec.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2019-10-03T14:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eb5b345_51230592",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "db54903168ae72868b34d7522cb7704cee1867a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
