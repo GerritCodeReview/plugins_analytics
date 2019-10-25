@@ -18,11 +18,11 @@ import java.io.File
 import java.util.{Date, UUID}
 
 import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
+import com.google.gerrit.entities.Project
 import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.extensions.client.SubmitType
 import com.google.gerrit.acceptance._
 import com.google.gerrit.extensions.restapi.RestApiModule
-import com.google.gerrit.reviewdb.client.Project
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
 import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
