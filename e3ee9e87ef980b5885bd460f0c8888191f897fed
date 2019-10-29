@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "29a1dc81_12903b6b",
+        "filename": "src/main/scala/com/google/gerrit/server/notedb/HashTagsExtractor.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-29T15:53:22Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "e3ee9e87ef980b5885bd460f0c8888191f897fed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5558ced7_bdf9be1c",
         "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/AggregatedHistogramFilterByDates.scala",
         "patchSetId": 6
