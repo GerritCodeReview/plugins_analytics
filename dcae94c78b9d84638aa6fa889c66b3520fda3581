@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c780ab6c_ae6722bc",
+        "filename": "README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-04-24T09:44:34Z",
+      "side": 1,
+      "message": "Missing documentation on how to extract or not hashtags",
+      "revId": "dcae94c78b9d84638aa6fa889c66b3520fda3581",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
