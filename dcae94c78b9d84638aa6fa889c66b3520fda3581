@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "00f751e3_fd3e521a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-04-30T13:35:26Z",
+      "side": 1,
+      "message": "Can this be removed?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "dcae94c78b9d84638aa6fa889c66b3520fda3581",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c780ab6c_ae6722bc",
         "filename": "README.md",
         "patchSetId": 10
