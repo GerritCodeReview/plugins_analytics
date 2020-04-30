@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ce0debf_e17d85f3",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-04-30T16:07:30Z",
+      "side": 1,
+      "message": "Can you put the warning about the performance drawbacks?",
+      "revId": "f05a2ba1683dbaeabc73641a633bd11c8d3a594c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
