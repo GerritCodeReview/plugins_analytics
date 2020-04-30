@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a322b32_78813989",
+        "filename": "src/main/resources/Documentation/caveats.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-04-30T16:16:53Z",
+      "side": 1,
+      "message": "wrap long lines",
+      "range": {
+        "startLine": 3,
+        "startChar": 80,
+        "endLine": 3,
+        "endChar": 92
+      },
+      "revId": "203d538b302c5235cfb0c1dd2246163a885dec55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2feb08a4_0a2c58cd",
+        "filename": "src/main/resources/Documentation/caveats.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-04-30T16:16:53Z",
+      "side": 1,
+      "message": "Can you suggest the -Xmx to use depending on the number commits?",
+      "range": {
+        "startLine": 4,
+        "startChar": 81,
+        "endLine": 4,
+        "endChar": 98
+      },
+      "revId": "203d538b302c5235cfb0c1dd2246163a885dec55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fd00761_b1860d49",
+        "filename": "src/main/resources/Documentation/caveats.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-04-30T16:16:53Z",
+      "side": 1,
+      "message": "nit: space at end of the line.",
+      "range": {
+        "startLine": 6,
+        "startChar": 90,
+        "endLine": 6,
+        "endChar": 91
+      },
+      "revId": "203d538b302c5235cfb0c1dd2246163a885dec55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
