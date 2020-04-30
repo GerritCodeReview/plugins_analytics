@@ -16,6 +16,24 @@
       "revId": "37cc451eec4393dddaad668fd471bb8a4296e74f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35509ccf_b245309f",
+        "filename": "src/main/resources/Documentation/caveats.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-04-30T17:24:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e64d39d_0ede8228",
+      "revId": "37cc451eec4393dddaad668fd471bb8a4296e74f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
