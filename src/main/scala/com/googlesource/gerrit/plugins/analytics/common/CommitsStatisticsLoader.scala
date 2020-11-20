@@ -26,6 +26,7 @@ import org.eclipse.jgit.diff.{DiffFormatter, RawTextComparator}
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.treewalk.{CanonicalTreeParser, EmptyTreeIterator}
 import org.eclipse.jgit.util.io.DisabledOutputStream
+import scala.compat.java8.OptionConverters._
 
 import scala.collection.JavaConverters._
 import scala.util.matching.Regex
@@ -44,7 +45,7 @@ class CommitsStatisticsLoader @Inject() (
     val objectId = cacheKey.commitId
     val nameKey = Project.nameKey(cacheKey.projectName)
     val commentInfoList: Seq[CommentLinkInfo] =
-      if(config.isExtractIssues) projectCache.get(nameKey).getCommentLinks.asScala else Seq.empty
+      if(config.isExtractIssues) projectCache.get(nameKey).asScala.toList.flatMap(_.getCommentLinks.asScala) else Seq.empty
     val replacers = commentInfoList.map(info =>
       Replacer(
         info.`match`.r,
