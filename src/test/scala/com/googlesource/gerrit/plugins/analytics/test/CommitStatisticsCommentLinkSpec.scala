@@ -22,6 +22,8 @@ import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Stat
 import org.eclipse.jgit.lib.Repository
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
+import scala.collection.JavaConverters._
+
 @UseLocalDisk
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
 
@@ -47,6 +49,7 @@ class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon wit
         |[commentlink "link2"]
         |       match = "([Bb]ug:\\s+)(\\d+)"
         |       link = "http://trak.example.com/$2" """.stripMargin, branch = "refs/meta/config")
+    daemonTest.reloadProject(fileRepositoryName)
   }
 
   it should "collect no commentslink if no matching" in new TestEnvironment {
