@@ -23,6 +23,7 @@ import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.extensions.client.SubmitType
 import com.google.gerrit.acceptance._
 import com.google.gerrit.extensions.restapi.RestApiModule
+import com.google.gerrit.server.project.{ProjectConfig, ProjectState}
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
 import com.google.inject.AbstractModule
 import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
@@ -153,6 +154,11 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
   def newProject(nameSuffix: String) = {
     resourcePrefix = ""
     super.createProjectOverAPI(nameSuffix, allProjects, false, SubmitType.MERGE_IF_NECESSARY)
+  }
+
+  def reloadProject(projectName: Project.NameKey): Option[ProjectState] = {
+    projectCache.evict(projectName)
+    Option(projectCache.get(projectName).orElse(null))
   }
 
   def getRepository(projectName: Project.NameKey): FileRepository =
