@@ -34,6 +34,24 @@
       "parentUuid": "543aed17_b01493d8",
       "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6953e8e5_25a90e57",
+        "filename": "build.sbt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-28T13:29:10Z",
+      "side": 0,
+      "message": "But then we would have the same issue: when 3.3.2 is released. Why do we need SNAPSHOT in the first place? On stable-3.2 branch we use 3.2.5.1 and all is fine.",
+      "parentUuid": "7567a040_a889e496",
+      "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
