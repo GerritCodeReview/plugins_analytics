@@ -16,6 +16,24 @@
       "message": "We cannot depend on SNPASHOT plugin API, as snapshots are not published on Maven Central, and the build on the CI is failing with:\n\n  UNRESOLVED DEPENDENCIES \n  com.google.gerrit#gerrit-acceptance-framework;3.3.1-SNAPSHOT: not found\n  com.google.gerrit#gerrit-plugin-api;3.3.1-SNAPSHOT: not found",
       "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7567a040_a889e496",
+        "filename": "build.sbt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-28T13:21:27Z",
+      "side": 0,
+      "message": "The SNAPSHOT build is executed by the CI, but the issue here is that 3.3.1-SNAPSHOT doesn\u0027t exist anymore because 3.3.1 has been released.\n\nShall we just change it to 3.3.2-SNAPSHOT instead?",
+      "parentUuid": "543aed17_b01493d8",
+      "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
