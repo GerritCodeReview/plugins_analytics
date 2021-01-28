@@ -52,6 +52,24 @@
       "parentUuid": "7567a040_a889e496",
       "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5834c2c4_347db72e",
+        "filename": "build.sbt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-28T13:44:13Z",
+      "side": 0,
+      "message": "You are right, let\u0027s stick to released versions :-)",
+      "parentUuid": "6953e8e5_25a90e57",
+      "revId": "234ab8328d82a018363936b5df9acb53630eb9c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
