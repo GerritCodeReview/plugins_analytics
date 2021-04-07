@@ -16,6 +16,29 @@
       "message": "CI is still failing on stable-3.3 branch:\n\nhttps://gerrit-ci.gerritforge.com/view/Plugins-stable-3.3/job/plugin-analytics-sbt-stable-3.3/10/console\n\n01:06:02 [warn] \t::::::::::::::::::::::::::::::::::::::::::::::\n01:06:02 [warn] \t::          UNRESOLVED DEPENDENCIES         ::\n01:06:02 [warn] \t::::::::::::::::::::::::::::::::::::::::::::::\n01:06:02 [warn] \t:: com.google.gerrit#gerrit-acceptance-framework;3.3.1-SNAPSHOT: not found\n01:06:02 [warn] \t:: com.google.gerrit#gerrit-plugin-api;3.3.1-SNAPSHOT: not found\n01:06:02 [warn] \t::::::::::::::::::::::::::::::::::::::::::::::\n",
       "revId": "f8dc43e20ee8a3cf4eced8e110fbc4f571d92b80",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5143cda3_5689adcf",
+        "filename": "build.sbt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-04-07T21:13:58Z",
+      "side": 1,
+      "message": "This should be 3.3.3",
+      "range": {
+        "startLine": 3,
+        "startChar": 24,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "f8dc43e20ee8a3cf4eced8e110fbc4f571d92b80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
