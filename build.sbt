@@ -20,7 +20,7 @@ lazy val root = (project in file("."))
       "io.fabric8" % "gitective-core" % "0.9.54"
         exclude ("org.eclipse.jgit", "org.eclipse.jgit"),
 
-      "com.google.inject" % "guice" % "4.2.3" % Provided,
+      "com.google.inject" % "guice" % "5.0.1" % Provided,
       "com.google.gerrit" % "gerrit-plugin-api" % gerritApiVersion % Provided withSources(),
       "com.google.code.gson" % "gson" % "2.8.5" % Provided,
       "joda-time" % "joda-time" % "2.9.9",
@@ -29,7 +29,7 @@ lazy val root = (project in file("."))
       "com.google.gerrit" % "gerrit-acceptance-framework" % gerritApiVersion % Test,
       "org.bouncycastle" % "bcpg-jdk15on" % "1.61" % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
-      "net.codingwell" %% "scala-guice" % "4.2.6" % Test),
+      "net.codingwell" %% "scala-guice" % "5.0.0" % Test),
 
     assemblyJarName in assembly := s"$pluginName.jar",
 
