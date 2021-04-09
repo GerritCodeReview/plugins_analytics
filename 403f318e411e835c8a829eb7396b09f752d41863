@@ -33,6 +33,23 @@
       "message": "With this change some tests are still failing: [1].\n\n  $ sbt test\n  [...]\n  info] *** 2 TESTS FAILED ***\n  [error] Failed tests:\n  [error]     com.googlesource.gerrit.plugins.analytics.test.CommitStatisticsSpec\n  [error]     com.googlesource.gerrit.plugins.analytics.test.UserActivitySummarySpec\n\n[1] http://paste.openstack.org/show/804330",
       "revId": "403f318e411e835c8a829eb7396b09f752d41863",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00dbfa6f_2775c7f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-09T16:30:40Z",
+      "side": 1,
+      "message": "I am going to go ahead and merge this.\nThe outstanding failures are caused by a jgit change [1], for which I am filing a bug now (as per Mathias request).",
+      "revId": "403f318e411e835c8a829eb7396b09f752d41863",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
