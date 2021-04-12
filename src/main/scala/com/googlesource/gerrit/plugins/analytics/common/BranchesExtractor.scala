@@ -25,19 +25,20 @@ case class BranchesExtractor(repo: Repository) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
     use(new Git(repo)) { git =>
-      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
-        val branchName = ref.getName.drop(Constants.R_HEADS.length)
+      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) {
+        (branchesAcc, ref) =>
+          val branchName = ref.getName.drop(Constants.R_HEADS.length)
 
-        use(new RevWalk(repo)) { rw: RevWalk =>
-          rw.markStart(rw.parseCommit(ref.getObjectId))
-          rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
-            val sha1 = rev.getId
-            thisBranchAcc.get(sha1) match {
-              case Some(set) => thisBranchAcc + (sha1 -> (set + branchName))
-              case None      => thisBranchAcc + (sha1 -> Set(branchName))
+          use(new RevWalk(repo)) { rw: RevWalk =>
+            rw.markStart(rw.parseCommit(ref.getObjectId))
+            rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
+              val sha1 = rev.getId
+              thisBranchAcc.get(sha1) match {
+                case Some(set) => thisBranchAcc + (sha1 -> (set + branchName))
+                case None      => thisBranchAcc + (sha1 -> Set(branchName))
+              }
             }
           }
-        }
       }
     }
   }

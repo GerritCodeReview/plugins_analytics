@@ -30,7 +30,11 @@ object CommitsStatisticsCache {
   final val COMMITS_STATISTICS_CACHE = "commits_statistics_cache"
 }
 
-class CommitsStatisticsCacheImpl @Inject() (@Named(COMMITS_STATISTICS_CACHE) commitStatsCache: LoadingCache[CommitsStatisticsCacheKey, CommitsStatistics]
+class CommitsStatisticsCacheImpl @Inject() (
+    @Named(COMMITS_STATISTICS_CACHE) commitStatsCache: LoadingCache[
+      CommitsStatisticsCacheKey,
+      CommitsStatistics
+    ]
 ) extends CommitsStatisticsCache {
 
   override def get(project: String, objectId: ObjectId): CommitsStatistics =

@@ -24,7 +24,13 @@ trait BotLikeExtractor {
   def isBotLike(files: Set[String]): Boolean
 }
 
-class BotLikeExtractorImpl @Inject() (val analyticsConfig: AnalyticsConfig) extends BotLikeExtractor {
-  private val botRegexps = new Regex(analyticsConfig.botlikeFilenameRegexps.mkString("|"))
-  override def isBotLike(files: Set[String]): Boolean = analyticsConfig.botlikeFilenameRegexps.nonEmpty && files.forall(botRegexps.findFirstIn(_).isDefined)
+class BotLikeExtractorImpl @Inject() (val analyticsConfig: AnalyticsConfig)
+    extends BotLikeExtractor {
+  private val botRegexps = new Regex(
+    analyticsConfig.botlikeFilenameRegexps.mkString("|")
+  )
+  override def isBotLike(files: Set[String]): Boolean =
+    analyticsConfig.botlikeFilenameRegexps.nonEmpty && files.forall(
+      botRegexps.findFirstIn(_).isDefined
+    )
 }

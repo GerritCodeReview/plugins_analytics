@@ -16,8 +16,6 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 object ManagedResource {
   def use[A <: { def close(): Unit }, B](resource: A)(code: A ⇒ B): B =
-    try
-      code(resource)
-    finally
-      resource.close()
+    try code(resource)
+    finally resource.close()
 }

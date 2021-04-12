@@ -26,15 +26,23 @@ trait AnalyticsConfig {
   def ignoreFileSuffixes: List[String]
 }
 
-class AnalyticsConfigImpl @Inject() (val pluginConfigFactory: PluginConfigFactory, @PluginName val pluginName: String) extends AnalyticsConfig{
-  lazy val botlikeFilenameRegexps: List[String] = pluginConfigBotLikeFilenameRegexp
-  lazy val isExtractIssues: Boolean = pluginConfig.getBoolean(Contributors, null, ExtractIssues, false)
-  lazy val ignoreFileSuffixes: List[String] = pluginConfig.getStringList(Contributors, null, IgnoreFileSuffix).toList
+class AnalyticsConfigImpl @Inject() (
+    val pluginConfigFactory: PluginConfigFactory,
+    @PluginName val pluginName: String
+) extends AnalyticsConfig {
+  lazy val botlikeFilenameRegexps: List[String] =
+    pluginConfigBotLikeFilenameRegexp
+  lazy val isExtractIssues: Boolean =
+    pluginConfig.getBoolean(Contributors, null, ExtractIssues, false)
+  lazy val ignoreFileSuffixes: List[String] =
+    pluginConfig.getStringList(Contributors, null, IgnoreFileSuffix).toList
 
-  private lazy val pluginConfig: Config = pluginConfigFactory.getGlobalPluginConfig(pluginName)
+  private lazy val pluginConfig: Config =
+    pluginConfigFactory.getGlobalPluginConfig(pluginName)
   private val Contributors = "contributors"
   private val BotlikeFilenameRegexp = "botlike-filename-regexp"
   private val ExtractIssues = "extract-issues"
   private val IgnoreFileSuffix = "ignore-file-suffix"
-  private lazy val pluginConfigBotLikeFilenameRegexp = pluginConfig.getStringList(Contributors, null, BotlikeFilenameRegexp).toList
+  private lazy val pluginConfigBotLikeFilenameRegexp =
+    pluginConfig.getStringList(Contributors, null, BotlikeFilenameRegexp).toList
 }
