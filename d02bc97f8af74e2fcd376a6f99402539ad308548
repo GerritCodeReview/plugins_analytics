@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4861bb96_c877aba6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-12T18:39:02Z",
+      "side": 1,
+      "message": "Thanks.",
+      "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d23ac60_d9a5a822",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-12T18:39:02Z",
+      "side": 1,
+      "message": "If we always passing true to create empty commit, why we need argument? Also why don\u0027t we use standard method that already doing it?\n\nWhat is also confusing, that only missing root commit shouldn\u0027t trigger this JGit issue, because we have quite some test in gerrit that use corresponding annotation to not create empty commit. And those gerrit tests are passing.",
+      "range": {
+        "startLine": 112,
+        "startChar": 91,
+        "endLine": 112,
+        "endChar": 95
+      },
+      "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
