@@ -39,6 +39,30 @@
       },
       "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c16932c_8f884e51",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-12T19:12:14Z",
+      "side": 1,
+      "message": "\u003e If we always passing true to create empty commit, why we need argument? Also why don\u0027t we use standard method that already doing it?\n\u003e \n\nnewProject is also used elsewhere and some other clients do not pass the boolean value. Check GerritTestDaemon.newProject.\n\n\u003e What is also confusing, that only missing root commit shouldn\u0027t trigger this JGit issue, because we have quite some test in gerrit that use corresponding annotation to not create empty commit. And those gerrit tests are passing.\n\nThere\u0027s a failing test that was reproduced in jgit[1], but I would like the fixing of these tests to be decoupled from that.\n\nThis fix just creates repositories that have a master branch.\nI believe that creating a test with no master branch might not really be representative of.a real use-case scenario.\n\n[1]https://git.eclipse.org/r/c/jgit/jgit/+/175264",
+      "parentUuid": "6d23ac60_d9a5a822",
+      "range": {
+        "startLine": 112,
+        "startChar": 91,
+        "endLine": 112,
+        "endChar": 95
+      },
+      "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
