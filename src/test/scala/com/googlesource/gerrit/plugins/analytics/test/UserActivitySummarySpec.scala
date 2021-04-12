@@ -1,6 +1,7 @@
 package com.googlesource.gerrit.plugins.analytics.test
 
-import com.google.gerrit.acceptance.UseLocalDisk
+import com.google.gerrit.acceptance.{GitUtil, UseLocalDisk}
+import com.google.gerrit.entities.Project
 import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL
 import com.googlesource.gerrit.plugins.analytics.common.{Statistics, TestUtils}
@@ -14,7 +15,9 @@ class UserActivitySummarySpec extends FlatSpec with GerritTestDaemon with TestCo
     val personEmail = "aCommitter@aCompany.com"
 
     // we want merge and non-merge commits to be authored by same person, so that they can be aggregated together
-    val cloneRepo = testFileRepository.gitClone
+    val newProjectKey: Project.NameKey = daemonTest.newProject(testSpecificRepositoryName, true)
+    val repository = daemonTest.getRepository(newProjectKey)
+    val cloneRepo = GitUtil.newTestRepository(repository).gitClone
     getRepoOwnedByPerson(personEmail, repo = cloneRepo)
 
     val personIdent = newPersonIdent("aPerson", personEmail)
@@ -22,8 +25,8 @@ class UserActivitySummarySpec extends FlatSpec with GerritTestDaemon with TestCo
     cloneRepo.mergeCommitFile("anotherFile.txt", "some other content", author = personIdent, committer = personIdent)
     cloneRepo.push
 
-    val aggregatedCommits = aggregateBy(EMAIL)
-    val summary = UserActivitySummary.apply(new Statistics(fileRepositoryName, commitsStatisticsNoCache))(aggregatedCommits.head)
+    val aggregatedCommits = aggregateBy(EMAIL)(repository)
+    val summary = UserActivitySummary.apply(new Statistics(newProjectKey, commitsStatisticsNoCache))(aggregatedCommits.head)
 
     val nonMergeSummary = summary.head
     val mergeSummary = summary.drop(1).head

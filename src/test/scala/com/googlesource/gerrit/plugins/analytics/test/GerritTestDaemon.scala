@@ -17,17 +17,15 @@ package com.googlesource.gerrit.plugins.analytics.test
 import java.io.File
 import java.util.{Date, UUID}
 
-import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil}
+import com.google.gerrit.acceptance.{AbstractDaemonTest, GitUtil, _}
 import com.google.gerrit.entities.Project
-import com.google.gerrit.extensions.annotations.PluginName
 import com.google.gerrit.extensions.client.SubmitType
-import com.google.gerrit.acceptance._
 import com.google.gerrit.extensions.restapi.RestApiModule
-import com.google.gerrit.server.project.{ProjectConfig, ProjectState}
 import com.google.gerrit.server.project.ProjectResource.PROJECT_KIND
+import com.google.gerrit.server.project.ProjectState
 import com.google.inject.AbstractModule
-import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
 import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCache
+import com.googlesource.gerrit.plugins.analytics.{AnalyticsConfig, ContributorsResource}
 import org.eclipse.jgit.api.MergeCommand.FastForwardMode
 import org.eclipse.jgit.api.{Git, MergeResult}
 import org.eclipse.jgit.internal.storage.file.FileRepository
@@ -80,7 +78,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
     testFileRepository = GitUtil.newTestRepository(fileRepository)
   }
 
-  private def testSpecificRepositoryName = "git-test-case-" + UUID.randomUUID().toString
+  protected def testSpecificRepositoryName = "git-test-case-" + UUID.randomUUID().toString
 
   implicit class PimpedGitRepository(repo: TestFileRepository) {
 
@@ -151,9 +149,9 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
   AbstractDaemonTest.temporaryFolder.create()
   tempDataDir.create()
 
-  def newProject(nameSuffix: String) = {
+  def newProject(nameSuffix: String, emptyCommit: Boolean = false) = {
     resourcePrefix = ""
-    super.createProjectOverAPI(nameSuffix, allProjects, false, SubmitType.MERGE_IF_NECESSARY)
+    super.createProjectOverAPI(nameSuffix, allProjects, emptyCommit, SubmitType.MERGE_IF_NECESSARY)
   }
 
   def reloadProject(projectName: Project.NameKey): Option[ProjectState] = {

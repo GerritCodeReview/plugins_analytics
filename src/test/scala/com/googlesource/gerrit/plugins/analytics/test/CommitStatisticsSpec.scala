@@ -14,7 +14,8 @@
 
 package com.googlesource.gerrit.plugins.analytics.test
 
-import com.google.gerrit.acceptance.UseLocalDisk
+import com.google.gerrit.acceptance.{GitUtil, UseLocalDisk}
+import com.google.gerrit.entities.Project
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.scalatest.{FlatSpec, Inside, Matchers}
@@ -49,7 +50,7 @@ class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommi
   }
 
   it should "fail if trying to be added to a CommitStatistics object for a different isMerge value" in {
-    an [IllegalArgumentException] should be thrownBy  (CommitsStatistics.EmptyMerge + CommitsStatistics.EmptyNonMerge)
+    an [IllegalArgumentException] should be thrownBy (CommitsStatistics.EmptyMerge + CommitsStatistics.EmptyNonMerge)
   }
 
   it should "stats multiple files added" in new TestEnvironment {
@@ -107,8 +108,12 @@ class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommi
     }
   }
 
-  it should "split merge commits and non-merge commits" in new TestEnvironment {
-    val clonedRepo = testFileRepository.gitClone
+  it should "split merge commits and non-merge commits" in {
+    val newProjectKey: Project.NameKey = daemonTest.newProject(testSpecificRepositoryName, true)
+    val repository = daemonTest.getRepository(newProjectKey)
+    val clonedRepo = GitUtil.newTestRepository(repository).gitClone
+    val stats = new Statistics(newProjectKey, commitsStatisticsNoCache)
+
     val firstNonMerge = clonedRepo.commitFile("file1.txt", "line1\nline2\n")
     val merge = clonedRepo.mergeCommitFile("file1.txt", "line1\nline2\nline3")
     val nonMerge = clonedRepo.commitFiles(
