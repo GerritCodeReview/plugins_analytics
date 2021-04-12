@@ -18,8 +18,7 @@ import com.google.gerrit.entities.Project
 import com.googlesource.gerrit.plugins.analytics.{CommitInfo, IssueInfo}
 import org.eclipse.jgit.lib.ObjectId
 
-/**
-  * Collects overall stats on a series of commits and provides some basic info on the included commits
+/** Collects overall stats on a series of commits and provides some basic info on the included commits
   *
   * @param addedLines           sum of the number of line additions in the included commits
   * @param deletedLines         sum of the number of line deletions in the included commits
@@ -30,33 +29,40 @@ import org.eclipse.jgit.lib.ObjectId
   * @param commits              list of commits the stats are calculated for
   */
 case class CommitsStatistics(
-                              addedLines: Int,
-                              deletedLines: Int,
-                              isForMergeCommits: Boolean,
-                              isForBotLike: Boolean,
-                              commits: List[CommitInfo],
-                              issues: List[IssueInfo] = Nil
-                            ) {
-  require(commits.forall(_.botLike == isForBotLike), s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type")
-  require(commits.forall(_.merge == isForMergeCommits), s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type")
+    addedLines: Int,
+    deletedLines: Int,
+    isForMergeCommits: Boolean,
+    isForBotLike: Boolean,
+    commits: List[CommitInfo],
+    issues: List[IssueInfo] = Nil
+) {
+  require(
+    commits.forall(_.botLike == isForBotLike),
+    s"Creating a stats object with isForBotLike = $isForBotLike but containing commits of different type"
+  )
+  require(
+    commits.forall(_.merge == isForMergeCommits),
+    s"Creating a stats object with isMergeCommit = $isForMergeCommits but containing commits of different type"
+  )
 
   private lazy val allFiles: List[String] = commits.flatMap(_.files)
 
-  /**
-    * sum of the number of files in each of the included commits
+  /** sum of the number of files in each of the included commits
     */
   lazy val numFiles: Int = allFiles.size
 
-  /**
-    * number of distinct files the included commits have been touching
+  /** number of distinct files the included commits have been touching
     */
   lazy val numDistinctFiles: Int = allFiles.toSet.size
 
   def isEmpty: Boolean = commits.isEmpty
 
   // Is not a proper monoid since we cannot sum a MergeCommit with a non merge one but it would overkill to define two classes
-  def + (that: CommitsStatistics) = {
-    require(this.isForMergeCommits == that.isForMergeCommits, "Cannot sum a merge commit stats with a non merge commit stats")
+  def +(that: CommitsStatistics) = {
+    require(
+      this.isForMergeCommits == that.isForMergeCommits,
+      "Cannot sum a merge commit stats with a non merge commit stats"
+    )
     this.copy(
       addedLines = this.addedLines + that.addedLines,
       deletedLines = this.deletedLines + that.deletedLines,
@@ -67,16 +73,19 @@ case class CommitsStatistics(
 }
 
 object CommitsStatistics {
-  val EmptyNonMerge = CommitsStatistics(0, 0, false, false, List[CommitInfo](), List[IssueInfo]())
+  val EmptyNonMerge =
+    CommitsStatistics(0, 0, false, false, List[CommitInfo](), List[IssueInfo]())
   val EmptyBotNonMerge = EmptyNonMerge.copy(isForBotLike = true)
   val EmptyMerge = EmptyNonMerge.copy(isForMergeCommits = true)
   val EmptyBotMerge = EmptyMerge.copy(isForBotLike = true)
 }
 
-class Statistics(projectNameKey: Project.NameKey, commitStatsCache: CommitsStatisticsCache) {
+class Statistics(
+    projectNameKey: Project.NameKey,
+    commitStatsCache: CommitsStatisticsCache
+) {
 
-  /**
-    * Returns up to four different CommitsStatistics object grouping the stats into:
+  /** Returns up to four different CommitsStatistics object grouping the stats into:
     * Non Merge - Non Bot
     * Merge     - Non Bot
     * Non Merge - Bot
@@ -91,16 +100,26 @@ class Statistics(projectNameKey: Project.NameKey, commitStatsCache: CommitsStati
 
     val (mergeStatsSeq, nonMergeStatsSeq) = stats.partition(_.isForMergeCommits)
 
-    val (mergeBotStatsSeq, mergeNonBotStatsSeq) = mergeStatsSeq.partition(_.isForBotLike)
-    val (nonMergeBotStatsSeq, nonMergeNonBotStatsSeq) = nonMergeStatsSeq.partition(_.isForBotLike)
+    val (mergeBotStatsSeq, mergeNonBotStatsSeq) =
+      mergeStatsSeq.partition(_.isForBotLike)
+    val (nonMergeBotStatsSeq, nonMergeNonBotStatsSeq) =
+      nonMergeStatsSeq.partition(_.isForBotLike)
 
     List(
-      nonMergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyNonMerge)(_ + _), // Non Merge - Non Bot
-      mergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyMerge)(_ + _),       // Merge     - Non Bot
-      nonMergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotNonMerge)(_ + _), // Non Merge - Bot
-      mergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotMerge)(_ + _)        // Merge     - Bot
+      nonMergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyNonMerge)(
+        _ + _
+      ), // Non Merge - Non Bot
+      mergeNonBotStatsSeq.foldLeft(CommitsStatistics.EmptyMerge)(
+        _ + _
+      ), // Merge     - Non Bot
+      nonMergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotNonMerge)(
+        _ + _
+      ), // Non Merge - Bot
+      mergeBotStatsSeq.foldLeft(CommitsStatistics.EmptyBotMerge)(
+        _ + _
+      ) // Merge     - Bot
     )
-    .filterNot(_.isEmpty)
+      .filterNot(_.isEmpty)
   }
 
 }

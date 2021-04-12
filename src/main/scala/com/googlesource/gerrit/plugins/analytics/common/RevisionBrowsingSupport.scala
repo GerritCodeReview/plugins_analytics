@@ -5,7 +5,7 @@ import org.eclipse.jgit.revwalk.RevCommit
 object RevisionBrowsingSupport {
 
   implicit class PimpedRevCommit(val self: RevCommit) extends AnyVal {
-    def isMerge : Boolean = self.getParentCount > 1
+    def isMerge: Boolean = self.getParentCount > 1
   }
 
 }

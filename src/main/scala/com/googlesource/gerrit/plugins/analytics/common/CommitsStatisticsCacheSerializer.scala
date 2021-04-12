@@ -14,12 +14,21 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.io.{
+  ByteArrayInputStream,
+  ByteArrayOutputStream,
+  ObjectInputStream,
+  ObjectOutputStream
+}
 
-import com.google.gerrit.server.cache.serialize.{CacheSerializer, ObjectIdCacheSerializer}
+import com.google.gerrit.server.cache.serialize.{
+  CacheSerializer,
+  ObjectIdCacheSerializer
+}
 import org.eclipse.jgit.lib.{Constants, ObjectId}
 
-object CommitsStatisticsCacheSerializer extends CacheSerializer[CommitsStatistics] {
+object CommitsStatisticsCacheSerializer
+    extends CacheSerializer[CommitsStatistics] {
 
   override def serialize(`object`: CommitsStatistics): Array[Byte] = {
     val stream: ByteArrayOutputStream = new ByteArrayOutputStream()
@@ -37,7 +46,8 @@ object CommitsStatisticsCacheSerializer extends CacheSerializer[CommitsStatistic
   }
 }
 
-object CommitsStatisticsCacheKeySerializer extends CacheSerializer[CommitsStatisticsCacheKey] {
+object CommitsStatisticsCacheKeySerializer
+    extends CacheSerializer[CommitsStatisticsCacheKey] {
 
   override def serialize(obj: CommitsStatisticsCacheKey): Array[Byte] = {
     val objectIdBin = ObjectIdCacheSerializer.INSTANCE.serialize(obj.commitId)
@@ -49,6 +59,9 @@ object CommitsStatisticsCacheKeySerializer extends CacheSerializer[CommitsStatis
     val objectIdBin = in.take(Constants.OBJECT_ID_LENGTH)
     val projectNameBin = in.drop(Constants.OBJECT_ID_LENGTH)
 
-    return CommitsStatisticsCacheKey(new String(projectNameBin), ObjectId.fromRaw(objectIdBin))
+    return CommitsStatisticsCacheKey(
+      new String(projectNameBin),
+      ObjectId.fromRaw(objectIdBin)
+    )
   }
 }

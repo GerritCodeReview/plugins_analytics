@@ -16,21 +16,22 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 
-/**
-  * Commit filter that includes commits only on the specified interval
+/** Commit filter that includes commits only on the specified interval
   * starting from and to excluded
   */
-class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Option[Long] = None,
-                                       val branchesExtractor: Option[BranchesExtractor] = None,
-                                       val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL)
-  extends AbstractCommitHistogramFilter(aggregationStrategy) {
+class AggregatedHistogramFilterByDates(
+    val from: Option[Long] = None,
+    val to: Option[Long] = None,
+    val branchesExtractor: Option[BranchesExtractor] = None,
+    val aggregationStrategy: AggregationStrategy = AggregationStrategy.EMAIL
+) extends AbstractCommitHistogramFilter(aggregationStrategy) {
 
   override def include(walker: RevWalk, commit: RevCommit) = {
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
 
     if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
-      if(branchesExtractor.isDefined) {
+      if (branchesExtractor.isDefined) {
         val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
         getHistogram.includeWithBranches(commit, author, branches)
       } else {
@@ -42,5 +43,10 @@ class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Op
     }
   }
 
-  override def clone = new AggregatedHistogramFilterByDates(from, to, branchesExtractor, aggregationStrategy)
+  override def clone = new AggregatedHistogramFilterByDates(
+    from,
+    to,
+    branchesExtractor,
+    aggregationStrategy
+  )
 }

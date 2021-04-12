@@ -21,15 +21,17 @@ import org.eclipse.jgit.treewalk.filter.TreeFilter
 import org.gitective.core.PathFilterUtils
 
 @Singleton
-case class IgnoreFileSuffixFilter @Inject() (config: AnalyticsConfig) extends TreeFilter {
+case class IgnoreFileSuffixFilter @Inject() (config: AnalyticsConfig)
+    extends TreeFilter {
 
   private lazy val suffixFilter =
     if (config.ignoreFileSuffixes.nonEmpty)
-      PathFilterUtils.orSuffix(config.ignoreFileSuffixes:_*).negate()
+      PathFilterUtils.orSuffix(config.ignoreFileSuffixes: _*).negate()
     else
       TreeFilter.ALL
 
-  override def include(treeWalk: TreeWalk): Boolean = treeWalk.isSubtree || suffixFilter.include(treeWalk)
+  override def include(treeWalk: TreeWalk): Boolean =
+    treeWalk.isSubtree || suffixFilter.include(treeWalk)
   override def shouldBeRecursive(): Boolean = suffixFilter.shouldBeRecursive()
   override def clone(): TreeFilter = this
 }

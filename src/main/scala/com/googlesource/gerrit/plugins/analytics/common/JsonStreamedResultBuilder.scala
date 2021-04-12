@@ -18,8 +18,10 @@ import java.io.{OutputStream, PrintWriter}
 
 import com.google.gerrit.extensions.restapi.BinaryResult
 
-class GsonStreamedResult[T](val jsonFmt: GsonFormatter,
-                            val committers: TraversableOnce[T]) extends BinaryResult {
+class GsonStreamedResult[T](
+    val jsonFmt: GsonFormatter,
+    val committers: TraversableOnce[T]
+) extends BinaryResult {
   override def writeTo(os: OutputStream) =
     ManagedResource.use(new PrintWriter(os))(jsonFmt.format(committers, _))
 }

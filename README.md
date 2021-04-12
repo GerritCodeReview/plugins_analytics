@@ -90,3 +90,14 @@ NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentat
    {"name":"John Doe","email":"john.doe@mycompany.com","num_commits":1, "num_files":4,"added_lines":9,"deleted_lines":1, "commits":[{"sha1":"6a1f73738071e299f600017d99f7252d41b96b4b","date":"Apr 28, 2011 5:13:14 AM","merge":false,"bot_like": false}],"is_bot_like": false,"issues_codes":["PRJ-001"],"issues_links":["https://jira.company.org/PRJ-001"]}
    {"name":"Matt Smith","email":"matt.smith@mycompany.com","num_commits":1, "num_files":1,"added_lines":90,"deleted_lines":10,"commits":[{"sha1":"54527e7e3086758a23e3b069f183db6415aca304","date":"Sep 8, 2015 3:11:23 AM","merge":true,"bot_like": false,}],"is_bot_like": false,"branches":["branch1"],"issues_codes":["PRJ-002","PRJ-003"],"issues_links":["https://jira.company.org/PRJ-002","https://jira.company.org/PRJ-003"]}
 ```
+
+### Formatting
+
+This library uses [scalaformat](https://scalameta.org/scalafmt/) for code formatting.
+You can enable it by using the "format on save" in the editor or by manually issuing:
+
+```bash
+sbt scalafmt
+```
+
+More information can be found [here](https://scalameta.org/scalafmt/docs/installation.html)
