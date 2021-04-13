@@ -87,6 +87,30 @@
       },
       "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7c8819_af7d4e04",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-13T12:06:59Z",
+      "side": 1,
+      "message": "Thanks for clarifying. I agree that we should unblock 3.4 release first, and improve the situation later.",
+      "parentUuid": "311ec552_081f85a2",
+      "range": {
+        "startLine": 112,
+        "startChar": 91,
+        "endLine": 112,
+        "endChar": 95
+      },
+      "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
