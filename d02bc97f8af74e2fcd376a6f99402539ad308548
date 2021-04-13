@@ -63,6 +63,30 @@
       },
       "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311ec552_081f85a2",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/test/CommitStatisticsSpec.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-13T09:24:14Z",
+      "side": 1,
+      "message": "Sorry, I have posted a wrong link before. This is the failing test that @Mathias managed to reproduce[1].\n\nYou can see that is failing with the \"Missing unknown \u003c\u003e\" error, which is exactly the error we get if, when cloning, we se the branch name explicitly to be \"refs/meta/config\" (setBranch(\"refs/meta/config\"), i.e. the only branch created when `initialCommit is false.\n\n@Davido to answer your question this morning: why are we not using directly AbstractDaemonTest methods to create repositories?\n\nThe code is *already* using daemonTest and GitUtil to do so, because it is built working on FileRepository, whilst abstractDaemonTest creates InMemoryRepository.\n\nThis it not a change that we introduce as part of this fix, it is already the case and we are just fixing the tests maintaining the created repo with the signature type it has before.\n\nAs I said, this is one way to fix it (which I believe makes tests closer to reality). Another way to fix it would be to wait for[1] to be merged and see if calling setBranch(\u0027refs/meta/config\u0027) explicitly does the trick.\n\nI suggest that we go with the first solution so that we can unblock 3.4 release.\n\nWDYT?\n\n[1]https://git.eclipse.org/r/c/jgit/jgit/+/179172",
+      "parentUuid": "5c16932c_8f884e51",
+      "range": {
+        "startLine": 112,
+        "startChar": 91,
+        "endLine": 112,
+        "endChar": 95
+      },
+      "revId": "d02bc97f8af74e2fcd376a6f99402539ad308548",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
