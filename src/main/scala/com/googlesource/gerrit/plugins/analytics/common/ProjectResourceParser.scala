@@ -29,7 +29,10 @@ trait ProjectResourceParser {
       this.projectRes = projects.parse(project)
     } catch {
       case e: Exception =>
-        throw new IllegalArgumentException("Error while trying to access project " + project, e)
+        throw new IllegalArgumentException(
+          "Error while trying to access project " + project,
+          e
+        )
     }
   }
 }
