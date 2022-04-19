@@ -16,6 +16,24 @@
       "message": "luca just published 3.6.0-rc1, perhaps we can point to that?",
       "revId": "affb4d79df978053a404b97be30a23a88714525a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a96973f6_cf0d319c",
+        "filename": "build.sbt",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-04-19T12:08:28Z",
+      "side": 1,
+      "message": "The RCs will be moving all the times for the next weeks: let\u0027s keep the RC0 for now and we\u0027ll update it at the end.",
+      "parentUuid": "324b66ec_d3e2b790",
+      "revId": "affb4d79df978053a404b97be30a23a88714525a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
