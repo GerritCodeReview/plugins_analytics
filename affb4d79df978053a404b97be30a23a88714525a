@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "324b66ec_d3e2b790",
+        "filename": "build.sbt",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-04-19T09:33:36Z",
+      "side": 1,
+      "message": "luca just published 3.6.0-rc1, perhaps we can point to that?",
+      "revId": "affb4d79df978053a404b97be30a23a88714525a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
