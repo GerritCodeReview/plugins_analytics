@@ -16,7 +16,7 @@ lazy val root = (project in file("."))
     resolvers += Resolver.mavenLocal,
     version := gerritApiVersion,
 
-    scalaVersion := "2.11.12",
+    scalaVersion := "2.13.10",
 
     libraryDependencies ++= Seq(
       "io.fabric8" % "gitective-core" % "0.9.54"

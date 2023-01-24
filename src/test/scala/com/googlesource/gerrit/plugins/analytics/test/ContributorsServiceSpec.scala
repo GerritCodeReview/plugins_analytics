@@ -26,7 +26,7 @@ import org.scalatest.Inside
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 @UseLocalDisk
 class ContributorsServiceSpec extends AnyFlatSpecLike with Matchers with GerritTestDaemon with Inside {
