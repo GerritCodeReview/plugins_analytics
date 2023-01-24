@@ -18,10 +18,12 @@ import com.google.gerrit.acceptance.{GitUtil, UseLocalDisk}
 import com.google.gerrit.entities.Project
 import com.googlesource.gerrit.plugins.analytics.CommitInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
-import org.scalatest.{FlatSpec, Inside, Matchers}
+import org.scalatest.Inside
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
 @UseLocalDisk
-class CommitStatisticsSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
+class CommitStatisticsSpec extends AnyFlatSpecLike with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
   class TestEnvironment {
     val repo = fileRepository
     val stats = new Statistics(fileRepositoryName, commitsStatisticsNoCache)

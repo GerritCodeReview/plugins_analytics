@@ -13,7 +13,7 @@ lazy val root = (project in file("."))
     name := pluginName,
     version := gerritApiVersion,
 
-    scalaVersion := "2.11.12",
+    scalaVersion := "2.13.10",
 
     libraryDependencies ++= Seq(
       "io.fabric8" % "gitective-core" % "0.9.54"
@@ -27,10 +27,10 @@ lazy val root = (project in file("."))
 
       "com.google.gerrit" % "gerrit-acceptance-framework" % gerritApiVersion % Test,
       "org.bouncycastle" % "bcpg-jdk15on" % "1.61" % Test,
-      "org.scalatest" %% "scalatest" % "3.0.1" % Test,
+      "org.scalatest" %% "scalatest" % "3.2.15" % Test,
       "net.codingwell" %% "scala-guice" % "5.0.0" % Test),
 
-    assemblyJarName in assembly := s"$pluginName.jar",
+    assembly / assemblyJarName := s"$pluginName.jar",
 
     packageOptions in(Compile, packageBin) += Package.ManifestAttributes(
       ("Gerrit-ApiType", "plugin"),
