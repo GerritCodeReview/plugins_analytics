@@ -19,18 +19,18 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
 
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 
 case class BranchesExtractor(repo: Repository) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
     use(new Git(repo)) { git =>
-      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
+      git.branchList.call.asScala.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
         val branchName = ref.getName.drop(Constants.R_HEADS.length)
 
         use(new RevWalk(repo)) { rw: RevWalk =>
           rw.markStart(rw.parseCommit(ref.getObjectId))
-          rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
+          rw.asScala.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
             val sha1 = rev.getId
             thisBranchAcc.get(sha1) match {
               case Some(set) => thisBranchAcc + (sha1 -> (set + branchName))
