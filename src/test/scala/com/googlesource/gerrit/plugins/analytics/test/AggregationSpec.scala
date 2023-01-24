@@ -21,10 +21,12 @@ import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy._
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions.isoStringToLongDate
 import com.googlesource.gerrit.plugins.analytics.common.TestUtils
 import org.eclipse.jgit.revwalk.RevCommit
-import org.scalatest.{FlatSpec, Inspectors, Matchers}
+import org.scalatest.Inspectors
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
 @UseLocalDisk
-class AggregationSpec extends FlatSpec with Matchers with GerritTestDaemon with TestUtils with Inspectors {
+class AggregationSpec extends AnyFlatSpecLike with Matchers with GerritTestDaemon with TestUtils with Inspectors {
 
   def commitAtDate(committer: String, when: String, content: String): RevCommit = {
     val personIdent = newPersonIdent(committer, committer, new Date(isoStringToLongDate(when)))
