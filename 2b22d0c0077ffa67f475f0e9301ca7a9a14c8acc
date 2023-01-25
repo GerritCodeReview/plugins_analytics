@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb8b0ce_32a0b273",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-01-25T10:07:32Z",
+      "side": 1,
+      "message": "Not able to download the Gerrit plugin sources with Java 11 (openjdk full version \"11.0.17+0\"):\n\n[error] lmcoursier.internal.shaded.coursier.error.FetchError$DownloadingArtifacts: Error fetching artifacts:\n[error] file:/Users/lucamilanesio/.m2/repository/com/google/gerrit/gerrit-plugin-api/3.7.0-rc3/gerrit-plugin-api-3.7.0-rc3-sources.jar: not found: /Users/lucamilanesio/.m2/repository/com/google/gerrit/gerrit-plugin-api/3.7.0-rc3/gerrit-plugin-api-3.7.0-rc3-sources.jar\n[error]\n[error] \tat lmcoursier.internal.shaded.coursier.Artifacts$.$anonfun$fetchArtifacts$9(Artifacts.scala:365)\n[error] \tat lmcoursier.internal.shaded.coursier.util.Task$.$anonfun$flatMap$extension$1(Task.scala:14)\n[error] \tat lmcoursier.internal.shaded.coursier.util.Task$.$anonfun$flatMap$extension$1$adapted(Task.scala:14)\n[error] \tat lmcoursier.internal.shaded.coursier.util.Task$.wrap(Task.scala:82)\n[error] \tat lmcoursier.internal.shaded.coursier.util.Task$.$anonfun$flatMap$2(Task.scala:14)\n[error] \tat scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:307)\n[error] \tat scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)\n[error] \tat scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)\n[error] \tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n[error] \tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n[error] \tat java.base/java.lang.Thread.run(Thread.java:829)\n[error] Caused by: lmcoursier.internal.shaded.coursier.cache.ArtifactError$NotFound: not found: /Users/lucamilanesio/.m2/repository/com/google/gerrit/gerrit-plugin-api/3.7.0-rc3/gerrit-plugin-api-3.7.0-rc3-sources.jar\n[error] \tat lmcoursier.internal.shaded.coursier.cache.internal.Downloader.$anonfun$checkFileExists$1(Downloader.scala:590)\n[error] \tat scala.concurrent.Future$.$anonfun$apply$1(Future.scala:659)\n[error] \tat scala.util.Success.$anonfun$map$1(Try.scala:255)\n[error] \tat scala.util.Success.map(Try.scala:213)\n[error] \tat scala.concurrent.Future.$anonfun$map$1(Future.scala:292)\n[error] \tat scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:33)\n[error] \tat scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)\n[error] \tat scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)\n[error] \tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n[error] \tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n[error] \tat java.base/java.lang.Thread.run(Thread.java:829)\n[error] (update) lmcoursier.internal.shaded.coursier.error.FetchError$DownloadingArtifacts: Error fetching artifacts:\n[error] file:/Users/lucamilanesio/.m2/repository/com/google/gerrit/gerrit-plugin-api/3.7.0-rc3/gerrit-plugin-api-3.7.0-rc3-sources.jar: not found: /Users/lucamilanesio/.m2/repository/com/google/gerrit/gerrit-plugin-api/3.7.0-rc3/gerrit-plugin-api-3.7.0-rc3-sources.jar\n[error] Total time: 2 s, completed 25 Jan 2023, 10:04:41",
+      "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
