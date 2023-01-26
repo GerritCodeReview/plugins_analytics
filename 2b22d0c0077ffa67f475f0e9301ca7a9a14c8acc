@@ -34,6 +34,24 @@
       "parentUuid": "dcb8b0ce_32a0b273",
       "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edfc1ed9_64950eb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155610
+      },
+      "writtenOn": "2023-01-26T18:39:21Z",
+      "side": 1,
+      "message": "yeah that\u0027s what we where confused by as well in the office, why it didn\u0027t try to download from maven.\nCurrently I\u0027ve got 2 options:\n- Either internet connection had a micro-bleep when we tried this and couldn\u0027t connect? (But assume it would show an error pulling from maven still).\n- Maybe something to do with odd SBT configs on a particular machine? Maybe it\u0027s worth including an SBT wrapper such as [sbt-extras](https://github.com/dwijnand/sbt-extras) to ensure these is not the case.",
+      "parentUuid": "a4513cdc_d4fc34cc",
+      "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
