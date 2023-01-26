@@ -28,7 +28,7 @@ class AggregatedCommitHistogram(var aggregationStrategy: AggregationStrategy)
   extends CommitHistogram {
 
   def includeWithBranches(commit: RevCommit, user: PersonIdent, branches: Set[String]): Unit = {
-    for (branch <- branches) {
+    branches.foreach { branch =>
       val originalStrategy = aggregationStrategy
       this.aggregationStrategy = BY_BRANCH(branch, aggregationStrategy)
       this.include(commit, user)
