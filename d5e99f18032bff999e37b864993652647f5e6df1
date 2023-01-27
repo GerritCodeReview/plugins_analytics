@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39ef09ce_6cff6639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-01-27T16:36:28Z",
+      "side": 1,
+      "message": "It did not pass the test in my machine because a well know problem with my JDK @david.ostrovsky@gmail.com explained very well the problem: explained here https://github.com/bazelbuild/bazel/issues/13323",
+      "revId": "d5e99f18032bff999e37b864993652647f5e6df1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
