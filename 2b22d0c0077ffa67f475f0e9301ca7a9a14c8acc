@@ -70,6 +70,23 @@
       "parentUuid": "edfc1ed9_64950eb3",
       "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e632068c_af0b21ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-01-27T15:36:38Z",
+      "side": 1,
+      "message": "This test is failing:\n```\ncom.googlesource.gerrit.plugins.analytics.test.ContributorsServiceSpec\n```",
+      "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
