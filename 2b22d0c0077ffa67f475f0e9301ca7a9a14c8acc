@@ -87,6 +87,24 @@
       "message": "This test is failing:\n```\ncom.googlesource.gerrit.plugins.analytics.test.ContributorsServiceSpec\n```",
       "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f2c79a_931c19a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-01-27T16:57:50Z",
+      "side": 1,
+      "message": "AFAIK `resolvers +\u003d Resolver.mavenLocal` _adds_ a resolver, so it should still cascade looking in the maven repo.\n\nI believe that is there to allow compiling against gerrit APIs that haven\u0027t been released (i.e. running `/tools/maven/api.sh install` publishes the `SNAPSHOT` api to local maven).\n\nit was introduced by @luca.milanesio@gmail.com here [1]\n\n\n[1]https://gerrit-review.googlesource.com/c/plugins/analytics/+/196071",
+      "parentUuid": "cccead76_a43bc330",
+      "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
