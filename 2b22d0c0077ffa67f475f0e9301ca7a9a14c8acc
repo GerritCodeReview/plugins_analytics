@@ -52,6 +52,24 @@
       "parentUuid": "a4513cdc_d4fc34cc",
       "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cccead76_a43bc330",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155610
+      },
+      "writtenOn": "2023-01-27T14:54:22Z",
+      "side": 1,
+      "message": "Ok, we seem to have found the issue. In build.sbt we add `resolvers +\u003d Resolver.mavenLocal`, removing that seems to make it work on @luca.milanesio@gmail.com\u0027s laptop. \nI\u0027m now unsure why it works on our machines @syntonyze@gmail.com.\nI struggle to see why this would be needed though, could it be a leftover from some previous testing?",
+      "parentUuid": "edfc1ed9_64950eb3",
+      "revId": "2b22d0c0077ffa67f475f0e9301ca7a9a14c8acc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
