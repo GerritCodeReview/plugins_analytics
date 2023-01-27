@@ -11,7 +11,6 @@ concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,
-    resolvers += Resolver.mavenLocal,
     version := gerritApiVersion,
 
     scalaVersion := "2.11.12",
