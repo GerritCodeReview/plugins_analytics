@@ -46,10 +46,9 @@ class CommitsStatisticsLoader @Inject() (
     val nameKey = Project.nameKey(cacheKey.projectName)
     val commentInfoList: Seq[CommentLinkInfo] =
       if(config.isExtractIssues) projectCache.get(nameKey).asScala.toList.flatMap(_.getCommentLinks.asScala) else Seq.empty
-    val replacers = commentInfoList.map(info =>
-      Replacer(
-        info.`match`.r,
-        Option(info.link).getOrElse(info.html)))
+    val replacers = commentInfoList.flatMap(info =>
+      Option(info.link).map(link => Replacer(info.`match`.r, link))
+    )
 
     use(gitRepositoryManager.openRepository(nameKey)) { repo =>
 
