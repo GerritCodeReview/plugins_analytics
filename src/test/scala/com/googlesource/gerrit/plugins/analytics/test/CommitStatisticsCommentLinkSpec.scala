@@ -27,14 +27,6 @@ import scala.collection.JavaConverters._
 @UseLocalDisk
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
 
-  def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
-    val info = new CommentLinkInfo
-    info.`match` = pattern
-    info.link = link.getOrElse(null)
-    info.html = html.getOrElse(null)
-    info
-  }
-
   class TestEnvironment(val repo: Repository = fileRepository) {
     lazy val stats = new Statistics(fileRepositoryName, commitsStatisticsNoCache)
     testFileRepository.commitFile("project.config",
