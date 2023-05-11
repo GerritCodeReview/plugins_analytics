@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.analytics.test
 
 import com.google.gerrit.acceptance.UseLocalDisk
-import com.google.gerrit.extensions.api.projects.CommentLinkInfo
 import com.google.gerrit.server.git.GitRepositoryManager
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
@@ -26,14 +25,6 @@ import scala.collection.JavaConverters._
 
 @UseLocalDisk
 class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
-
-  def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
-    val info = new CommentLinkInfo
-    info.`match` = pattern
-    info.link = link.getOrElse(null)
-    info.html = html.getOrElse(null)
-    info
-  }
 
   class TestEnvironment(val repo: Repository = fileRepository) {
     lazy val stats = new Statistics(fileRepositoryName, commitsStatisticsNoCache)
