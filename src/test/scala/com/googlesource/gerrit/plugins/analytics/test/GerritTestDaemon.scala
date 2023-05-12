@@ -159,8 +159,11 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
     Option(projectCache.get(projectName).orElse(null))
   }
 
-  def getRepository(projectName: Project.NameKey): FileRepository =
-    repoManager.openRepository(projectName).asInstanceOf[FileRepository]
+  def getRepository(projectName: Project.NameKey): FileRepository = {
+    val repo = repoManager.openRepository(projectName)
+    println("FOOOOOOOOOOOOOOOO " + repo.getClass.getName)
+    repo.asInstanceOf[FileRepository]
+  }
 
   def adminAuthor = admin.newIdent
 
