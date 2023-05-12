@@ -140,6 +140,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
   }
 }
 
+@UseLocalDisk
 @TestPlugin(
   name = "analytics",
   sysModule = "com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon$TestModule"
