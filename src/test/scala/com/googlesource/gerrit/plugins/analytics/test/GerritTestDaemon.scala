@@ -161,7 +161,10 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
   }
 
   def getRepository(projectName: Project.NameKey): FileRepository =
-    repoManager.openRepository(projectName).asInstanceOf[FileRepository]
+    repoManager.openRepository(projectName) match {
+      case repository: FileRepository => repository
+      case repository => throw new IllegalStateException(s"Expected 'FileRepository', got ${repository.getClass.getName}")
+    }
 
   def adminAuthor = admin.newIdent
 
