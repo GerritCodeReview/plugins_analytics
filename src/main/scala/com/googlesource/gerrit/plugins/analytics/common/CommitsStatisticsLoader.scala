@@ -38,6 +38,7 @@ class CommitsStatisticsLoader @Inject() (
   config: AnalyticsConfig,
   ignoreFileSuffixFilter: IgnoreFileSuffixFilter
 ) extends CacheLoader[CommitsStatisticsCacheKey, CommitsStatistics] {
+  import CommitsStatisticsLoader._
 
   override def load(cacheKey: CommitsStatisticsCacheKey): CommitsStatistics = {
     import RevisionBrowsingSupport._
@@ -101,9 +102,9 @@ class CommitsStatisticsLoader @Inject() (
             IssueInfo(code, transformed)
           })
     }
+}
 
-
-
+object CommitsStatisticsLoader {
   final private case class Replacer(pattern: Regex, replaced: String)
 
   final private case class Lines(deleted: Int, added: Int) {
