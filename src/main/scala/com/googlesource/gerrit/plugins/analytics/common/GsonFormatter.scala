@@ -31,7 +31,7 @@ class GsonFormatter {
   def format[T](values: IterableOnce[T], out: PrintWriter) = {
     val gson: Gson = gsonBuilder.create
 
-    for (value <- values) {
+    values.iterator.foreach {value =>
       gson.toJson(value, out)
       out.println()
     }
