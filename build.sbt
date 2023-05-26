@@ -8,6 +8,8 @@ git.useGitDescribe := true
 
 concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
 
+ThisBuild / scalacOptions += "-feature"
+
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,

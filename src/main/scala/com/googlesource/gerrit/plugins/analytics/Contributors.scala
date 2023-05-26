@@ -44,7 +44,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setBeginDate(date: String) {
     try {
-      beginDate = Some(date)
+      beginDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw die(s"Invalid begin date ${e.getMessage}")
     }
@@ -54,7 +54,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
     try {
-      endDate = Some(date)
+      endDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw die(s"Invalid end date ${e.getMessage}")
     }
@@ -90,7 +90,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setBeginDate(date: String) {
     try {
-      beginDate = Some(date)
+      beginDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw new BadRequestException(s"Invalid begin date ${e.getMessage}")
     }
@@ -100,7 +100,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setEndDate(date: String) {
     try {
-      endDate = Some(date)
+      endDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw new BadRequestException(s"Invalid end date ${e.getMessage}")
     }
