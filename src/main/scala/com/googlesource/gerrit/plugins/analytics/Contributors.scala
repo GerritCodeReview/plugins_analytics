@@ -147,7 +147,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
-        .toStream
+        .to(LazyList)
     }
   }
 }
