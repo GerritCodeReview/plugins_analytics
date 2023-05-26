@@ -71,7 +71,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
   def newPersonIdent(name: String = "Test Person", email: String = "person@test.com", ts: Date = new Date()) =
     new PersonIdent(new PersonIdent(name, email), ts)
 
-  override def beforeEach {
+  override def beforeEach() {
     daemonTest.setUpTestPlugin()
     fileRepositoryName = daemonTest.newProject(testSpecificRepositoryName)
     fileRepository = daemonTest.getRepository(fileRepositoryName)
