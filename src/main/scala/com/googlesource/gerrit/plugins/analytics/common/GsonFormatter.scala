@@ -39,7 +39,7 @@ class GsonFormatter {
 
   class IterableSerializer extends JsonSerializer[Iterable[Any]] {
     override def serialize(src: Iterable[Any], typeOfSrc: Type, context: JsonSerializationContext): JsonElement = {
-      import scala.collection.JavaConverters._
+      import scala.jdk.CollectionConverters._
       context.serialize(src.asJava)
     }
   }
