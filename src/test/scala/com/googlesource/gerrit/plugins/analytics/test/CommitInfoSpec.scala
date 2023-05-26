@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
 class CommitInfoSpec extends AnyFlatSpecLike with Matchers {
 
   "CommitInfo" should "be serialised as JSON correctly" in {
-    val commitInfo = CommitInfo(sha1 = "sha", date = 1000l, merge = false, botLike = false, files = Set("file1", "file2"))
+    val commitInfo = CommitInfo(sha1 = "sha", date = 1000L, merge = false, botLike = false, files = Set("file1", "file2"))
 
     val gsonBuilder = new GsonFormatter().gsonBuilder
 
