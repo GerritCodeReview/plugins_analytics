@@ -31,9 +31,9 @@ lazy val root = (project in file("."))
       "org.scalatest" %% "scalatest" % "3.0.1" % Test,
       "net.codingwell" %% "scala-guice" % "5.0.0" % Test),
 
-    assemblyJarName in assembly := s"$pluginName.jar",
+    assembly / assemblyJarName := s"$pluginName.jar",
 
-    packageOptions in(Compile, packageBin) += Package.ManifestAttributes(
+    Compile / packageBin / packageOptions += Package.ManifestAttributes(
       ("Gerrit-ApiType", "plugin"),
       ("Gerrit-PluginName", pluginName),
       ("Gerrit-Module", "com.googlesource.gerrit.plugins.analytics.Module"),
