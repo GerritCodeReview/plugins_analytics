@@ -44,7 +44,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setBeginDate(date: String) {
+  def setBeginDate(date: String) = {
     try {
       beginDate = Some(date.isoStringToLongDate)
     } catch {
@@ -54,7 +54,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--until", aliases = Array("--before", "-e"),
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setEndDate(date: String) {
+  def setEndDate(date: String) = {
     try {
       endDate = Some(date.isoStringToLongDate)
     } catch {
@@ -64,7 +64,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--aggregate", aliases = Array("-g"),
     usage = "Type of aggregation requested. ")
-  def setGranularity(value: String) {
+  def setGranularity(value: String) = {
     try {
       granularity = Some(AggregationStrategy.apply(value))
     } catch {
@@ -90,7 +90,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setBeginDate(date: String) {
+  def setBeginDate(date: String) = {
     try {
       beginDate = Some(date.isoStringToLongDate)
     } catch {
@@ -100,7 +100,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY",
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setEndDate(date: String) {
+  def setEndDate(date: String) = {
     try {
       endDate = Some(date.isoStringToLongDate)
     } catch {
@@ -110,7 +110,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), metaVar = "QUERY",
     usage = "can be one of EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR, defaulting to EMAIL")
-  def setGranularity(value: String) {
+  def setGranularity(value: String) = {
     try {
       granularity = Some(AggregationStrategy.apply(value))
     } catch {
