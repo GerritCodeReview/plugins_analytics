@@ -139,7 +139,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
-  : TraversableOnce[UserActivitySummary] = {
+  : IterableOnce[UserActivitySummary] = {
 
     Using.resource(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)

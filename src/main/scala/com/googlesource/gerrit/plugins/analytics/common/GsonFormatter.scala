@@ -28,7 +28,7 @@ class GsonFormatter {
       .registerTypeHierarchyAdapter(classOf[Iterable[Any]], new IterableSerializer)
       .registerTypeHierarchyAdapter(classOf[Option[Any]], new OptionSerializer())
 
-  def format[T](values: TraversableOnce[T], out: PrintWriter) = {
+  def format[T](values: IterableOnce[T], out: PrintWriter) = {
     val gson: Gson = gsonBuilder.create
 
     for (value <- values) {

@@ -8,7 +8,7 @@ git.useGitDescribe := true
 
 concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
 
-ThisBuild / scalacOptions += "-feature"
+ThisBuild / scalacOptions ++= Seq("-deprecation", "-feature")
 
 lazy val root = (project in file("."))
   .settings(

@@ -21,7 +21,7 @@ import com.google.gerrit.extensions.restapi.BinaryResult
 import scala.util.Using
 
 class GsonStreamedResult[T](val jsonFmt: GsonFormatter,
-                            val committers: TraversableOnce[T]) extends BinaryResult {
+                            val committers: IterableOnce[T]) extends BinaryResult {
   override def writeTo(os: OutputStream) =
     Using.resource(new PrintWriter(os))(jsonFmt.format(committers, _))
 }
