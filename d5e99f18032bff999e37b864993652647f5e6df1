@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "84379d8e_509f6824",
+        "filename": ".bsp/sbt.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-05-26T08:58:37Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be here - `.bsp` should be added to the `.gitignore` file.",
+      "revId": "d5e99f18032bff999e37b864993652647f5e6df1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "39ef09ce_6cff6639",
