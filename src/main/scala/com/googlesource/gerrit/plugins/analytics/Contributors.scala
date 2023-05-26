@@ -180,7 +180,7 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+    statisticsHandler.forCommits(uca.getIds.toIndexedSeq: _*).map { stat =>
       val maybeBranches =
         uca.key.branch.fold(Array.empty[String])(Array(_))
 
