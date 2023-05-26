@@ -24,6 +24,8 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
 
+import scala.util.Using
+
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
@@ -139,7 +141,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
           aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
   : TraversableOnce[UserActivitySummary] = {
 
-    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
+    Using.resource(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
