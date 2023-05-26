@@ -32,8 +32,8 @@ class CommitStatisticsCommentLinkSpec extends AnyFlatSpecLike with GerritTestDae
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
     val info = new CommentLinkInfo
     info.`match` = pattern
-    info.link = link.getOrElse(null)
-    info.html = html.getOrElse(null)
+    info.link = link.orNull
+    info.html = html.orNull
     info
   }
 
