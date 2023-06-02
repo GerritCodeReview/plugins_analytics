@@ -2,5 +2,8 @@
 .project
 .classpath
 .settings/
+.vscode
+.bsp
 target/
 /bin/
+/project/project

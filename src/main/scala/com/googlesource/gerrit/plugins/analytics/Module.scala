@@ -22,7 +22,7 @@ import com.googlesource.gerrit.plugins.analytics.common.CommitsStatisticsCacheMo
 
 class Module extends AbstractModule {
 
-  override protected def configure() {
+  override protected def configure() = {
     bind(classOf[BotLikeExtractor]).to(classOf[BotLikeExtractorImpl])
 
     install(new CommitsStatisticsCacheModule())

@@ -18,5 +18,7 @@ import com.google.gerrit.json.JavaSqlTimestampHelper
 
 object DateConversions {
 
-  implicit def isoStringToLongDate(s: String): Long = JavaSqlTimestampHelper.parseTimestamp(s).getTime
+  implicit class StringOps(val s: String) extends AnyVal {
+    def isoStringToLongDate: Long = JavaSqlTimestampHelper.parseTimestamp(s).getTime
+  }
 }

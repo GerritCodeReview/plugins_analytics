@@ -28,10 +28,10 @@ class GsonFormatter {
       .registerTypeHierarchyAdapter(classOf[Iterable[Any]], new IterableSerializer)
       .registerTypeHierarchyAdapter(classOf[Option[Any]], new OptionSerializer())
 
-  def format[T](values: TraversableOnce[T], out: PrintWriter) {
+  def format[T](values: IterableOnce[T], out: PrintWriter) = {
     val gson: Gson = gsonBuilder.create
 
-    for (value <- values) {
+    values.iterator.foreach {value =>
       gson.toJson(value, out)
       out.println()
     }
@@ -39,7 +39,7 @@ class GsonFormatter {
 
   class IterableSerializer extends JsonSerializer[Iterable[Any]] {
     override def serialize(src: Iterable[Any], typeOfSrc: Type, context: JsonSerializationContext): JsonElement = {
-      import scala.collection.JavaConverters._
+      import scala.jdk.CollectionConverters._
       context.serialize(src.asJava)
     }
   }
