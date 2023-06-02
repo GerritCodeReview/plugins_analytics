@@ -2,10 +2,11 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
 @UseLocalDisk
-class BranchesExtractorSpec extends FlatSpec with Matchers with GerritTestDaemon {
+class BranchesExtractorSpec extends AnyFlatSpecLike with Matchers with GerritTestDaemon {
   def commitsBranches = new BranchesExtractor(testFileRepository.getRepository)
 
   behavior of "branchesOfCommit"

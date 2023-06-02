@@ -8,13 +8,15 @@ git.useGitDescribe := true
 
 concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
 
+ThisBuild / scalacOptions ++= Seq("-deprecation", "-feature")
+
 lazy val root = (project in file("."))
   .settings(
     name := pluginName,
     resolvers += Resolver.mavenLocal,
     version := gerritApiVersion,
 
-    scalaVersion := "2.11.12",
+    scalaVersion := "2.13.10",
 
     libraryDependencies ++= Seq(
       "io.fabric8" % "gitective-core" % "0.9.54"
@@ -28,12 +30,12 @@ lazy val root = (project in file("."))
 
       "com.google.gerrit" % "gerrit-acceptance-framework" % gerritApiVersion % Test,
       "org.bouncycastle" % "bcpg-jdk15on" % "1.61" % Test,
-      "org.scalatest" %% "scalatest" % "3.0.1" % Test,
+      "org.scalatest" %% "scalatest" % "3.2.16" % Test,
       "net.codingwell" %% "scala-guice" % "5.0.0" % Test),
 
-    assemblyJarName in assembly := s"$pluginName.jar",
+    assembly / assemblyJarName := s"$pluginName.jar",
 
-    packageOptions in(Compile, packageBin) += Package.ManifestAttributes(
+    Compile / packageBin / packageOptions += Package.ManifestAttributes(
       ("Gerrit-ApiType", "plugin"),
       ("Gerrit-PluginName", pluginName),
       ("Gerrit-Module", "com.googlesource.gerrit.plugins.analytics.Module"),

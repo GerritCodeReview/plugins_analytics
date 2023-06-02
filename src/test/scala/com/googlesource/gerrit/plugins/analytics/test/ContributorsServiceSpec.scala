@@ -22,12 +22,14 @@ import com.googlesource.gerrit.plugins.analytics.UserActivitySummary
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL_HOUR
 import com.googlesource.gerrit.plugins.analytics.common.GsonFormatter
 import com.googlesource.gerrit.plugins.analytics.test.TestAnalyticsConfig.IGNORED_FILE_SUFFIX
-import org.scalatest.{FlatSpec, Inside, Matchers}
+import org.scalatest.Inside
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 @UseLocalDisk
-class ContributorsServiceSpec extends FlatSpec with Matchers with GerritTestDaemon with Inside {
+class ContributorsServiceSpec extends AnyFlatSpecLike with Matchers with GerritTestDaemon with Inside {
 
   "ContributorsService" should "get commit statistics" in {
     val aContributorName = "Contributor Name"

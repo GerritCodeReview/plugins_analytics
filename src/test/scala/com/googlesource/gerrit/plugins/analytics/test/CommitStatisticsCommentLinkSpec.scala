@@ -20,18 +20,20 @@ import com.google.gerrit.server.git.GitRepositoryManager
 import com.googlesource.gerrit.plugins.analytics.IssueInfo
 import com.googlesource.gerrit.plugins.analytics.common.{CommitsStatistics, Statistics}
 import org.eclipse.jgit.lib.Repository
-import org.scalatest.{FlatSpec, Inside, Matchers}
+import org.scalatest.Inside
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 @UseLocalDisk
-class CommitStatisticsCommentLinkSpec extends FlatSpec with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
+class CommitStatisticsCommentLinkSpec extends AnyFlatSpecLike with GerritTestDaemon with TestCommitStatisticsNoCache with Matchers with Inside {
 
   def createCommentLinkInfo(pattern: String, link: Option[String] = None, html: Option[String] = None) = {
     val info = new CommentLinkInfo
     info.`match` = pattern
-    info.link = link.getOrElse(null)
-    info.html = html.getOrElse(null)
+    info.link = link.orNull
+    info.html = html.orNull
     info
   }
 
