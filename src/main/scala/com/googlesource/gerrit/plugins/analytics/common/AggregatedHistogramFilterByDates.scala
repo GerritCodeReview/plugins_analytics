@@ -29,7 +29,7 @@ class AggregatedHistogramFilterByDates(val from: Option[Long] = None, val to: Op
     val commitDate = commit.getCommitterIdent.getWhen.getTime
     val author = commit.getAuthorIdent
 
-    if (from.fold(true)(commitDate >=) && to.fold(true)(commitDate <)) {
+    if (from.fold(true)(commitDate >= _) && to.fold(true)(commitDate < _)) {
       if(branchesExtractor.isDefined) {
         val branches = branchesExtractor.get.branchesOfCommit(commit.getId)
         getHistogram.includeWithBranches(commit, author, branches)

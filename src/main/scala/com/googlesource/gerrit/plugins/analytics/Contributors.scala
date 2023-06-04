@@ -24,6 +24,8 @@ import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
 
+import scala.util.Using
+
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
                                     val projects: ProjectsCollection,
@@ -42,9 +44,9 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setBeginDate(date: String) {
+  def setBeginDate(date: String) = {
     try {
-      beginDate = Some(date)
+      beginDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw die(s"Invalid begin date ${e.getMessage}")
     }
@@ -52,9 +54,9 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--until", aliases = Array("--before", "-e"),
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setEndDate(date: String) {
+  def setEndDate(date: String) = {
     try {
-      endDate = Some(date)
+      endDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw die(s"Invalid end date ${e.getMessage}")
     }
@@ -62,7 +64,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--aggregate", aliases = Array("-g"),
     usage = "Type of aggregation requested. ")
-  def setGranularity(value: String) {
+  def setGranularity(value: String) = {
     try {
       granularity = Some(AggregationStrategy.apply(value))
     } catch {
@@ -88,9 +90,9 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"), metaVar = "QUERY",
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setBeginDate(date: String) {
+  def setBeginDate(date: String) = {
     try {
-      beginDate = Some(date)
+      beginDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw new BadRequestException(s"Invalid begin date ${e.getMessage}")
     }
@@ -98,9 +100,9 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--until", aliases = Array("--before", "-e"), metaVar = "QUERY",
     usage = "(excluded) end timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
-  def setEndDate(date: String) {
+  def setEndDate(date: String) = {
     try {
-      endDate = Some(date)
+      endDate = Some(date.isoStringToLongDate)
     } catch {
       case e: Exception => throw new BadRequestException(s"Invalid end date ${e.getMessage}")
     }
@@ -108,7 +110,7 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--granularity", aliases = Array("--aggregate", "-g"), metaVar = "QUERY",
     usage = "can be one of EMAIL, EMAIL_HOUR, EMAIL_DAY, EMAIL_MONTH, EMAIL_YEAR, defaulting to EMAIL")
-  def setGranularity(value: String) {
+  def setGranularity(value: String) = {
     try {
       granularity = Some(AggregationStrategy.apply(value))
     } catch {
@@ -137,15 +139,15 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
           aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
-  : TraversableOnce[UserActivitySummary] = {
+  : IterableOnce[UserActivitySummary] = {
 
-    ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
+    Using.resource(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
-        .toStream
+        .to(LazyList)
     }
   }
 }
@@ -178,7 +180,7 @@ object UserActivitySummary {
   def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
-    statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
+    statisticsHandler.forCommits(uca.getIds.toIndexedSeq: _*).map { stat =>
       val maybeBranches =
         uca.key.branch.fold(Array.empty[String])(Array(_))
 
