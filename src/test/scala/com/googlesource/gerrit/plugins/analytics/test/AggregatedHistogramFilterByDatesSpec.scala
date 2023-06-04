@@ -21,10 +21,12 @@ import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAI
 import com.googlesource.gerrit.plugins.analytics.common.{AggregatedHistogramFilterByDates, BranchesExtractor}
 import org.eclipse.jgit.lib.PersonIdent
 import org.gitective.core.CommitFinder
-import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
 @UseLocalDisk
-class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GerritTestDaemon with BeforeAndAfterEach with Matchers {
+class AggregatedHistogramFilterByDatesSpec extends AnyFlatSpecLike with GerritTestDaemon with BeforeAndAfterEach with Matchers {
 
   "Author history filter" should
     "select one commit without intervals restriction" in {

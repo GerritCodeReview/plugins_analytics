@@ -17,10 +17,11 @@ package com.googlesource.gerrit.plugins.analytics.common
 import com.google.gerrit.acceptance.UseLocalDisk
 import com.googlesource.gerrit.plugins.analytics.common.AggregationStrategy.EMAIL_YEAR
 import com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpecLike
+import org.scalatest.matchers.should.Matchers
 
 @UseLocalDisk
-class UserActivityHistogramSpec extends FlatSpec with Matchers with GerritTestDaemon {
+class UserActivityHistogramSpec extends AnyFlatSpecLike with Matchers with GerritTestDaemon {
 
   "UserActivityHistogram" should "return no activities" in {
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)

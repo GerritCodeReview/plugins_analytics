@@ -18,7 +18,7 @@ import com.google.gerrit.sshd.PluginCommandModule
 
 class SshModule extends PluginCommandModule {
 
-  override protected def configureCommands {
+  override protected def configureCommands = {
     command(classOf[ContributorsCommand])
   }
 }

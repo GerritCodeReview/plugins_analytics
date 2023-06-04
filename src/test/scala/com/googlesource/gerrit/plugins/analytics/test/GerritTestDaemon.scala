@@ -71,7 +71,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
   def newPersonIdent(name: String = "Test Person", email: String = "person@test.com", ts: Date = new Date()) =
     new PersonIdent(new PersonIdent(name, email), ts)
 
-  override def beforeEach {
+  override def beforeEach() = {
     daemonTest.setUpTestPlugin()
     fileRepositoryName = daemonTest.newProject(testSpecificRepositoryName)
     fileRepository = daemonTest.getRepository(fileRepositoryName)
@@ -140,6 +140,7 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
   }
 }
 
+@UseLocalDisk
 @TestPlugin(
   name = "analytics",
   sysModule = "com.googlesource.gerrit.plugins.analytics.test.GerritTestDaemon$TestModule"
@@ -160,7 +161,10 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
   }
 
   def getRepository(projectName: Project.NameKey): FileRepository =
-    repoManager.openRepository(projectName).asInstanceOf[FileRepository]
+    repoManager.openRepository(projectName) match {
+      case repository: FileRepository => repository
+      case repository => throw new IllegalStateException(s"Expected 'FileRepository', got ${repository.getClass.getName}")
+    }
 
   def adminAuthor = admin.newIdent
 
