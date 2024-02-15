@@ -16,6 +16,23 @@
       "message": "NOTE: Gerrit v3.9.0-rc2 API have been just published to Maven, the build will therefore fail for another 1-2h and then rebuild and it should succeed.",
       "revId": "ff7ce9b394189f377ce8f868cbf111f883f53e67",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca8ce6e_545f4d5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3309575
+      },
+      "writtenOn": "2024-02-15T15:32:08Z",
+      "side": 1,
+      "message": "graciqs",
+      "revId": "ff7ce9b394189f377ce8f868cbf111f883f53e67",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
