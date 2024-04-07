@@ -15,8 +15,10 @@
 package com.googlesource.gerrit.plugins.analytics
 
 import com.google.gerrit.sshd.PluginCommandModule
+import com.google.gerrit.extensions.annotations.PluginName
+import com.google.inject.Inject
 
-class SshModule extends PluginCommandModule {
+class SshModule @Inject()(@PluginName val pluginName: String) extends PluginCommandModule(pluginName) {
 
   override protected def configureCommands = {
     command(classOf[ContributorsCommand])
