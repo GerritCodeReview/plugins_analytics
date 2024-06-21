@@ -35,7 +35,7 @@ import org.eclipse.jgit.merge.MergeStrategy
 import org.eclipse.jgit.revwalk.RevCommit
 import org.gitective.core.CommitUtils
 import org.junit.runner.Description
-import org.junit.runners.model.Statement
+import org.junit.runners.model.{Statement, TestClass}
 import org.scalatest._
 
 trait GerritTestDaemon extends BeforeAndAfterEach {
@@ -45,18 +45,8 @@ trait GerritTestDaemon extends BeforeAndAfterEach {
 
   val daemonTest = GerritTestDaemon
 
-  protected abstract override def runTest(testName: String, args: Args): Status = {
-    var status: Status = FailedStatus
-    val runLambda = () => super.runTest(testName, args)
-
-    daemonTest.testRunner.apply(new Statement() {
-      override def evaluate(): Unit = {
-        status = runLambda.apply()
-      }
-    }, Description.createTestDescription(getClass.getName, testName)).evaluate()
-
-    status
-  }
+  protected abstract override def runTest(testName: String, args: Args): Status =
+    daemonTest.apply(getClass, testName, () => super.runTest(testName, args))
 
   var testFileRepository: TestFileRepository = _
 
@@ -174,6 +164,18 @@ object GerritTestDaemon extends LightweightPluginDaemonTest {
   def getCanonicalWebUrl: String = canonicalWebUrl.get()
 
   def restSession: RestSession = adminRestSession
+
+  def apply(testClass: Class[_], testName: String, runLambda: () => Status): Status = {
+    var status: Status = FailedStatus
+    val testDescription = Description.createTestDescription(testClass, testName)
+    val statement = new Statement() {
+      override def evaluate(): Unit = {
+        status = runLambda.apply()
+      }
+    }
+    configRule.apply(() => testRunner.apply(statement, testDescription).evaluate(), testDescription).evaluate()
+    status
+  }
 
   class TestModule extends AbstractModule {
     override def configure(): Unit = {
