@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "facc079c_05217d77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3510862
+      },
+      "writtenOn": "2024-06-29T21:31:31Z",
+      "side": 1,
+      "message": "I9d66f18514bc2f597ea75ea80768520cf54692db",
+      "revId": "5b65cc40eb502faa01cf6366bc7024f16bac42a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "780673ab_eb09efc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -14,6 +31,40 @@
       "writtenOn": "2024-06-29T21:25:28Z",
       "side": 1,
       "message": "I",
+      "revId": "5b65cc40eb502faa01cf6366bc7024f16bac42a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe56464_2215269e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3510862
+      },
+      "writtenOn": "2024-06-29T21:31:31Z",
+      "side": 1,
+      "message": "Commit message",
+      "revId": "5b65cc40eb502faa01cf6366bc7024f16bac42a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b60b90_3e7e640f",
+        "filename": "build.sbt",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3510862
+      },
+      "writtenOn": "2024-06-29T21:31:31Z",
+      "side": 1,
+      "message": "True",
       "revId": "5b65cc40eb502faa01cf6366bc7024f16bac42a8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
