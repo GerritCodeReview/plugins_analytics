@@ -15,7 +15,7 @@ class BranchesExtractorSpec extends FlatSpec with Matchers with GerritTestDaemon
     testFileRepository.branch("feature/branch", "master")
     val commit = testFileRepository.commitFile("fileOnBranch", "content2", branch = "feature/branch")
 
-    commitsBranches.branchesOfCommit(commit) shouldBe Set("feature/branch")
+    commitsBranches.findBranches(commit) shouldBe Set("feature/branch")
   }
 
   it should "extract two branches for a commit existing in two different branches" in {
@@ -23,6 +23,6 @@ class BranchesExtractorSpec extends FlatSpec with Matchers with GerritTestDaemon
     testFileRepository.branch("feature/branch", "master")
     testFileRepository.commitFile("fileOnBranch", "content2", branch = "feature/branch")
 
-    commitsBranches.branchesOfCommit(commit) shouldBe Set("feature/branch", "master")
+    commitsBranches.findBranches(commit) shouldBe Set("feature/branch", "master")
   }
 }
