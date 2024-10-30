@@ -18,10 +18,11 @@ import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.revwalk.filter.{CommitTimeRevFilter, RevFilter}
 
 import scala.collection.JavaConversions._
 
-case class BranchesExtractor(repo: Repository) {
+case class BranchesExtractor(repo: Repository, filter: RevFilter = RevFilter.ALL) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
     use(new Git(repo)) { git =>
@@ -29,6 +30,7 @@ case class BranchesExtractor(repo: Repository) {
         val branchName = ref.getName.drop(Constants.R_HEADS.length)
 
         use(new RevWalk(repo)) { rw: RevWalk =>
+          rw.setRevFilter(filter)
           rw.markStart(rw.parseCommit(ref.getObjectId))
           rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
             val sha1 = rev.getId
@@ -40,5 +42,14 @@ case class BranchesExtractor(repo: Repository) {
         }
       }
     }
+  }
+}
+
+object FilterByDates {
+  def apply(from: Option[Long] = None, to: Option[Long] = None): RevFilter =  (from,to) match {
+    case (Some(from), Some(to)) => CommitTimeRevFilter.between(from, to)
+    case (Some(from), None) => CommitTimeRevFilter.after(from)
+    case (None, Some(to)) => CommitTimeRevFilter.before(to)
+    case (_,_) => RevFilter.ALL
   }
 }
