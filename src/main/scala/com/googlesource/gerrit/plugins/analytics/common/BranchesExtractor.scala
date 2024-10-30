@@ -14,14 +14,17 @@
 
 package com.googlesource.gerrit.plugins.analytics.common
 
+import com.googlesource.gerrit.plugins.analytics.common.FilterByDates.filterAllRevs
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
-import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
+import org.eclipse.jgit.revwalk.filter.RevFilter
 
+import java.util.Date
 import scala.collection.JavaConversions._
 
-case class BranchesExtractor(repo: Repository) {
+case class BranchesExtractor(repo: Repository, filter:RevFilter = filterAllRevs) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
     use(new Git(repo)) { git =>
@@ -29,6 +32,7 @@ case class BranchesExtractor(repo: Repository) {
         val branchName = ref.getName.drop(Constants.R_HEADS.length)
 
         use(new RevWalk(repo)) { rw: RevWalk =>
+          rw.setRevFilter(filter)
           rw.markStart(rw.parseCommit(ref.getObjectId))
           rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
             val sha1 = rev.getId
@@ -41,4 +45,18 @@ case class BranchesExtractor(repo: Repository) {
       }
     }
   }
+}
+
+class FilterByDates(from: Option[Long] = None, to: Option[Long] = None) extends RevFilter with Cloneable {
+  override def include(walker: RevWalk, cmit: RevCommit): Boolean = {
+    val commiterCommitDate = cmit.getCommitterIdent.getWhen.getTime
+    from.forall(commiterCommitDate >= _) && to.forall(commiterCommitDate < _)
+  }
+
+  override def clone: RevFilter = new FilterByDates(from, to)
+}
+
+object FilterByDates {
+  lazy val filterAllRevs = new FilterByDates()
+  def apply(from: Option[Long] = None, to: Option[Long] = None) = new FilterByDates(from, to)
 }
