@@ -71,6 +71,9 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --aggregate -granularity -g one of email, email_year, email_month, email_day, email_hour defaulting to aggregation by email
 - --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
 
+Note: `since` and/or `until` parameters are compulsory when using `--extract-branches`.
+Using `--extract-branches` without `since` or `until` would most likely cause OutOfMemory errors.
+
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 
 ### Examples
