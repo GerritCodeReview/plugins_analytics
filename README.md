@@ -69,7 +69,9 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --since -b Starting timestamp to consider
 - --until -e Ending timestamp (excluded) to consider
 - --aggregate -granularity -g one of email, email_year, email_month, email_day, email_hour defaulting to aggregation by email
-- --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
+- --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload. It is
+important to mention that when this option is enabled, `since` and/or `until` parameters should be defined; otherwise,
+Gerrit Code Review performance may degrade over time, potentially leading to an OutOfMemory error.
 
 NOTE: Timestamp format is consistent with Gerrit's query syntax, see /Documentation/user-search.html for details.
 

@@ -141,7 +141,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
-      val branchesExtractor = extractBranches.option(new BranchesExtractor(repo))
+      val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
         .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
