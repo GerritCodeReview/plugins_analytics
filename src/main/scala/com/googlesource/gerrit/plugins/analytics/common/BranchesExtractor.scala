@@ -16,29 +16,31 @@ package com.googlesource.gerrit.plugins.analytics.common
 
 import com.googlesource.gerrit.plugins.analytics.common.ManagedResource.use
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.ListBranchCommand.ListMode
 import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
-case class BranchesExtractor(repo: Repository) {
-  lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
+class BranchesExtractor(repo: Repository) {
 
+  def findBranches(targetCommit: ObjectId): Set[String] = {
     use(new Git(repo)) { git =>
-      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
-        val branchName = ref.getName.drop(Constants.R_HEADS.length)
-
-        use(new RevWalk(repo)) { rw: RevWalk =>
-          rw.markStart(rw.parseCommit(ref.getObjectId))
-          rw.foldLeft(branchesAcc) { (thisBranchAcc, rev) =>
-            val sha1 = rev.getId
-            thisBranchAcc.get(sha1) match {
-              case Some(set) => thisBranchAcc + (sha1 -> (set + branchName))
-              case None      => thisBranchAcc + (sha1 -> Set(branchName))
-            }
+      use(new RevWalk(repo)) { revWalk =>
+        val targetRevCommit = revWalk.parseCommit(targetCommit)
+        git.branchList()
+          .setListMode(ListMode.ALL)
+          .call()
+          .asScala
+          .flatMap { branch =>
+            val branchCommit = revWalk.parseCommit(branch.getObjectId)
+            if (revWalk.isMergedInto(targetRevCommit, branchCommit))
+              Some(branch.getName.drop(Constants.R_HEADS.length))
+            else None
           }
-        }
+          .toSet
       }
     }
   }
 }
+
