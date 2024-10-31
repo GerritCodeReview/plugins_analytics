@@ -114,7 +114,7 @@ class AggregatedHistogramFilterByDatesSpec extends FlatSpec with GerritTestDaemo
 
     val filter = new AggregatedHistogramFilterByDates(
       aggregationStrategy=EMAIL,
-      branchesExtractor = Some(new BranchesExtractor(fileRepository))
+      branchesExtractor = Some(new BranchesExtractor(fileRepository, None))
     )
 
     new CommitFinder(fileRepository).setFilter(filter).find

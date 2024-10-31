@@ -6,7 +6,7 @@ import org.scalatest.{FlatSpec, Matchers}
 
 @UseLocalDisk
 class BranchesExtractorSpec extends FlatSpec with Matchers with GerritTestDaemon {
-  def commitsBranches = new BranchesExtractor(testFileRepository.getRepository)
+  def commitsBranches = new BranchesExtractor(testFileRepository.getRepository, None)
 
   behavior of "branchesOfCommit"
 

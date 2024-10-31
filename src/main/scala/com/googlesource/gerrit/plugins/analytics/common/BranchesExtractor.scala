@@ -20,12 +20,15 @@ import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.RevWalk
 
 import scala.collection.JavaConversions._
+import scala.util.Try
 
-case class BranchesExtractor(repo: Repository) {
+case class BranchesExtractor(repo: Repository, filteredBranch: Option[String]) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
 
     use(new Git(repo)) { git =>
-      git.branchList.call.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
+      val maybeRef = filteredBranch.flatMap(branch => Try(git.getRepository.findRef(branch)).toOption)
+      val refs = maybeRef.fold(git.branchList.call)(ref => List(ref))
+      refs.foldLeft(Map.empty[ObjectId, Set[String]]) { (branchesAcc, ref) =>
         val branchName = ref.getName.drop(Constants.R_HEADS.length)
 
         use(new RevWalk(repo)) { rw: RevWalk =>
