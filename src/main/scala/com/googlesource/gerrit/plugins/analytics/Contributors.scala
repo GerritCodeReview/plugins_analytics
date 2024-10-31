@@ -40,6 +40,10 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--branch", aliases = Array("-f"),
+    usage = "Extract results only for a specific branch", required = false)
+  private var extractBranch: String = null
+
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
   def setBeginDate(date: String) {
@@ -72,7 +76,7 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   override protected def run =
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, Option(extractBranch)), stdout)
 
 }
 
@@ -120,11 +124,15 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
+  @ArgOption(name = "--branch", aliases = Array("-f"),
+    usage = "Extract results only for a specific branch", required = false)
+  private var extractBranch: String = null
+
   override def apply(projectRes: ProjectResource) =
     Response.ok(
       new GsonStreamedResult[UserActivitySummary](gson,
         executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
+          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, Option(extractBranch))))
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -136,15 +144,21 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, extractBranch: Option[String])
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
-      val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
+      val aggregatedCommitActivity = Option(extractBranch).fold {
+        val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
+        histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), None)
+      } { branch =>
+        histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, None, aggregationStrategy), branch)
+      }
+
+      aggregatedCommitActivity
+        .flatMap(UserActivitySummary.apply(stats))
         .toStream
     }
   }

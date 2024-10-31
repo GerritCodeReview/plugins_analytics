@@ -24,13 +24,23 @@ class UserActivityHistogramSpec extends FlatSpec with Matchers with GerritTestDa
 
   "UserActivityHistogram" should "return no activities" in {
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)
-    new UserActivityHistogram().get(testFileRepository.getRepository, filter) should have size 0
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter, None) should have size 0
   }
 
   it should "aggregate to one activity" in {
     testFileRepository.commitFile("test.txt", "content")
     val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)
-    new UserActivityHistogram().get(testFileRepository.getRepository, filter) should have size 1
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter, None) should have size 1
+  }
+
+  it should "filter by branch" in {
+    val branch = "testBranch"
+    testFileRepository.commitFile("test.txt", "content", branch=branch)
+
+    val filter = new AggregatedHistogramFilterByDates(aggregationStrategy = EMAIL_YEAR)
+
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter, None) should have size 0
+    new UserActivityHistogram().get(testFileRepository.getRepository, filter, Some(branch)) should have size 1
   }
 
 }

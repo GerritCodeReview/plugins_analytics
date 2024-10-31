@@ -17,6 +17,8 @@ class BranchesExtractorSpec extends FlatSpec with Matchers with GerritTestDaemon
   val nowPlus2seconds = Date.from(now.toInstant.plusSeconds(2))
   val nowPlus3seconds = Date.from(now.toInstant.plusSeconds(3))
 
+  def commitsBranches = new BranchesExtractor(testFileRepository.getRepository)
+
   behavior of "branchesOfCommit"
 
   it should "provide a commit in 'master' branch when the commit is same as 'from' date and 'to' date is not defined" in {
