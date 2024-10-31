@@ -17,15 +17,16 @@ package com.googlesource.gerrit.plugins.analytics.common
 import com.google.gerrit.extensions.restapi.PreconditionFailedException
 import com.google.inject.Singleton
 import org.eclipse.jgit.lib.Repository
+import org.eclipse.jgit.lib.Constants.HEAD
 import org.gitective.core.CommitFinder
 
 @Singleton
 class UserActivityHistogram {
-  def get(repo: Repository, filter: AbstractCommitHistogramFilter) = {
+  def get(repo: Repository, filter: AbstractCommitHistogramFilter, branchName: String = HEAD) = {
     val finder = new CommitFinder(repo)
 
     try {
-      finder.setFilter(filter).find
+      finder.setFilter(filter).findFrom(branchName)
       val histogram = filter.getHistogram
       histogram.getAggregatedUserActivity
     } catch {
