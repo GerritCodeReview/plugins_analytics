@@ -23,6 +23,7 @@ import com.google.inject.Inject
 import com.googlesource.gerrit.plugins.analytics.common.DateConversions._
 import com.googlesource.gerrit.plugins.analytics.common._
 import org.kohsuke.args4j.{Option => ArgOption}
+import org.eclipse.jgit.lib.Constants.HEAD
 
 @CommandMetaData(name = "contributors", description = "Extracts the list of contributors to a project")
 class ContributorsCommand @Inject()(val executor: ContributorsService,
@@ -39,6 +40,10 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   @ArgOption(name = "--extract-branches", aliases = Array("-r"),
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
+
+  @ArgOption(name = "--branch", aliases = Array("-f"),
+    usage = "Extract results only for a specific branch", required = false)
+  private var branchName: String = HEAD
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -70,9 +75,14 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
     }
   }
 
-  override protected def run =
+  override protected def run = {
+    if (extractBranches && branchName != HEAD) {
+      throw die(s"--extract-branches` and `--branch` options are mutually exclusive" +
+        s"(extractBranches = $extractBranches, branch = $branchName)")
+    }
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, branchName), stdout)
+  }
 
 }
 
@@ -120,11 +130,24 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
     usage = "Do extra parsing to extract a list of all branches for each line")
   private var extractBranches: Boolean = false
 
-  override def apply(projectRes: ProjectResource) =
-    Response.ok(
-      new GsonStreamedResult[UserActivitySummary](gson,
-        executor.get(projectRes, beginDate, endDate,
-          granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches)))
+  @ArgOption(name = "--branch", aliases = Array("-f"),
+    usage = "Extract results only for a specific branch", required = false)
+  private var branchName: String = HEAD
+
+  override def apply(projectRes: ProjectResource) = {
+    if (extractBranches && branchName != HEAD) {
+      Response.withStatusCode(400,
+          s"--extract-branches` and `--branch` options are mutually exclusive" +
+            s"(extractBranches = $extractBranches, branch = $branchName)")
+    } else {
+      Response.ok(
+        new GsonStreamedResult[UserActivitySummary](gson,
+          executor.get(projectRes, beginDate, endDate,
+            granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, branchName)))
+    }
+
+
+  }
 }
 
 class ContributorsService @Inject()(repoManager: GitRepositoryManager,
@@ -136,15 +159,16 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, branchName: String)
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
+
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy))
-        .flatMap(aggregatedCommitActivity => UserActivitySummary.apply(stats)(aggregatedCommitActivity))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), branchName)
+        .flatMap(UserActivitySummary.apply(stats))
         .toStream
     }
   }
