@@ -22,6 +22,7 @@ import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter._
 import org.eclipse.jgit.revwalk.filter.RevFilter
 
 import scala.collection.JavaConversions._
+import scala.util.Try
 
 case class BranchesExtractor(repo: Repository, filter: RevFilter = RevFilter.ALL) {
   lazy val branchesOfCommit: Map[ObjectId, Set[String]] = {
