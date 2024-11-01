@@ -16,6 +16,24 @@
       "message": "Improve the commit message and the description.",
       "revId": "565a8f1cdc128f332ad69389202964e230256eeb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf683d33_63a026b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2024-11-01T11:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "180ad986_7deea2f7",
+      "revId": "565a8f1cdc128f332ad69389202964e230256eeb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
