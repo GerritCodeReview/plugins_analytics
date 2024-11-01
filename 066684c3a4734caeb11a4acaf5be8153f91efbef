@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77b44db_b0df930c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2024-11-01T13:06:31Z",
+      "side": 1,
+      "message": "E2E test:\n\n- Gerrit version: `v3.4.8`\n- Plugin `assembly` based on this change\n- repository: https://android.googlesource.com/platform/frameworks/base\n\n\u003d\u003d\u003d extract branches enabled with range of 1 day \n\n- query: /a/projects/base/analytics\\~contributors\\?since\\\u003d2024-10-22\\\u0026until\\\u003d2024-10-23\\\u0026aggregate\\\u003demail_day\\\u0026extract-branches\\\u003dtrue\n\n- 200 HTTP status code\n\n- time: 30:06.90 minutes\n\n\u003d\u003d\u003d extract branches enabled with range of 1 mounth\n\n- query: /a/projects/base/analytics\\~contributors\\?since\\\u003d2024-09-22\\\u0026until\\\u003d2024-10-23\\\u0026aggregate\\\u003demail_day\\\u0026extract-branches\\\u003dtrue\n\n- 200 HTTP status code\n\n- time: 30:38.64 minutes\n\n\n\u003d\u003d\u003d extract branches enabled with range of 6 mounth\n\n- query: /a/projects/base/analytics\\~contributors\\?since\\\u003d2024-04-22\\\u0026until\\\u003d2024-10-23\\\u0026aggregate\\\u003demail_day\\\u0026extract-branches\\\u003dtrue\n\n- 200 HTTP status code\n\n- time: 34:24.19 minutes",
+      "revId": "066684c3a4734caeb11a4acaf5be8153f91efbef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
