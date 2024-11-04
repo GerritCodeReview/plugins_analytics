@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "473b6227_455b4565",
+        "filename": "README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2024-11-04T10:33:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e543b715_0549d3b1",
+      "range": {
+        "startLine": 72,
+        "startChar": 109,
+        "endLine": 74,
+        "endChar": 98
+      },
+      "revId": "066684c3a4734caeb11a4acaf5be8153f91efbef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6167985e_a624a1ab",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-04T08:30:02Z",
       "side": 1,
       "message": "Why not using `org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter` instead?e",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "066684c3a4734caeb11a4acaf5be8153f91efbef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "751dd1f6_898b7cde",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BranchesExtractor.scala",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2024-11-04T10:33:21Z",
+      "side": 1,
+      "message": "Brilliant, is a much better alternative. Let me know what yo think,",
+      "parentUuid": "6167985e_a624a1ab",
       "range": {
         "startLine": 48,
         "startChar": 6,
