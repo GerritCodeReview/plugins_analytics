@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89fba54_ba773af3",
+        "filename": "README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T18:14:45Z",
+      "side": 1,
+      "message": "`Note` are expressed in 3 different ways. In a followup I will normalise the docs.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "7e6300a07723ab439ef1348f957ae66e502293d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
