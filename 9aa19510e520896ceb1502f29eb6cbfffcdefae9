@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2a1837_6fcd770f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8693f7f_b970ee0d",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9465dbed_1f4cf193",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-31T08:58:56Z",
       "side": 1,
       "message": "Are you sure it was the one named `master`? Can you point me to where it is defined in the code?",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b8d32bb_65f03f45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "My bad. What you said in the other comment [1] is correct.\n\n[1]: https://gerrit-review.googlesource.com/c/plugins/analytics/+/441048/comment/571f2829_8f794481/",
+      "parentUuid": "9465dbed_1f4cf193",
       "range": {
         "startLine": 10,
         "startChar": 23,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6a41c7_deebd665",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb14b52a_555ddeb8",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "571f2829_8f794481",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-31T08:58:56Z",
       "side": 1,
       "message": "This is not what I see in the code, see CommitFinder code here below:\n\n```\n\tpublic CommitFinder find() {\n\t\treturn findFrom(HEAD);\n\t}\n```",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af64067_505fc4da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "571f2829_8f794481",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa0ba01_94e28dd6",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11878bbd_7a0f41dc",
+      "range": {
+        "startLine": 43,
+        "startChar": 23,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a56a5f9_329e6a6c",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-10-31T08:58:56Z",
       "side": 1,
       "message": "```suggestion\n    usage \u003d \"Extract results for a specific branch\", required \u003d false)\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f420a40_8c61beea",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a56a5f9_329e6a6c",
       "range": {
         "startLine": 44,
         "startChar": 13,
@@ -162,6 +306,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac44f4ce_0722bb22",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "`-b` is already the shortcut of `since`",
+      "parentUuid": "ce237924_c42ed71b",
+      "range": {
+        "startLine": 127,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03d034b9_0a63dbd6",
@@ -175,6 +343,30 @@
       "writtenOn": "2024-10-31T08:58:56Z",
       "side": 1,
       "message": "```suggestion\n    usage \u003d \"Extract results for a specific branch\", required \u003d false)\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 13,
+        "endLine": 128,
+        "endChar": 19
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8299ea00_5fce368d",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03d034b9_0a63dbd6",
       "range": {
         "startLine": 128,
         "startChar": 13,
@@ -208,6 +400,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8379d2fe_3d604fde",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6f21471_5a5da7b4",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 128
+      },
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2d0ea8b_669fe8de",
@@ -221,6 +437,24 @@
       "writtenOn": "2024-10-31T08:58:56Z",
       "side": 1,
       "message": "We don\u0027t need to change anything here, but just provide a different starting point to the CommitFinder.",
+      "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aaf6df1_42644414",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/BranchesExtractor.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T14:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2d0ea8b_669fe8de",
       "revId": "9aa19510e520896ceb1502f29eb6cbfffcdefae9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
