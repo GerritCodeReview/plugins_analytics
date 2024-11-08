@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdea3a83_a9fa9c9d",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-08T15:44:44Z",
+      "side": 1,
+      "message": "```suggestion\n- --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload\n- --branch -f extract results only for a specific branch\n\n\u003e **NOTE**: The `--extract-branches` and `--branch` options are mutually exclusive.\n```",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 114
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c989743_ba29788e",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-08T15:44:44Z",
+      "side": 1,
+      "message": "Why `Option`? I believe that we could simply get the `HEAD` as default in case the `--branch` option is not specified.",
+      "range": {
+        "startLine": 147,
+        "startChar": 93,
+        "endLine": 147,
+        "endChar": 99
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939f653a_3ab27a57",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-08T15:44:44Z",
+      "side": 1,
+      "message": "```suggestion\n  def get(repo: Repository, filter: AbstractCommitHistogramFilter, branchName: String \u003d HEAD) \u003d {\n```",
+      "range": {
+        "startLine": 25,
+        "startChar": 67,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b43c748_49146faf",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-08T15:44:44Z",
+      "side": 1,
+      "message": "```suggestion\n      finder.setFilter(filter).findFrom(branchName)\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 40,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
