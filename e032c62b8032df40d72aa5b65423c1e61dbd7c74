@@ -71,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d813fb_fdf5091a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T18:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c989743_ba29788e",
+      "range": {
+        "startLine": 147,
+        "startChar": 93,
+        "endLine": 147,
+        "endChar": 99
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "939f653a_3ab27a57",
@@ -94,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0b537e_5764c3c8",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T18:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "939f653a_3ab27a57",
+      "range": {
+        "startLine": 25,
+        "startChar": 67,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b43c748_49146faf",
@@ -107,6 +155,30 @@
       "writtenOn": "2024-11-08T15:44:44Z",
       "side": 1,
       "message": "```suggestion\n      finder.setFilter(filter).findFrom(branchName)\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 40,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "297e9f6b_ee750941",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogram.scala",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T18:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b43c748_49146faf",
       "range": {
         "startLine": 29,
         "startChar": 40,
