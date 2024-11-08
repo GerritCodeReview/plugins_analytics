@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc916be9_d5397e38",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-11-08T17:17:16Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "cdea3a83_a9fa9c9d",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 114
+      },
+      "revId": "e032c62b8032df40d72aa5b65423c1e61dbd7c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c989743_ba29788e",
