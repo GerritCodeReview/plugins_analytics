@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d80461_228796f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-14T08:01:46Z",
+      "side": 1,
+      "message": "Just one nit.",
+      "revId": "3de1cf29f7b7fe77340860ececf77d4e5672a39d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee78549_f02d71ee",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-14T08:01:46Z",
+      "side": 1,
+      "message": "This code is reachable from a REST-API and the `--` prefix to the options could be misleading.\n\n```suggestion\n      Response.withStatusCode(400, s\"\u0027extract-branches\u0027 and \u0027branch\u0027 options are mutually exclusive\")\n```",
+      "range": {
+        "startLine": 138,
+        "startChar": 37,
+        "endLine": 138,
+        "endChar": 71
+      },
+      "revId": "3de1cf29f7b7fe77340860ececf77d4e5672a39d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
