@@ -43,7 +43,8 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--branch", aliases = Array("-f"),
     usage = "Extract results only for a specific branch", required = false)
-  private var branchName: String = HEAD
+  private var branchName: String = _
+  private def getBranchName: Option[String] = Option(branchName)
 
   @ArgOption(name = "--since", aliases = Array("--after", "-b"),
     usage = "(included) begin timestamp. Must be in the format 2006-01-02[ 15:04:05[.890][ -0700]]")
@@ -76,11 +77,11 @@ class ContributorsCommand @Inject()(val executor: ContributorsService,
   }
 
   override protected def run = {
-    if (extractBranches && branchName != HEAD) {
+    if (extractBranches && getBranchName.isDefined) {
       throw die(s"--extract-branches` and `--branch` options are mutually exclusive")
     }
     gsonFmt.format(executor.get(projectRes, beginDate, endDate,
-      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, branchName), stdout)
+      granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, getBranchName), stdout)
   }
 
 }
@@ -131,16 +132,19 @@ class ContributorsResource @Inject()(val executor: ContributorsService,
 
   @ArgOption(name = "--branch", aliases = Array("-f"),
     usage = "Extract results only for a specific branch", required = false)
-  private var branchName: String = HEAD
+  private var branchName: String = _
+  private def getBranchName: Option[String] = Option(branchName)
+
+
 
   override def apply(projectRes: ProjectResource) = {
-    if (extractBranches && branchName != HEAD) {
+    if (extractBranches && getBranchName.isDefined) {
       Response.withStatusCode(400, s"'extract-branches' and 'branch' options are mutually exclusive")
     } else {
       Response.ok(
         new GsonStreamedResult[UserActivitySummary](gson,
           executor.get(projectRes, beginDate, endDate,
-            granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, branchName)))
+            granularity.getOrElse(AggregationStrategy.EMAIL), extractBranches, getBranchName)))
     }
 
 
@@ -156,14 +160,14 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, branchName: String)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, branchName: Option[String])
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), branchName)
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, branchName, aggregationStrategy))
         .flatMap(UserActivitySummary.apply(stats))
         .toStream
     }
