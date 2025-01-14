@@ -164,7 +164,7 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
       histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), branchName)
-        .flatMap(UserActivitySummary.apply(stats))
+        .flatMap(UserActivitySummary.apply(stats, branchName))
         .toStream
     }
   }
@@ -191,11 +191,12 @@ case class UserActivitySummary(year: Option[Int],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean,
-                               isBotLike: Boolean
+                               isBotLike: Boolean,
+                               startingRef: String
                               )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
+  def apply(statisticsHandler: Statistics, startingRef: String)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
     statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
@@ -220,7 +221,8 @@ object UserActivitySummary {
         stat.issues.map(_.link).toArray,
         uca.getLatest,
         stat.isForMergeCommits,
-        stat.isForBotLike
+        stat.isForBotLike,
+        startingRef
       )
     }
   }
