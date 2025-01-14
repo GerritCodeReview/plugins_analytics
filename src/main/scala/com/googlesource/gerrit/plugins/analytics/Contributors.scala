@@ -156,15 +156,15 @@ class ContributorsService @Inject()(repoManager: GitRepositoryManager,
   import RichBoolean._
 
   def get(projectRes: ProjectResource, startDate: Option[Long], stopDate: Option[Long],
-          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, branchName: String)
+          aggregationStrategy: AggregationStrategy, extractBranches: Boolean, startingRevision: String)
   : TraversableOnce[UserActivitySummary] = {
 
     ManagedResource.use(repoManager.openRepository(projectRes.getNameKey)) { repo =>
       val stats = new Statistics(projectRes.getNameKey, commitsStatisticsCache)
       val branchesExtractor = extractBranches.option(new BranchesExtractor(repo, FilterByDates(startDate, stopDate)))
 
-      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), branchName)
-        .flatMap(UserActivitySummary.apply(stats))
+      histogram.get(repo, new AggregatedHistogramFilterByDates(startDate, stopDate, branchesExtractor, aggregationStrategy), startingRevision)
+        .flatMap(UserActivitySummary.apply(stats, startingRevision))
         .toStream
     }
   }
@@ -191,11 +191,12 @@ case class UserActivitySummary(year: Option[Int],
                                issuesLinks: Array[String],
                                lastCommitDate: Long,
                                isMerge: Boolean,
-                               isBotLike: Boolean
+                               isBotLike: Boolean,
+                               startingRef: String
                               )
 
 object UserActivitySummary {
-  def apply(statisticsHandler: Statistics)(uca: AggregatedUserCommitActivity)
+  def apply(statisticsHandler: Statistics, startingRevision: String)(uca: AggregatedUserCommitActivity)
   : Iterable[UserActivitySummary] = {
 
     statisticsHandler.forCommits(uca.getIds: _*).map { stat =>
@@ -220,7 +221,8 @@ object UserActivitySummary {
         stat.issues.map(_.link).toArray,
         uca.getLatest,
         stat.isForMergeCommits,
-        stat.isForBotLike
+        stat.isForBotLike,
+        startingRevision
       )
     }
   }
