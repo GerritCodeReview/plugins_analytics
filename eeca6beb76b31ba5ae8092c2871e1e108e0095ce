@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9189612e_e118768f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-16T13:40:37Z",
+      "side": 1,
+      "message": "\u003e If you don\u0027t specify anything, then HEAD is assumed.\n\nSounds good to me. It was actually my first approach, but I didn\u0027t want to change the behaviour.",
+      "parentUuid": "04eca5ed_c6a5d57f",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f4c701e_411250e5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-16T09:08:52Z",
       "side": 1,
       "message": "Why plural? Shouldn\u0027t this be a single starting point? Then `branch` should be the name, or more specifically `ref` as you may want to extrace from a point that isn\u0027t under `refs/heads/`",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa24832_62b2630d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-16T13:40:37Z",
+      "side": 1,
+      "message": "`branches` is a field already in the payload. I agree probably `refs` would suite more. Happy to rename in a different change.\n\nThe field contains the list of branches/refs a \"commit aggregation\" belongs to.\n\nI think adding the `branch/ref` into `branches` when using the `--branch` option to extract results only for a specific `branch/ref` isf a good fit.\n\nIf we add a new field in the payload we will have to always populate it, **but** when we use the `--extract-branches` option, which I believe it would make thing more confusing.\n\n@luca: were you more inclined in adding a brand new field in te payload?",
+      "parentUuid": "1f4c701e_411250e5",
       "range": {
         "startLine": 9,
         "startChar": 33,
