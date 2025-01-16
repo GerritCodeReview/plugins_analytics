@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04eca5ed_c6a5d57f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-16T09:08:52Z",
+      "side": 1,
+      "message": "We don\u0027t filter by branch but simply give a different starting ref other than `HEAD`. Why not simply including it all the times? If you don\u0027t specify anything, then `HEAD` is assumed.",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4c701e_411250e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-16T09:08:52Z",
+      "side": 1,
+      "message": "Why plural? Shouldn\u0027t this be a single starting point? Then `branch` should be the name, or more specifically `ref` as you may want to extrace from a point that isn\u0027t under `refs/heads/`",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
