@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9afe8169_dc42a417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-20T17:58:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ae332b1_7b4a70a2",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4c701e_411250e5",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "\u003e @luca: were you more inclined in adding a brand new field in te payload?\n\nOne extra field isn\u0027t breaking any backward compatibility. Also, the new information is the \"starting commit\" and not the \"branches\": you may start extracting form a SHA-1 that doesn\u0027t match any branch.",
       "parentUuid": "0fa24832_62b2630d",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "eeca6beb76b31ba5ae8092c2871e1e108e0095ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d8bcc1_4b98a219",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-20T17:58:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35d64c5a_7a519de2",
       "range": {
         "startLine": 9,
         "startChar": 33,
