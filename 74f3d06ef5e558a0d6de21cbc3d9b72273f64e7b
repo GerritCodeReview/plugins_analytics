@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bbbadcf_3c8eb1e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "I believe we made a mistake calling it `--branch` (it\u0027s a revision, not a branch) and also it isn\u0027t a filter at all.",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4814e020_429040c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "Maybe can we make a follow-up change and rename the `--branch` as `--starting-revision`?",
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782021b6_79a8acd2",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "I believe we named this argument wrongly: it should have been \"starting-revision\" or just \"revision\".\n\nPassing a branch name is _one-way_ of providing a revision, but also you could pass:\n- Symbolic ref (`HEAD`)\n- SHA1 (`abc123...`)\n- Tag (`refs/tags/...`)\n- Non-branch ref (`refs/meta/...`)",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef05d2e_110121c3",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "Can we at least rename the variable as `revisionStart`? I followed the call path and that\u0027s definitely not a branch name and is just used as generic revision starting point.",
+      "range": {
+        "startLine": 167,
+        "startChar": 50,
+        "endLine": 167,
+        "endChar": 60
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e32eb8_9ab2c9cb",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "```suggestion\n                               startingRevision: String\n```",
+      "range": {
+        "startLine": 195,
+        "startChar": 31,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9526fdd1_60203c0a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "```suggestion\n  def apply(statisticsHandler: Statistics, startingRevision: String)(uca: AggregatedUserCommitActivity)\n```",
+      "range": {
+        "startLine": 199,
+        "startChar": 43,
+        "endLine": 199,
+        "endChar": 54
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca0c5b8_8d629239",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-20T23:06:40Z",
+      "side": 1,
+      "message": "```suggestion\n        startingRevision\n```",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 19
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
