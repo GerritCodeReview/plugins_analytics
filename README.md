@@ -70,9 +70,9 @@ analytics contributors {project-name} [--since 2006-01-02[15:04:05[.890][-0700]]
 - --until -e Ending timestamp (excluded) to consider
 - --aggregate -granularity -g one of email, email_year, email_month, email_day, email_hour defaulting to aggregation by email
 - --extract-branches -r enables splitting of aggregation by branch name and expose branch name in the payload
-- --branch -f extract results only for a specific branch
+- --starting-revisions -s extract results starting from a specific revision
 
-> **NOTE**: The `--extract-branches` and `--branch` options are mutually exclusive.
+> **NOTE**: The `--extract-branches` and `--starting-revisions` options are mutually exclusive.
 
 Note: `since` and/or `until` parameters are compulsory when using `--extract-branches`.
 Using `--extract-branches` without `since` or `until` would most likely cause OutOfMemory errors.
