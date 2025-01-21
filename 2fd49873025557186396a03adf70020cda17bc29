@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ca8a34_14704c7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-21T14:46:11Z",
+      "side": 1,
+      "message": "This change LGTM, but perhaps we need an equivalent change in the `ETL` (perhaps in the same topic), where we leverage the new option name, rather than the stale one.\n\nWDYT?",
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50d67bf_a96d2df1",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-21T14:46:11Z",
+      "side": 1,
+      "message": "```suggestion\n- --starting-revision -s extract results starting from a specific revision. Default: `HEAD`.\n\n\u003e **NOTE**: The `--extract-branches` and `--starting-revision` options are mutually exclusive.\n```",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 95
+      },
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f08962_ea922819",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogramSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-21T14:46:11Z",
+      "side": 1,
+      "message": "In this test, we are actually using the `revision` as a `branch` right? Since we are pushing to it.\nShould this still be named `branch` then?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
