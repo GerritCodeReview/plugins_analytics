@@ -22,11 +22,11 @@ import org.gitective.core.CommitFinder
 
 @Singleton
 class UserActivityHistogram {
-  def get(repo: Repository, filter: AbstractCommitHistogramFilter, branchName: String = HEAD) = {
+  def get(repo: Repository, filter: AbstractCommitHistogramFilter, startingRevision: String = HEAD) = {
     val finder = new CommitFinder(repo)
 
     try {
-      finder.setFilter(filter).findFrom(branchName)
+      finder.setFilter(filter).findFrom(startingRevision)
       val histogram = filter.getHistogram
       histogram.getAggregatedUserActivity
     } catch {
