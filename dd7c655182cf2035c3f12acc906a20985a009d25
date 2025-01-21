@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a8cd09_28f8095b",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-21T13:41:26Z",
+      "side": 1,
+      "message": "Shall we add that is `HEAD` by default?",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 75
+      },
+      "revId": "dd7c655182cf2035c3f12acc906a20985a009d25",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
