@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8718905e_439beb35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-21T08:56:26Z",
+      "side": 1,
+      "message": "Renamed in a followup: https://gerrit-review.googlesource.com/c/plugins/analytics/+/448201",
+      "parentUuid": "2de8640f_e037ba32",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4814e020_429040c5",
@@ -61,6 +85,24 @@
       "writtenOn": "2025-01-20T23:06:40Z",
       "side": 1,
       "message": "Maybe can we make a follow-up change and rename the `--branch` as `--starting-revision`?",
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1165dd_879391c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-21T08:56:26Z",
+      "side": 1,
+      "message": "Done: https://gerrit-review.googlesource.com/c/plugins/analytics/+/448201",
+      "parentUuid": "4814e020_429040c5",
       "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -102,6 +144,30 @@
       "side": 1,
       "message": "Totally agree...wrong naming here :/",
       "parentUuid": "782021b6_79a8acd2",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "74f3d06ef5e558a0d6de21cbc3d9b72273f64e7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5989e43a_a7ddfc8a",
+        "filename": "src/main/scala/com/googlesource/gerrit/plugins/analytics/Contributors.scala",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-21T08:56:26Z",
+      "side": 1,
+      "message": "See followup: https://gerrit-review.googlesource.com/c/plugins/analytics/+/448201",
+      "parentUuid": "f2ba5558_01a5229d",
       "range": {
         "startLine": 44,
         "startChar": 21,
