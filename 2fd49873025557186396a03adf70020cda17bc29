@@ -65,6 +65,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0d16b8_81d0a4ad",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-22T12:06:28Z",
+      "side": 1,
+      "message": "Now I remember: the extraction of branches assumes you navigate everything anyway.",
+      "parentUuid": "786d7ca1_78dbaa2a",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 95
+      },
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f08962_ea922819",
