@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef3d6930_17ac967b",
+        "filename": "README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-22T12:28:26Z",
+      "side": 1,
+      "message": "```suggestion\n- --starting-revision -s extract results starting from a specific revision. Default: `HEAD`.\n\n\u003e **NOTE**: The `--extract-branches` and `--starting-revision` options are mutually exclusive.\n\n```",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 0
+      },
+      "revId": "2ca5d640f73af6fcfeeb582fe375fb3d526dd242",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
