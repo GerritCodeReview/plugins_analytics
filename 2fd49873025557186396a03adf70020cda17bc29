@@ -89,6 +89,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28714d76_5be6588c",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-22T12:06:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d50d67bf_a96d2df1",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 95
+      },
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f08962_ea922819",
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "\u003e In this test, we are actually using the `revision` as a `branch` right? Since we are pushing to it.\n\nYes, it is confusing and, unfortunately, that\u0027s the way also JGit uses it.\nIf it doesn\u0027t start with `refs/` then it is considered as a branch.\n\n```suggestion\n    val startingBranch \u003d \"testBranch\"\n    testFileRepository.commitFile(\"test.txt\", \"content\", branch\u003dstartingBranch)\n```",
       "parentUuid": "41f08962_ea922819",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 81
+      },
+      "revId": "2fd49873025557186396a03adf70020cda17bc29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44dd39ab_29e67280",
+        "filename": "src/test/scala/com/googlesource/gerrit/plugins/analytics/common/UserActivityHistogramSpec.scala",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-01-22T12:06:51Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "56d7a500_ee3ce4c1",
       "range": {
         "startLine": 37,
         "startChar": 0,
